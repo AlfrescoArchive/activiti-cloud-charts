@@ -4,6 +4,6 @@ dependencies:
   version: 0.1.0
 - name: activiti-cloud-gateway
   repository: https://activiti.github.io/activiti-cloud-charts/
-  version: 0.1.0
-digest: sha256:52e64e99e86bc6ece90eeaa915edcdad77c01f09438d1dc4bafe4729f79ced9f
-generated: 2018-07-04T15:46:00.224780354+01:00
+  version: 0.1.1
+digest: sha256:acd9ac37786850c101fd7a57c42dd3b96adecb9c66c5314159f8860ad55f5baf
+generated: 2018-07-04T16:21:48.544006908+01:00

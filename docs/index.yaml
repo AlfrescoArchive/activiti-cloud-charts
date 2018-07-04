@@ -2,7 +2,7 @@ apiVersion: v1
 entries:
   activiti-cloud-audit:
   - apiVersion: v1
-    created: 2018-07-04T16:20:13.91513314+01:00
+    created: 2018-07-04T16:22:20.486512202+01:00
     description: A Helm chart for Kubernetes
     digest: c226c2389ef61e3893d657f5e5943f8acb5f6b14d2b40d43d5c76c616de57c87
     icon: https://raw.githubusercontent.com/jenkins-x/jenkins-x-platform/master/images/java.png
@@ -12,7 +12,7 @@ entries:
     version: 0.1.0
   activiti-cloud-demo-ui:
   - apiVersion: v1
-    created: 2018-07-04T16:20:13.915839187+01:00
+    created: 2018-07-04T16:22:20.487168633+01:00
     description: A Helm chart for Kubernetes
     digest: 2d4474c41952968bbdcfff6e58058549ec06a6eb986e9ff74fe32cb1b5aa4150
     icon: https://raw.githubusercontent.com/jenkins-x/jenkins-x-platform/d273e09/images/nodejs.png
@@ -22,7 +22,7 @@ entries:
     version: 0.1.1
   activiti-cloud-gateway:
   - apiVersion: v1
-    created: 2018-07-04T16:20:13.916917833+01:00
+    created: 2018-07-04T16:22:20.488915388+01:00
     description: A Helm chart for Kubernetes
     digest: ea10e2bdcc9f353762f65db3949df148b4070fc6836df7e4593c1edfecff1989
     icon: https://raw.githubusercontent.com/jenkins-x/jenkins-x-platform/master/images/java.png
@@ -31,7 +31,7 @@ entries:
     - https://activiti.github.io/activiti-cloud-charts/activiti-cloud-gateway-0.1.1.tgz
     version: 0.1.1
   - apiVersion: v1
-    created: 2018-07-04T16:20:13.916634567+01:00
+    created: 2018-07-04T16:22:20.487991927+01:00
     description: A Helm chart for Kubernetes
     digest: 28625f11c837f444045e26ee9c5bf466c27ee9c498b7e482a9df750de19e93a0
     icon: https://raw.githubusercontent.com/jenkins-x/jenkins-x-platform/master/images/java.png
@@ -41,7 +41,7 @@ entries:
     version: 0.1.0
   activiti-cloud-query:
   - apiVersion: v1
-    created: 2018-07-04T16:20:13.918752873+01:00
+    created: 2018-07-04T16:22:20.491323375+01:00
     description: A Helm chart for Kubernetes
     digest: 96f3687d193f5d80e947a0214325845051105ff731befeb0b84039f90aefdb17
     icon: https://raw.githubusercontent.com/jenkins-x/jenkins-x-platform/master/images/java.png
@@ -52,7 +52,7 @@ entries:
   activiti-keycloak:
   - apiVersion: v1
     appVersion: "1.0"
-    created: 2018-07-04T16:20:13.921766641+01:00
+    created: 2018-07-04T16:22:20.494762106+01:00
     description: A Helm chart for Kubernetes
     digest: e39cdcf119bb1f255cc00dce4a510bbd5830cfb5d8a0fb33b79d658638e0b864
     name: activiti-keycloak
@@ -62,7 +62,7 @@ entries:
   application:
   - apiVersion: v1
     appVersion: "1.0"
-    created: 2018-07-04T16:20:13.923459256+01:00
+    created: 2018-07-04T16:22:20.498581897+01:00
     description: A Helm chart for Kubernetes
     digest: 717fa9aeb285714f0a0ff989136b626c7fa85477016f0923d4e26d0984ab68f8
     name: application
@@ -71,7 +71,7 @@ entries:
     version: 0.1.2
   example-runtime-bundle:
   - apiVersion: v1
-    created: 2018-07-04T16:20:13.924964507+01:00
+    created: 2018-07-04T16:22:20.500550347+01:00
     description: A Helm chart for Kubernetes
     digest: ee9bb890e09469fb27e94ccddb54070e6627a53b62f6da2d1484e97dd3953c9f
     icon: https://raw.githubusercontent.com/jenkins-x/jenkins-x-platform/master/images/java.png
@@ -82,11 +82,20 @@ entries:
   infrastructure:
   - apiVersion: v1
     appVersion: "1.0"
-    created: 2018-07-04T16:20:13.927910462+01:00
+    created: 2018-07-04T16:22:20.507192574+01:00
+    description: A Helm chart for Kubernetes
+    digest: a8061702bb9f2717680b167d91c5a8eb6d8554af65cf9a9d39c8028cf6ed9ce6
+    name: infrastructure
+    urls:
+    - https://activiti.github.io/activiti-cloud-charts/infrastructure-0.1.1.tgz
+    version: 0.1.1
+  - apiVersion: v1
+    appVersion: "1.0"
+    created: 2018-07-04T16:22:20.505142764+01:00
     description: A Helm chart for Kubernetes
     digest: 8250adfff3088ef779d03ffcc53824638911890ed8ceafa42ed9683f4f1e4273
     name: infrastructure
     urls:
     - https://activiti.github.io/activiti-cloud-charts/infrastructure-0.1.0.tgz
     version: 0.1.0
-generated: 2018-07-04T16:20:13.91431004+01:00
+generated: 2018-07-04T16:22:20.483555223+01:00
