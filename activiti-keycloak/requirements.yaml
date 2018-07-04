@@ -1,0 +1,5 @@
+dependencies:
+- name: keycloak
+  repository: https://kubernetes-charts.storage.googleapis.com
+  version: 2.0.0
+  condition: keycloak.enabled

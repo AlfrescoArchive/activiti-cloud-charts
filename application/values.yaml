@@ -1,0 +1,40 @@
+activiti-cloud-query:
+  enabled: true
+  db:
+    name: querypostgresql
+    password: query
+activiti-cloud-audit:
+  enabled: true
+
+querypostgresql:
+   postgresPassword: query
+
+rabbitmq:
+  enabled: true
+  service:
+    clusterIP: None
+  rabbitmqUsername: "guest"
+  rabbitmqPassword: "guest"
+  rabbitmqErlangCookie: 124567890abcdefghijklmnopqrstuv
+  rabbitmqSTOMPPlugin:
+    enabled: true
+  resources:
+   limits:
+    cpu: 200m
+    memory: 1Gi
+   requests:
+    cpu: 100m
+    memory: 1Gi
+  rbac:
+    create: true
+  replicaCount: 1
+  ingress:
+    enabled: false
+#    hostName: "jx-staging-quickstart-http.jx-staging.activiti.envalfresco.com"
+    path: /rabbitmq
+    annotations:
+      kubernetes.io/ingress.class: nginx
+      nginx.ingress.kubernetes.io/rewrite-target: /
+      nginx.ingress.kubernetes.io/enable-cors: "true"
+      nginx.ingress.kubernetes.io/cors-allow-headers: "X-Forwarded-For, X-Forwarded-Proto, X-Forwarded-Port, X-Forwarded-Prefix"
+      nginx.ingress.kubernetes.io/x-forwarded-prefix: "true"

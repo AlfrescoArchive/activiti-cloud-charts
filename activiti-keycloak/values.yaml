@@ -1,0 +1,43 @@
+keycloak:
+  enabled: true
+  keycloak:
+    username: admin
+    password: admin
+    persistence:
+      deployPostgres: false
+      dbVendor: H2
+    ingress:
+      enabled: false
+      path: /
+#      hosts:
+#        - "jx-staging-quickstart-http.jx-staging.activiti.envalfresco.com"
+      annotations:
+        kubernetes.io/ingress.class: nginx
+        nginx.ingress.kubernetes.io/rewrite-target: /
+        nginx.ingress.kubernetes.io/configuration-snippet: |
+          add_header Access-Control-Allow-Methods "POST, GET, OPTIONS, PUT, PATCH, DELETE";
+          add_header Access-Control-Allow-Credentials true;
+          add_header Access-Control-Allow-Headers "DNT,X-CustomHeader,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Authorization";
+# don't add the allowed origin automatically as then we get twice (because in realm config too?)
+#          add_header Access-Control-Allow-Origin $http_origin;
+    livenessProbe:
+      initialDelaySeconds: 140
+    extraVolumes: |
+      - name: realm-secret
+        secret:
+          secretName: {{ .Release.Name }}-realm-secret
+    extraVolumeMounts: |
+      - name: realm-secret
+        mountPath: "/realm/"
+        readOnly: true
+    extraArgs: -Dkeycloak.import=activiti-realm.json
+    preStartScript: |
+      /opt/jboss/keycloak/bin/add-user.sh -u admin -p admin
+      /opt/jboss/keycloak/bin/add-user-keycloak.sh -r master -u admin -p admin
+      cp /realm/activiti-realm.json .
+      sed -i 's/activiti-cloud-demo-ui:30082/jx-staging-quickstart-http.jx-staging.activiti.envalfresco.com/g' activiti-realm.json
+      sed -i 's/activiti-cloud-demo-ui:\*/jx-staging-quickstart-http.jx-staging.activiti.envalfresco.com:*/g' activiti-realm.json
+      sed -i 's/placeholder.com/jx-staging-quickstart-http.jx-staging.activiti.envalfresco.com:*/g' activiti-realm.json
+      sed -i 's/dummy.com/gw.jx-staging.activiti.envalfresco.com:*/g' activiti-realm.json
+      sed -i 's/activiti-cloud-sso-idm-kub:30082/gw.jx-staging.activiti.envalfresco.com/g' activiti-realm.json
+      sed -i 's/activiti-cloud-demo-ui:3000/activiti-cloud-demo-ui.jx-staging.activiti.envalfresco.com/g' activiti-realm.json
