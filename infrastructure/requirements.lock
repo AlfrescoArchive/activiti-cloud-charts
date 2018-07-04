@@ -1,0 +1,9 @@
+dependencies:
+- name: activiti-keycloak
+  repository: https://activiti.github.io/activiti-cloud-charts/
+  version: 0.1.0
+- name: activiti-cloud-gateway
+  repository: https://activiti.github.io/activiti-cloud-charts/
+  version: 0.1.0
+digest: sha256:52e64e99e86bc6ece90eeaa915edcdad77c01f09438d1dc4bafe4729f79ced9f
+generated: 2018-07-04T15:46:00.224780354+01:00
