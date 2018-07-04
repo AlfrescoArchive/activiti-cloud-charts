@@ -20,7 +20,8 @@ $ git add -i
 $ git commit -av
 $ git push origin master
 ```
+For a chart with dependencies, do `helm dep build` before `helm package`. If the dependencies are in this repo and they are changing then bump version and push them first.
 
-To use a chart do `helm repo add activiti-cloud-charts https://activiti.github.io/activiti-cloud-charts/` (e.g. in Jenkins-X this would go in the Makefile).
+To use a chart (or build a dep with it) do `helm repo add activiti-cloud-charts https://activiti.github.io/activiti-cloud-charts/` (e.g. in Jenkins-X this would go in the Makefile).
 
 Sample images for these charts are hosted at https://hub.docker.com/u/activiti/.

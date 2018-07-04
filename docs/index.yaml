@@ -2,7 +2,7 @@ apiVersion: v1
 entries:
   activiti-cloud-audit:
   - apiVersion: v1
-    created: 2018-07-04T15:39:39.061516206+01:00
+    created: 2018-07-04T15:45:08.316947466+01:00
     description: A Helm chart for Kubernetes
     digest: c226c2389ef61e3893d657f5e5943f8acb5f6b14d2b40d43d5c76c616de57c87
     icon: https://raw.githubusercontent.com/jenkins-x/jenkins-x-platform/master/images/java.png
@@ -12,7 +12,7 @@ entries:
     version: 0.1.0
   activiti-cloud-demo-ui:
   - apiVersion: v1
-    created: 2018-07-04T15:39:39.061785277+01:00
+    created: 2018-07-04T15:45:08.317732593+01:00
     description: A Helm chart for Kubernetes
     digest: 2d4474c41952968bbdcfff6e58058549ec06a6eb986e9ff74fe32cb1b5aa4150
     icon: https://raw.githubusercontent.com/jenkins-x/jenkins-x-platform/d273e09/images/nodejs.png
@@ -22,7 +22,7 @@ entries:
     version: 0.1.1
   activiti-cloud-gateway:
   - apiVersion: v1
-    created: 2018-07-04T15:39:39.062093404+01:00
+    created: 2018-07-04T15:45:08.318475281+01:00
     description: A Helm chart for Kubernetes
     digest: 28625f11c837f444045e26ee9c5bf466c27ee9c498b7e482a9df750de19e93a0
     icon: https://raw.githubusercontent.com/jenkins-x/jenkins-x-platform/master/images/java.png
@@ -32,7 +32,7 @@ entries:
     version: 0.1.0
   activiti-cloud-query:
   - apiVersion: v1
-    created: 2018-07-04T15:39:39.062976826+01:00
+    created: 2018-07-04T15:45:08.320354674+01:00
     description: A Helm chart for Kubernetes
     digest: 96f3687d193f5d80e947a0214325845051105ff731befeb0b84039f90aefdb17
     icon: https://raw.githubusercontent.com/jenkins-x/jenkins-x-platform/master/images/java.png
@@ -40,9 +40,29 @@ entries:
     urls:
     - https://activiti.github.io/activiti-cloud-charts/activiti-cloud-query-0.1.0.tgz
     version: 0.1.0
+  activiti-keycloak:
+  - apiVersion: v1
+    appVersion: "1.0"
+    created: 2018-07-04T15:45:08.322422136+01:00
+    description: A Helm chart for Kubernetes
+    digest: e39cdcf119bb1f255cc00dce4a510bbd5830cfb5d8a0fb33b79d658638e0b864
+    name: activiti-keycloak
+    urls:
+    - https://activiti.github.io/activiti-cloud-charts/activiti-keycloak-0.1.0.tgz
+    version: 0.1.0
+  application:
+  - apiVersion: v1
+    appVersion: "1.0"
+    created: 2018-07-04T15:45:08.324348511+01:00
+    description: A Helm chart for Kubernetes
+    digest: 717fa9aeb285714f0a0ff989136b626c7fa85477016f0923d4e26d0984ab68f8
+    name: application
+    urls:
+    - https://activiti.github.io/activiti-cloud-charts/application-0.1.2.tgz
+    version: 0.1.2
   example-runtime-bundle:
   - apiVersion: v1
-    created: 2018-07-04T15:39:39.063841728+01:00
+    created: 2018-07-04T15:45:08.32599335+01:00
     description: A Helm chart for Kubernetes
     digest: ee9bb890e09469fb27e94ccddb54070e6627a53b62f6da2d1484e97dd3953c9f
     icon: https://raw.githubusercontent.com/jenkins-x/jenkins-x-platform/master/images/java.png
@@ -50,4 +70,4 @@ entries:
     urls:
     - https://activiti.github.io/activiti-cloud-charts/example-runtime-bundle-0.1.0.tgz
     version: 0.1.0
-generated: 2018-07-04T15:39:39.060954631+01:00
+generated: 2018-07-04T15:45:08.316053811+01:00
