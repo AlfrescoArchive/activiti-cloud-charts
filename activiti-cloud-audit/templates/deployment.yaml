@@ -43,8 +43,6 @@ spec:
         - name: ACT_KEYCLOAK_URL
         {{- if .Values.global.keycloak.url }}
           value: "{{ .Values.global.keycloak.url }}"
-        {{ else }}
-          value: "http://{{ .Release.Name }}-{{ .Values.global.keycloak.name }}-{{ .Values.global.keycloak.service.type }}:{{ .Values.global.keycloak.service.port }}/auth"
         {{ end }}
         - name: EUREKA_CLIENT_ENABLED
           value: "false"
@@ -54,6 +52,9 @@ spec:
           value: "false"
         - name: ACT_CLOUD_CONFIG_SERVER_ENABLED
           value: "false"
+{{- with .Values.extraEnv }}
+{{ tpl . $ | indent 4 }}
+{{- end }}
         ports:
         - containerPort: {{ .Values.service.internalPort }}
         livenessProbe:

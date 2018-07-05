@@ -23,6 +23,9 @@ spec:
         env:
         - name: JAVA_OPTS
           value: -Xmx{{ .Values.javaOpts.xmx }} -Xms{{ .Values.javaOpts.xms }} {{ .Values.javaOpts.other}}
+{{- with .Values.extraEnv }}
+{{ tpl . $ | indent 4 }}
+{{- end }}
         imagePullPolicy: {{ .Values.image.pullPolicy }}
         ports:
         - containerPort: {{ .Values.service.internalPort }}

@@ -24,10 +24,15 @@ spec:
         env:
         - name: ACT_GATEWAY_URL
           value: "{{ .Values.gatewayUrl }}"
+        {{- if .Values.idmUrl }}
         - name: ACT_IDM_URL
           value: "{{ .Values.idmUrl }}"
+        {{ end }}
         - name: ACT_IDM_CLIENT_ID
           value: "{{ .Values.idmClientId }}"
+{{- with .Values.extraEnv }}
+{{ tpl . $ | indent 4 }}
+{{- end }}
         ports:
         - containerPort: {{ .Values.service.internalPort }}
         livenessProbe:

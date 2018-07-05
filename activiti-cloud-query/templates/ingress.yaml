@@ -21,8 +21,8 @@ metadata:
     {{- end }}
 spec:
   rules:
-    {{- if .Values.global.ingress.hostName }}
-    - host: {{ .Values.global.ingress.hostName }}
+    {{- if .Values.ingress.hostName }}
+    - host: {{ .Values.ingress.hostName }}
       http:
     {{- else }}
     - http:

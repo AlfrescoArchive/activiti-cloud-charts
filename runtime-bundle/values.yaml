@@ -27,6 +27,14 @@ db:
 activitipostgresql:
    postgresPassword: activiti
 
+## Allows the specification of additional environment variables
+extraEnv: |
+  # - name: ACT_KEYCLOAK_URL
+  #   valueFrom:
+  #     configMapKeyRef:
+  #       name: {{ .Release.Name }}-keycloak-http
+  #       key: expose-keycloak-service-key
+
 javaOpts:
   xmx: 512m
   xms: 512m
