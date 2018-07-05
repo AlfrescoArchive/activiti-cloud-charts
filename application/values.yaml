@@ -9,6 +9,12 @@ activiti-cloud-audit:
 querypostgresql:
    postgresPassword: query
 
+activiti-cloud-demo-ui:
+  enabled: false
+
+runtime-bundle:
+  enabled: false
+
 rabbitmq:
   enabled: true
   service:

@@ -11,5 +11,8 @@ dependencies:
 - name: activiti-cloud-demo-ui
   repository: https://activiti.github.io/activiti-cloud-charts/
   version: 0.1.1
-digest: sha256:0d4224ccd15aee9e7fb183aae9c215b693a83b5fef9890c39bc4b9eb58bfcec7
-generated: 2018-07-04T15:43:18.817523337+01:00
+- name: runtime-bundle
+  repository: https://activiti.github.io/activiti-cloud-charts/
+  version: 0.1.0
+digest: sha256:8d882d992948d8ad79b1e9899953a8d5fd97bdf4cadf67a3b7c29b809ef8ceba
+generated: 2018-07-05T13:20:40.125563067+01:00

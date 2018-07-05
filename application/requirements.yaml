@@ -1,18 +1,22 @@
 dependencies:
-- condition: activiti-cloud-query.enabled
-  name: activiti-cloud-query
+- name: activiti-cloud-query
   repository: https://activiti.github.io/activiti-cloud-charts/
   version: 0.1.0
-- condition: activiti-cloud-audit.enabled
-  name: activiti-cloud-audit
+  condition: activiti-cloud-query.enabled
+- name: activiti-cloud-audit
   repository: https://activiti.github.io/activiti-cloud-charts/
   version: 0.1.0
+  condition: activiti-cloud-audit.enabled
 - alias: rabbitmq
-  condition: rabbitmq.enabled
   name: rabbitmq-ha
   repository: https://kubernetes-charts.storage.googleapis.com
   version: 1.6.2
-- condition: activiti-cloud-demo-ui.enabled
-  name: activiti-cloud-demo-ui
+  condition: rabbitmq.enabled
+- name: activiti-cloud-demo-ui
   repository: https://activiti.github.io/activiti-cloud-charts/
   version: 0.1.1
+  condition: activiti-cloud-demo-ui.enabled
+- name: runtime-bundle
+  repository: https://activiti.github.io/activiti-cloud-charts/
+  version: 0.1.0
+  condition: runtime-bundle.enabled
