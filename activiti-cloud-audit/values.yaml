@@ -32,7 +32,7 @@ javaOpts:
 
 image:
   repository: activiti/activiti-cloud-audit
-  tag: latest
+  tag: jx
   pullPolicy: IfNotPresent
 service:
   name: audit

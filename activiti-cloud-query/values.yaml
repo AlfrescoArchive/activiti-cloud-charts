@@ -36,7 +36,7 @@ querypostgresql:
 
 image:
   repository: activiti/activiti-cloud-query
-  tag: latest
+  tag: jx
   pullPolicy: IfNotPresent
 service:
   name: query
