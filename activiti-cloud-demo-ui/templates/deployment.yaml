@@ -31,7 +31,7 @@ spec:
         - name: ACT_IDM_CLIENT_ID
           value: "{{ .Values.idmClientId }}"
 {{- with .Values.extraEnv }}
-{{ tpl . $ | indent 4 }}
+{{ tpl . $ | indent 8 }}
 {{- end }}
         ports:
         - containerPort: {{ .Values.service.internalPort }}
