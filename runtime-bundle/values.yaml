@@ -47,7 +47,7 @@ service:
   name: rb-my-app
   type: ClusterIP
   externalPort: 80
-  internalPort: 8081
+  internalPort: 8080
   annotations:
     fabric8.io/expose: "false"
 resources:
