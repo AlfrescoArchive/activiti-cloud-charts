@@ -1,11 +1,11 @@
 dependencies:
 - name: activiti-cloud-query
   repository: https://activiti.github.io/activiti-cloud-charts/
-  version: 0.1.2
+  version: 0.1.3
   condition: activiti-cloud-query.enabled,application.activiti-cloud-query.enabled
 - name: activiti-cloud-audit
   repository: https://activiti.github.io/activiti-cloud-charts/
-  version: 0.1.2
+  version: 0.1.3
   condition: activiti-cloud-audit.enabled,application.activiti-cloud-audit.enabled
 - alias: rabbitmq
   name: rabbitmq-ha
@@ -14,9 +14,9 @@ dependencies:
   condition: rabbitmq.enabled,application.rabbitmq.enabled
 - name: activiti-cloud-demo-ui
   repository: https://activiti.github.io/activiti-cloud-charts/
-  version: 0.1.2
+  version: 0.1.3
   condition: activiti-cloud-demo-ui.enabled,application.activiti-cloud-demo-ui.enabled
 - name: runtime-bundle
   repository: https://activiti.github.io/activiti-cloud-charts/
-  version: 0.1.2
+  version: 0.1.3
   condition: runtime-bundle.enabled,application.runtime-bundle.enabled
