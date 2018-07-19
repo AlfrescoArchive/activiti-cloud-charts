@@ -38,31 +38,41 @@ spec:
         {{ end }}
         - name: SPRING_RABBITMQ_USERNAME
           value: {{ .Values.global.rabbitmq.username.value }}
+        - name: SPRING_RABBITMQ_HOST
+{{- if .Values.global.rabbitmq.host.value }}
+          value: "{{ .Values.global.rabbitmq.host.value }}"
+{{- else }}
+          value: "{{ .Release.Name }}-rabbitmq"
+{{- end }}
+        - name: SPRING_RABBITMQ_USERNAME
+          value: {{ .Values.global.rabbitmq.username.value }}
         - name: SPRING_RABBITMQ_PASSWORD
           value: {{ .Values.global.rabbitmq.password.value }}
+{{- if .Values.global.keycloak.url }}
         - name: ACT_KEYCLOAK_URL
-        {{- if .Values.global.keycloak.url }}
           value: "{{ .Values.global.keycloak.url }}"
-        {{ end }}
+{{- end }}
+{{- if .Values.db.deployPostgres}}
         - name: ACT_RB_DB_URI
-        {{- if .Values.db.uri }}
+  {{- if .Values.db.uri }}
           value: "{{ .Values.db.uri }}"
-        {{ else }}
+  {{- else }}
           value: "jdbc:postgresql://{{ .Release.Name }}-{{ .Values.db.name }}:5432/postgres"
-        {{ end }}
+  {{- end }}
         - name: ACT_RB_DB_USER
           value: {{ default "postgres" .Values.db.user }}
         - name: ACT_RB_DB_PASS
-        {{- if .Values.db.pass }}
+  {{- if .Values.db.pass }}
           value: "{{ .Values.db.pass }}"
-        {{ else }}
+  {{ else }}
           valueFrom:
             secretKeyRef:
               name: {{ .Release.Name }}-{{ .Values.db.name }}
               key: postgres-password
-        {{ end }}
         - name: ACT_RB_DB_PLATFORM
           value: {{ default "org.hibernate.dialect.PostgreSQLDialect" .Values.db.platform }}
+  {{- end }}
+{{- end }}
         - name: EUREKA_CLIENT_ENABLED
           value: "false"
         - name: ACTIVITI_CLOUD_SERVICES_METADATA_EUREKA_STATIC_ENABLED

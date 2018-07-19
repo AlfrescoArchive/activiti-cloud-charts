@@ -23,6 +23,7 @@ global:
 db:
   uri: ""
   name: activitipostgresql
+  deployPostgres: false
 
 activitipostgresql:
    postgresPassword: activiti
