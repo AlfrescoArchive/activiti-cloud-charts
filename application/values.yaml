@@ -10,7 +10,7 @@ querypostgresql:
    postgresPassword: query
 
 activiti-cloud-demo-ui:
-  enabled: true
+  enabled: false
 
 runtime-bundle:
   enabled: false
