@@ -22,6 +22,9 @@ db:
   uri: ""
   name: querypostgresql
   password: query
+  deployPostgres: false
+  port: 5432
+
 javaOpts:
   xmx: 768m
   xms: 512m

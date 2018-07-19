@@ -52,16 +52,18 @@ spec:
         - name: ACT_KEYCLOAK_URL
           value: "{{ .Values.global.keycloak.url }}"
 {{- end }}
-{{- if .Values.db.deployPostgres}}
-        - name: ACT_RB_DB_URI
+{{- if .Values.db.deployPostgres }}
+        - name: SPRING_DATASOURCE_URL
   {{- if .Values.db.uri }}
           value: "{{ .Values.db.uri }}"
   {{- else }}
-          value: "jdbc:postgresql://{{ .Release.Name }}-{{ .Values.db.name }}:5432/postgres"
+          value: "jdbc:postgresql://{{ .Release.Name }}-{{ .Values.db.name }}:{{ .Values.db.port }}/postgres"
   {{- end }}
-        - name: ACT_RB_DB_USER
+        - name: SPRING_DATASOURCE_DRIVER_CLASS_NAME
+          value: {{ default "org.postgresql.Driver" .Values.db.driver }}
+        - name: SPRING_DATASOURCE_USERNAME
           value: {{ default "postgres" .Values.db.user }}
-        - name: ACT_RB_DB_PASS
+        - name: SPRING_DATASOURCE_PASSWORD
   {{- if .Values.db.pass }}
           value: "{{ .Values.db.pass }}"
   {{ else }}
@@ -69,7 +71,7 @@ spec:
             secretKeyRef:
               name: {{ .Release.Name }}-{{ .Values.db.name }}
               key: postgres-password
-        - name: ACT_RB_DB_PLATFORM
+        - name: SPRING_JPA_DATABASE_PLATFORM
           value: {{ default "org.hibernate.dialect.PostgreSQLDialect" .Values.db.platform }}
   {{- end }}
 {{- end }}

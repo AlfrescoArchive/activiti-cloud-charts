@@ -40,29 +40,33 @@ spec:
           value: {{ .Values.global.rabbitmq.username.value }}
         - name: SPRING_RABBITMQ_PASSWORD
           value: {{ .Values.global.rabbitmq.password.value }}
-        - name: ACT_KEYCLOAK_URL
         {{- if .Values.global.keycloak.url }}
+        - name: ACT_KEYCLOAK_URL
           value: "{{ .Values.global.keycloak.url }}"
         {{ end }}
-        - name: ACT_QUERY_DB_URI
-        {{- if .Values.db.uri }}
+{{- if .Values.db.deployPostgres }}
+        - name: SPRING_DATASOURCE_URL
+  {{- if .Values.db.uri }}
           value: "{{ .Values.db.uri }}"
-        {{ else }}
-          value: "jdbc:postgresql://{{ .Release.Name }}-{{ .Values.db.name }}:5432/postgres"
-        {{ end }}
-        - name: ACT_QUERY_DB_USER
+  {{- else }}
+          value: "jdbc:postgresql://{{ .Release.Name }}-{{ .Values.db.name }}:{{ .Values.db.port }}/postgres"
+  {{- end }}
+        - name: SPRING_DATASOURCE_DRIVER_CLASS_NAME
+          value: {{ default "org.postgresql.Driver" .Values.db.driver }}
+        - name: SPRING_DATASOURCE_USERNAME
           value: {{ default "postgres" .Values.db.user }}
-        - name: ACT_QUERY_DB_PASS
-        {{- if .Values.db.pass }}
+        - name: SPRING_DATASOURCE_PASSWORD
+  {{- if .Values.db.pass }}
           value: "{{ .Values.db.pass }}"
-        {{ else }}
+  {{ else }}
           valueFrom:
             secretKeyRef:
               name: {{ .Release.Name }}-{{ .Values.db.name }}
               key: postgres-password
-        {{ end }}
-        - name: ACT_QUERY_DB_PLATFORM
+        - name: SPRING_JPA_DATABASE_PLATFORM
           value: {{ default "org.hibernate.dialect.PostgreSQLDialect" .Values.db.platform }}
+  {{- end }}
+{{- end }}
         - name: EUREKA_CLIENT_ENABLED
           value: "false"
         - name: ACTIVITI_CLOUD_SERVICES_METADATA_EUREKA_STATIC_ENABLED
