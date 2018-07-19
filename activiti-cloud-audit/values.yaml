@@ -20,7 +20,11 @@ global:
 
 db:
   uri: ""
-  name: postgresql
+  name: auditpostgresql
+  password: audit
+  deployPostgres: false
+  port: 5432
+
 javaOpts:
   xmx: 512m
   xms: 512m
