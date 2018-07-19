@@ -4,7 +4,7 @@ dependencies:
   version: 0.1.5
 - name: activiti-cloud-audit
   repository: https://activiti.github.io/activiti-cloud-charts/
-  version: 0.1.4
+  version: 0.1.5
 - name: rabbitmq-ha
   repository: https://kubernetes-charts.storage.googleapis.com
   version: 1.6.2
@@ -14,5 +14,5 @@ dependencies:
 - name: runtime-bundle
   repository: https://activiti.github.io/activiti-cloud-charts/
   version: 0.1.6
-digest: sha256:f99eaffe624bb9e30941d829731175535ac4e8d942406d361a7100e0e3d31763
-generated: 2018-07-19T16:34:05.434042824+01:00
+digest: sha256:5214122a783955ea2c76ab6e442f04b5dfbfdafef81ac4b8ba9856dbede51493
+generated: 2018-07-19T17:34:11.940437558+01:00
