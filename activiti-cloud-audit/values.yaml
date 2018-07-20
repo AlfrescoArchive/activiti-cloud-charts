@@ -25,6 +25,9 @@ db:
   deployPostgres: false
   port: 5432
 
+auditpostgresql:
+   postgresPassword: audit
+
 javaOpts:
   xmx: 512m
   xms: 512m
