@@ -24,7 +24,7 @@ db:
   password: audit
   deployPostgres: false
   port: 5432
-  generateDdl: true
+  generateDdl: "true"
   ddlAuto: update
 
 auditpostgresql:
