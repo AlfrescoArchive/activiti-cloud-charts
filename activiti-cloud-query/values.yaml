@@ -24,6 +24,8 @@ db:
   password: query
   deployPostgres: false
   port: 5432
+  generateDdl: true
+  ddlAuto: update
 
 javaOpts:
   xmx: 768m
