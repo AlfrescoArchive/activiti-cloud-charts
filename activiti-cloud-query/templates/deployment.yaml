@@ -67,9 +67,9 @@ spec:
         - name: SPRING_JPA_DATABASE_PLATFORM
           value: {{ default "org.hibernate.dialect.PostgreSQLDialect" .Values.db.platform }}
         - name: SPRING_JPA_GENERATE_DDL
-          value: {{ .Values.db.generateDdl }}
+          value: "{{ .Values.db.generateDdl }}"
         - name: SPRING_JPA_HIBERNATE_DDL_AUTO
-          value: {{ .Values.db.ddlAuto }}
+          value: "{{ .Values.db.ddlAuto }}"
 {{- end }}
         - name: EUREKA_CLIENT_ENABLED
           value: "false"
