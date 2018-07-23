@@ -63,9 +63,13 @@ spec:
             secretKeyRef:
               name: {{ .Release.Name }}-{{ .Values.db.name }}
               key: postgres-password
+  {{- end }}
         - name: SPRING_JPA_DATABASE_PLATFORM
           value: {{ default "org.hibernate.dialect.PostgreSQLDialect" .Values.db.platform }}
-  {{- end }}
+        - name: SPRING_JPA_GENERATE_DDL
+          value: {{ default "true" .Values.db.generateDdl }}
+        - SPRING_JPA_HIBERNATE_DDL_AUTO
+          value: {{ default "update" .Values.db.ddlAuto }}
 {{- end }}
         - name: EUREKA_CLIENT_ENABLED
           value: "false"
