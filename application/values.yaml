@@ -15,6 +15,9 @@ activiti-cloud-demo-ui:
 runtime-bundle:
   enabled: false
 
+activiti-cloud-connector:
+  enabled: false
+
 rabbitmq:
   enabled: true
   service:
