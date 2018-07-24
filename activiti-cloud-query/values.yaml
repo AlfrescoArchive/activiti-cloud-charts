@@ -45,7 +45,7 @@ extraEnv: |
 
 image:
   repository: activiti/activiti-cloud-query
-  tag: jx
+  tag: latest
   pullPolicy: IfNotPresent
 service:
   name: query
