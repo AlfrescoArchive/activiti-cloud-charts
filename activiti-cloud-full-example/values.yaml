@@ -10,8 +10,6 @@ global:
 
 application:
   runtime-bundle:
-    db:
-      deployPostgres: true
     image:
       pullPolicy: Always
 #    extraEnv: |
@@ -23,8 +21,6 @@ application:
   activiti-cloud-query:
     image:
       pullPolicy: Always
-    db:
-      deployPostgres: true
 #    extraEnv: |
 #      - name: ACTIVITI_CLOUD_SECURITY_GROUP_HR_RBMYAPP_POLICY_WRITE
 #        value: "SimpleProcess"
@@ -50,8 +46,6 @@ application:
   activiti-cloud-audit:
     image:
       pullPolicy: Always
-    db:
-      deployPostgres: true
 #    extraEnv: |
 #      - name: ACTIVITI_CLOUD_SECURITY_GROUP_HR_RBMYAPP_POLICY_WRITE
 #        value: "SimpleProcess"

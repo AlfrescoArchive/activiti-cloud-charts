@@ -17,3 +17,5 @@ Call startProcess to start a process instance.
 Call queryProcessInstances in query to check that query can see the process instance. Call getEvents in audit to check that the event was audited. You should also see this process instance in the UI that you checked in iv.
 
 The example is a starting-point - plug in your images if you have them and add further runtime-bundles and connectors to customise.
+
+To enable postgres rather than h2 set db.deployPostgres. See individual charts for more options.
