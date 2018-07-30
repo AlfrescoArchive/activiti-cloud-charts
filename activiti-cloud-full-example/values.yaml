@@ -10,6 +10,7 @@ global:
 
 application:
   runtime-bundle:
+    enabled: true
     image:
       pullPolicy: Always
 #    extraEnv: |
