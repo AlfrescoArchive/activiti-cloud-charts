@@ -25,3 +25,7 @@ For a chart with dependencies, do `helm dep build` before `helm package`. If the
 To use a chart (or build a dep with it) do `helm repo add activiti-cloud-charts https://activiti.github.io/activiti-cloud-charts/` (e.g. in Jenkins-X this would go in the Makefile).
 
 Sample images for these charts are hosted at https://hub.docker.com/u/activiti/.
+
+### How to get started with Activiti Cloud
+
+See the activiti-cloud-full-example chart's README
