@@ -1,13 +1,21 @@
 # An example chart for an Activiti Cloud Application
 
-An example that includes all the basic components of an Activiti cloud application. If you have DNS available then to get started:
+An example that includes all the basic components of an Activiti cloud application.
+
+To get started you'll want to have an Ingress controller and DNS available. If you don't have this or aren't sure then you can first install nginx ingress with:
+
+`helm install stable/nginx-ingress`
+
+Then get the external IP of the nginx-ingress-controller with `kubectl get service`. With that external IP you can then use `<IP>.nip.io` as the DNS for you cluster.
+
+Then to get started with Activiti:
 
 1) Copy the values.yaml from here to activitivalues.yaml.
-2) Find-replace `activiti.envalfresco.com` with a DNS or IP address for your cluster. You should have this from when the cluster was set up or from running apps. For example, on a jenkns-X cluster first do `jx env dev` and then `jx get urls`. You’ll see url of the form http://jenkins.jx.<SPECIFIC_TO_YOUR_CLUSTER>.
+2) Find-replace `activiti.envalfresco.com` with the DNS for your cluster. You should have this from when the cluster was set up or from running apps. For example, on a jenkns-X cluster first do `jx env dev` and then `jx get urls`. You’ll see url of the form http://jenkins.jx.<SPECIFIC_TO_YOUR_CLUSTER>.
 3) Do `helm repo add activiti-cloud-charts https://activiti.github.io/activiti-cloud-charts/`
 4) Run `helm install -f activitivalues.yaml activiti-cloud-full-example`
 
-If you don't have DNS then remove the Ingresses and instead set the Services to type LoadBalancer. Deploy to find out the IPs and then update the values.yaml after you've found out the IPs (from kubectl get services) and update the helm release with `helm upgrade`.
+If you don't want to use DNS then remove the Ingresses and instead set the Services to type LoadBalancer. Deploy to find out the IPs and then update the values.yaml after you've found out the IPs (from kubectl get services) and update the helm release with `helm upgrade`.
 
 There is a flag in the values.yaml to enable a demo ui if desired and commented sections that can be uncommented to enable security policies.
 
