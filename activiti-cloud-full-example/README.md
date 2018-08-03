@@ -2,7 +2,7 @@
 
 This example includes all the building blocks that conforms an Activiti Cloud application, such as:
 
-- Gateway (Spring Cloud) 
+- Gateway (Spring Cloud)
 - SSO/IDM (Keycloak)
 - Activiti Cloud Runtime Bundle (Example)
 - Activiti Cloud Connector (Example)
@@ -11,19 +11,18 @@ This example includes all the building blocks that conforms an Activiti Cloud ap
 
 # Prerequisites
 
-Depending on which flavour of Kubernetes you want to run your examples you will need some preparation steps. 
-In general you will need to make sure that you have an external DNS service set up to be able to register and access Activiti Cloud Services. This usually involve to have a Kubernetes Ingress Controller. Look at the following sections about different Cloud Providers and setups before installing the Activiti Cloud Example chart.
+You will need to be able expose services externally. The activiti install process is simpler if services are exposed with a wildcard DNS and the DNS is mapped to an ingress in advance of the install. This available out of the box with Jenkins-X. You may also have this on your cluster already if you have an Ingress controller and wildcard DNS mapped to it (e.g. Route53). We suggest installing an nginx ingress controller and using the free, public nip.io service for DNS. This should work for most platforms.
 
-## Jenkins X
-You can get your DNS name by doing 
+## Jenkins X Users
+If you use Jenkins-X you can get your DNS name by doing
 ```
 jx env dev
 jx get urls
 ```
-You’ll see url of the form http://jenkins.jx.<CLUSTER_IP>
+You’ll see url of the form http://jenkins.jx.<CLUSTER_IP>. You can then skip to `Activiti Example Installation`
 
-## PKS
-PKS doesn't come with an Ingress Controller so you will need to manually install it. You can do this with HELM:
+## Installing Ingress
+You can install the nginx ingress controller with helm:
 
 ```helm install stable/nginx-ingress```
 
@@ -35,8 +34,8 @@ In order to get the Ingress Controller external IP you can run:
 You will need to copy the EXTERNAL-IP from your controller and now you can use NIP.io by pointing to your services at:
 ```<SERVICE-NAME>.<EXTERNAL-IP>.nip.io```
 
-# Installation
-Before installing the chart you will need to provide a values.yaml file (myvalues.yaml) which you can copy from the file in this directory and update with your DNS name. Look for <DNS name> inside the values.yaml file and replace accordingly with your DNS.
+## Activiti Example Installation
+Before installing the Activiti example chart you will need to provide a values.yaml file (myvalues.yaml) which you can copy from the file in this directory and update with your DNS name. Look for <DNS name> inside the values.yaml file and replace accordingly with your DNS.
 
 You can install this chart by running against a Kubernetes Cluster:
 
@@ -47,7 +46,7 @@ helm install -f myvalues.yaml activiti-cloud-charts/activiti-cloud-full-example
 ```
 
 
-# Interacting with the services
+## Interacting with the services
 
 You can use a postman collection to explore the example. Download https://github.com/Activiti/activiti-cloud-examples/blob/master/Activiti%20v7%20REST%20API.postman_collection.json and import the collection into your postman (we recommend installing the app and not using the chrome one). Set the value of the gateway to http://activiti-cloud-gateway.<SPECIFIC_TO_YOUR_CLUSTER> and idm to http://activiti-keycloak.<SPECIFIC_TO_YOUR_CLUSTER>
 
@@ -58,7 +57,7 @@ Call queryProcessInstances in query to check that query can see the process inst
 
 The example is a starting-point - plug in your images if you have them and add further runtime-bundles and connectors to customise.
 
-# Other configurations
+## Other configurations
 
 There is a flag in the values.yaml to enable a demo ui if desired and commented sections that can be uncommented to enable security policies.
 
