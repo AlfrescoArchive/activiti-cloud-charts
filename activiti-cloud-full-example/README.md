@@ -26,7 +26,7 @@ You can install the nginx ingress controller with helm:
 
 ```helm install stable/nginx-ingress```
 
-Once you get your Ingress Controller up and running you will need to get its external IP address, and you can use a service such as [nip.io](http://nip.io) as DNS service. This will allow you to access your services by name under the same domain. 
+Once you get your Ingress Controller up and running you will need to get its external IP address, and you can use a service such as [nip.io](http://nip.io) as DNS service. This will allow you to access your services by name under the same domain.
 
 In order to get the Ingress Controller external IP you can run:
 > kubectl get service
@@ -34,7 +34,7 @@ In order to get the Ingress Controller external IP you can run:
 You will need to copy the EXTERNAL-IP from your controller and now you can use NIP.io by pointing to your services at:
 ```<SERVICE-NAME>.<EXTERNAL-IP>.nip.io```
 
-## Activiti Example Installation
+# Activiti Example Installation
 Before installing the Activiti example chart you will need to provide a values.yaml file (myvalues.yaml) which you can copy from the file in this directory and update with your DNS name. Look for <DNS name> inside the values.yaml file and replace accordingly with your DNS.
 
 You can install this chart by running against a Kubernetes Cluster:
@@ -46,7 +46,7 @@ helm install -f myvalues.yaml activiti-cloud-charts/activiti-cloud-full-example
 ```
 
 
-## Interacting with the services
+# Interacting with the services
 
 You can use a postman collection to explore the example. Download https://github.com/Activiti/activiti-cloud-examples/blob/master/Activiti%20v7%20REST%20API.postman_collection.json and import the collection into your postman (we recommend installing the app and not using the chrome one). Set the value of the gateway to http://activiti-cloud-gateway.<SPECIFIC_TO_YOUR_CLUSTER> and idm to http://activiti-keycloak.<SPECIFIC_TO_YOUR_CLUSTER>
 
@@ -57,7 +57,7 @@ Call queryProcessInstances in query to check that query can see the process inst
 
 The example is a starting-point - plug in your images if you have them and add further runtime-bundles and connectors to customise.
 
-## Other configurations
+# Other configurations
 
 There is a flag in the values.yaml to enable a demo ui if desired and commented sections that can be uncommented to enable security policies.
 
