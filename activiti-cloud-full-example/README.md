@@ -9,6 +9,8 @@ This example includes all the building blocks that conforms an Activiti Cloud ap
 - Activiti Cloud Query Service
 - Activiti Cloud Audit Service
 
+![Example](resources/images/activiti-cloud-full-example-chart.png)
+
 # Prerequisites
 
 Depending on which flavour of Kubernetes you want to run your examples you will need some preparation steps. 
