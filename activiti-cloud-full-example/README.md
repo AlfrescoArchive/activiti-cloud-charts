@@ -13,7 +13,7 @@ This example includes all the building blocks that conforms an Activiti Cloud ap
 
 # Prerequisites
 
-You will need to be able expose services externally. The activiti install process is simpler if services are exposed with a wildcard DNS and the DNS is mapped to an ingress in advance of the install. This available out of the box with Jenkins-X. You may also have this on your cluster already if you have an Ingress controller and wildcard DNS mapped to it (e.g. Route53). We suggest installing an nginx ingress controller and using the free, public nip.io service for DNS. This should work for most platforms.
+You will need to be able expose services from your kubernetes cluster externally. The activiti example install process is simpler if services are exposed with a wildcard DNS and the DNS is mapped to an ingress in advance of the install. This available out of the box with Jenkins-X. You may also have this on your cluster already if you have an Ingress controller and wildcard DNS mapped to it (e.g. Route53). We suggest installing an nginx ingress controller and using the free, public nip.io service for DNS. This should work for most platforms.
 
 ## Jenkins X Users
 If you use Jenkins-X you can get your DNS name by doing
