@@ -9,7 +9,7 @@ This example includes all the building blocks that conforms an Activiti Cloud ap
 - Activiti Cloud Query Service
 - Activiti Cloud Audit Service
 
-![Example](resources/images/activiti-cloud-full-example-chart.png)
+![Example](https://github.com/Activiti/activiti-cloud-charts/blob/master/resources/images/activiti-cloud-full-example-chart.png)
 
 # Prerequisites
 
