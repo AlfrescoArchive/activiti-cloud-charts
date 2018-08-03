@@ -9,6 +9,8 @@ This example includes all the building blocks that conforms an Activiti Cloud ap
 - Activiti Cloud Query Service
 - Activiti Cloud Audit Service
 
+![Example](https://github.com/Activiti/activiti-cloud-charts/blob/master/resources/images/activiti-cloud-full-example-chart.png)
+
 # Prerequisites
 
 You will need to be able expose services externally. The activiti install process is simpler if services are exposed with a wildcard DNS and the DNS is mapped to an ingress in advance of the install. This available out of the box with Jenkins-X. You may also have this on your cluster already if you have an Ingress controller and wildcard DNS mapped to it (e.g. Route53). We suggest installing an nginx ingress controller and using the free, public nip.io service for DNS. This should work for most platforms.
