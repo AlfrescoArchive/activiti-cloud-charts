@@ -20,7 +20,7 @@ You can get your DNS name by doing
 ## PKS
 PKS doesn't come with an Ingress Controller so you will need to manually install it. You can do this with HELM:
 
-> helm install stable/nginx-ingress
+```helm install stable/nginx-ingress```
 
 Once you get your Ingress Controller up and running you will need to get its external IP address, and you can use a service such as [nip.io](http://nip.io) as DNS service. This will allow you to access your services by name under the same domain. 
 
@@ -28,16 +28,17 @@ In order to get the Ingress Controller external IP you can run:
 > kubectl get service
 
 You will need to copy the EXTERNAL-IP from your controller and now you can use NIP.io by pointing to your services at:
-<SERVICE-NAME>.<EXTERNAL-IP>.nip.io
+```<SERVICE-NAME>.<EXTERNAL-IP>.nip.io```
 
 # Installation
 Before installing the chart you will need to provide a values.yaml file (myvalues.yaml) which you can copy from the file in this directory and update with your DNS name. Look for <DNS name> inside the values.yaml file and replace accordingly with your DNS.
 
 You can install this chart by running against a Kubernetes Cluster:
 
-> helm repo add activiti-cloud-charts https://activiti.github.io/activiti-cloud-charts/
-> helm -f myvalues.yaml activiti-cloud-full-example
-
+```
+helm repo add activiti-cloud-charts https://activiti.github.io/activiti-cloud-charts/
+helm -f myvalues.yaml activiti-cloud-full-example
+```
 
 
 # Interacting with the services
