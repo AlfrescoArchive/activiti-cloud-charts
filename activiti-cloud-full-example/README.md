@@ -37,7 +37,8 @@ You can install this chart by running against a Kubernetes Cluster:
 
 ```
 helm repo add activiti-cloud-charts https://activiti.github.io/activiti-cloud-charts/
-helm -f myvalues.yaml activiti-cloud-full-example
+helm repo update
+helm install -f myvalues.yaml activiti-cloud-full-example
 ```
 
 
