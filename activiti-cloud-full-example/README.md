@@ -16,6 +16,11 @@ In general you will need to make sure that you have an external DNS service set 
 
 ## Jenkins X
 You can get your DNS name by doing 
+```
+jx env dev
+jx get urls
+```
+You’ll see url of the form http://jenkins.jx.<CLUSTER_IP>
 
 ## PKS
 PKS doesn't come with an Ingress Controller so you will need to manually install it. You can do this with HELM:
