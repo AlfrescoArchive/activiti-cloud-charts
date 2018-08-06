@@ -8,16 +8,16 @@ keycloak:
       dbVendor: H2
     ingress:
       enabled: false
-      path: /
+#      path: /
 #      hosts:
 #        - "jx-staging-quickstart-http.jx-staging.activiti.envalfresco.com"
-      annotations:
-        kubernetes.io/ingress.class: nginx
-        nginx.ingress.kubernetes.io/rewrite-target: /
-        nginx.ingress.kubernetes.io/configuration-snippet: |
-          add_header Access-Control-Allow-Methods "POST, GET, OPTIONS, PUT, PATCH, DELETE";
-          add_header Access-Control-Allow-Credentials true;
-          add_header Access-Control-Allow-Headers "DNT,X-CustomHeader,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Authorization";
+#      annotations:
+#        kubernetes.io/ingress.class: nginx
+#        nginx.ingress.kubernetes.io/rewrite-target: /
+#        nginx.ingress.kubernetes.io/configuration-snippet: |
+#          add_header Access-Control-Allow-Methods "POST, GET, OPTIONS, PUT, PATCH, DELETE";
+#          add_header Access-Control-Allow-Credentials true;
+#          add_header Access-Control-Allow-Headers "DNT,X-CustomHeader,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Authorization";
 # don't add the allowed origin automatically as then we get twice (because in realm config too?)
 #          add_header Access-Control-Allow-Origin $http_origin;
     livenessProbe:
