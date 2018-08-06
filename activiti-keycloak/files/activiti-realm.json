@@ -59,7 +59,7 @@
       "containerId" : "activiti"
     }, {
       "id" : "595b880c-3dd4-44e2-9afb-eed40ce05eb7",
-      "name" : "admin",
+      "name" : "ACTIVITI_ADMIN",
       "scopeParamRequired" : false,
       "composite" : false,
       "clientRole" : false,
@@ -353,7 +353,7 @@
     } ],
     "disableableCredentialTypes" : [ "password" ],
     "requiredActions" : [ ],
-    "realmRoles" : [ "offline_access", "uma_authorization", "admin" ],
+    "realmRoles" : [ "offline_access", "uma_authorization", "ACTIVITI_ADMIN" ],
     "clientRoles" : {
       "realm-management" : [ "manage-users", "manage-clients", "manage-authorization", "manage-events", "manage-realm", "create-client", "impersonation", "realm-admin" ],
       "broker" : [ "read-token" ],
@@ -385,7 +385,7 @@
     } ],
     "disableableCredentialTypes" : [ "password" ],
     "requiredActions" : [ ],
-    "realmRoles" : [ "user", "offline_access", "uma_authorization" ],
+    "realmRoles" : [ "ACTIVITI_USER", "offline_access", "uma_authorization" ],
     "clientRoles" : {
       "realm-management" : [ "manage-users", "manage-clients", "manage-authorization", "manage-events", "manage-realm", "create-client", "impersonation", "realm-admin" ],
       "broker" : [ "read-token" ],
@@ -417,12 +417,12 @@
     } ],
     "disableableCredentialTypes" : [ "password" ],
     "requiredActions" : [ ],
-    "realmRoles" : [ "activiti", "uma_authorization", "user", "admin", "offline_access" ],
+    "realmRoles" : [ "activiti", "uma_authorization", "user", "ACTIVITI_ADMIN", "offline_access" ],
     "clientRoles" : {
       "account" : [ "manage-account", "view-profile" ]
     },
     "notBefore" : 0,
-    "groups" : [ ]
+    "groups" : [ "/hr" ]
   }, {
     "id" : "784ca026-cfaa-422c-88e8-b7565515ff71",
     "createdTimestamp" : 1500048314842,
@@ -481,15 +481,26 @@
     "firstName" : "testadmin",
     "lastName" : "testadmin",
     "email" : "testadmin@test.com",
-    "credentials" : [ ],
-    "disableableCredentialTypes" : [ ],
+    "credentials" : [ {
+      "type" : "password",
+      "hashedSaltedValue" : "05tcUaYgNzF71eB1HKeaH9IC7Do7JUig2JNLSXiADgLx0YfyOPnL5t7TuZ+Rxj3ttsyLkWqp0TM0UbLWGOvuLQ==",
+      "salt" : "xZovRbq5QU0Cm5aQWEW2bg==",
+      "hashIterations" : 27500,
+      "counter" : 0,
+      "algorithm" : "pbkdf2-sha256",
+      "digits" : 0,
+      "period" : 0,
+      "createdDate" : 1522141994128,
+      "config" : { }
+    } ],
+    "disableableCredentialTypes" : [ "password" ],
     "requiredActions" : [ ],
-    "realmRoles" : [ "activiti", "uma_authorization", "user", "admin", "offline_access" ],
+    "realmRoles" : [ "activiti", "uma_authorization", "user", "ACTIVITI_ADMIN", "offline_access" ],
     "clientRoles" : {
       "account" : [ "manage-account", "view-profile" ]
     },
     "notBefore" : 0,
-    "groups" : [ ]
+    "groups" : [ "/testgroup" ]
   }, {
     "id" : "331a12d1-766e-4897-b0a8-309ae5caeb25",
     "createdTimestamp" : 1498557164913,
