@@ -23,6 +23,10 @@ jx get urls
 ```
 You’ll see url of the form http://jenkins.jx.<CLUSTER_IP>. You can then skip to `Activiti Example Installation`
 
+## Minikube
+
+For minikube you can find your minikube ip from `minikube dashboard` and then set keycloak's service.type to NodePort and service.nodePort to e.g. 30100 (the port must be in the NodePort range) and the gateway's service.type to nodePort and its service.nodePort to e.g. 30101 in the values.yaml. Be sure to also set the keycloak url in the values.yaml. You can start minikube with extra resources e.g. ``minikube start --memory 8000 --cpus 4`. You do not need to install ingress. Run the helm commands from `Activiti Example Installation` but do not perform any DNS name replacement as you need to replace all the same values with ip and port combinations instead. After installing check the pods come up with `kubectl get pods` and go to `Interacting with the services`.
+
 ## Installing Ingress
 You can install the nginx ingress controller with helm:
 
