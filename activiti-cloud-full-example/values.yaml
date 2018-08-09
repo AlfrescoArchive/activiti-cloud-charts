@@ -5,7 +5,7 @@
 
 global:
   keycloak:
-    url: "http://activiti-keycloak.activiti.envalfresco.com/auth"
+    url: "http://activiti-keycloak.REPLACEME/auth"
 
 
 application:
@@ -13,20 +13,52 @@ application:
     enabled: true
     image:
       pullPolicy: Always
-#    extraEnv: |
-#      - name: ACTIVITI_CLOUD_SECURITY_GROUP_HR_RBMYAPP_POLICY_WRITE
-#        value: "SimpleProcess"
-#      - name: ACTIVITI_CLOUD_SECURITY_GROUP_TESTGROUP_RBMYAPP_POLICY_WRITE
-#        value: "*"
+    # extraEnv: |
+    #   - name: ACTIVITI_SECURITY_POLICIES_0_NAME
+    #     value: "HR Group restricted to SimpleProcess and ConnectorProcess"
+    #   - name: ACTIVITI_SECURITY_POLICIES_0_GROUPS
+    #     value: "hr"
+    #   - name: ACTIVITI_SECURITY_POLICIES_0_ACCESS
+    #     value: "WRITE"
+    #   - name: ACTIVITI_SECURITY_POLICIES_0_SERVICENAME
+    #     value: "rb-my-app"
+    #   - name: ACTIVITI_SECURITY_POLICIES_0_KEYS
+    #     value: "SimpleProcess,ConnectorProcess,fixSystemFailure"
+    #   - name: ACTIVITI_SECURITY_POLICIES_1_NAME
+    #     value: "testgroup not restricted at all"
+    #   - name: ACTIVITI_SECURITY_POLICIES_1_GROUPS
+    #     value: "testgroup"
+    #   - name: ACTIVITI_SECURITY_POLICIES_1_ACCESS
+    #     value: "WRITE"
+    #   - name: ACTIVITI_SECURITY_POLICIES_1_SERVICENAME
+    #     value: "rb-my-app"
+    #   - name: ACTIVITI_SECURITY_POLICIES_1_KEYS
+    #     value: "*"
 
   activiti-cloud-query:
     image:
       pullPolicy: Always
-#    extraEnv: |
-#      - name: ACTIVITI_CLOUD_SECURITY_GROUP_HR_RBMYAPP_POLICY_WRITE
-#        value: "SimpleProcess"
-#      - name: ACTIVITI_CLOUD_SECURITY_GROUP_TESTGROUP_RBMYAPP_POLICY_WRITE
-#        value: "*"
+    # extraEnv: |
+    #   - name: ACTIVITI_SECURITY_POLICIES_0_NAME
+    #     value: "HR Group restricted to SimpleProcess and ConnectorProcess"
+    #   - name: ACTIVITI_SECURITY_POLICIES_0_GROUPS
+    #     value: "hr"
+    #   - name: ACTIVITI_SECURITY_POLICIES_0_ACCESS
+    #     value: "WRITE"
+    #   - name: ACTIVITI_SECURITY_POLICIES_0_SERVICENAME
+    #     value: "rb-my-app"
+    #   - name: ACTIVITI_SECURITY_POLICIES_0_KEYS
+    #     value: "SimpleProcess,ConnectorProcess,fixSystemFailure"
+    #   - name: ACTIVITI_SECURITY_POLICIES_1_NAME
+    #     value: "testgroup not restricted at all"
+    #   - name: ACTIVITI_SECURITY_POLICIES_1_GROUPS
+    #     value: "testgroup"
+    #   - name: ACTIVITI_SECURITY_POLICIES_1_ACCESS
+    #     value: "WRITE"
+    #   - name: ACTIVITI_SECURITY_POLICIES_1_SERVICENAME
+    #     value: "rb-my-app"
+    #   - name: ACTIVITI_SECURITY_POLICIES_1_KEYS
+    #     value: "*"
 
   activiti-cloud-connector:
     enabled: true
@@ -37,37 +69,48 @@ application:
     enabled: false
 #    ingress:
 #      enabled: true
-#      hostName: "activiti-cloud-demo-ui.activiti.envalfresco.com"
+#      hostName: "activiti-cloud-demo-ui.REPLACEME"
 #      annotations:
 #        kubernetes.io/ingress.class: nginx
-#    gatewayUrl:  "http://activiti-cloud-gateway.activiti.envalfresco.com"
-#    idmUrl: "http://activiti-keycloak.activiti.envalfresco.com/auth/realms/activiti/protocol/openid-connect/token"
+#    gatewayUrl:  "http://activiti-cloud-gateway.REPLACEME"
+#    idmUrl: "http://activiti-keycloak.REPLACEME/auth/realms/activiti/protocol/openid-connect/token"
 #    idmClientId:  "activiti"
 
   activiti-cloud-audit:
     image:
       pullPolicy: Always
-#    extraEnv: |
-#      - name: ACTIVITI_CLOUD_SECURITY_GROUP_HR_RBMYAPP_POLICY_WRITE
-#        value: "SimpleProcess"
-#      - name: ACTIVITI_CLOUD_SECURITY_GROUP_TESTGROUP_RBMYAPP_POLICY_WRITE
-#        value: "*"
+    # extraEnv: |
+    #   - name: ACTIVITI_SECURITY_POLICIES_0_NAME
+    #     value: "HR Group restricted to SimpleProcess and ConnectorProcess"
+    #   - name: ACTIVITI_SECURITY_POLICIES_0_GROUPS
+    #     value: "hr"
+    #   - name: ACTIVITI_SECURITY_POLICIES_0_ACCESS
+    #     value: "WRITE"
+    #   - name: ACTIVITI_SECURITY_POLICIES_0_SERVICENAME
+    #     value: "rb-my-app"
+    #   - name: ACTIVITI_SECURITY_POLICIES_0_KEYS
+    #     value: "SimpleProcess,ConnectorProcess,fixSystemFailure"
+    #   - name: ACTIVITI_SECURITY_POLICIES_1_NAME
+    #     value: "testgroup not restricted at all"
+    #   - name: ACTIVITI_SECURITY_POLICIES_1_GROUPS
+    #     value: "testgroup"
+    #   - name: ACTIVITI_SECURITY_POLICIES_1_ACCESS
+    #     value: "WRITE"
+    #   - name: ACTIVITI_SECURITY_POLICIES_1_SERVICENAME
+    #     value: "rb-my-app"
+    #   - name: ACTIVITI_SECURITY_POLICIES_1_KEYS
+    #     value: "*"
 
 infrastructure:
   activiti-keycloak:
     keycloak:
       enabled: true
       keycloak:
-        username: admin
-        password: admin
-        persistence:
-          deployPostgres: false
-          dbVendor: H2
         ingress:
           enabled: true
           path: /
           hosts:
-            - "activiti-keycloak.activiti.envalfresco.com"
+            - "activiti-keycloak.REPLACEME"
           annotations:
             kubernetes.io/ingress.class: nginx
             nginx.ingress.kubernetes.io/rewrite-target: /
@@ -75,20 +118,10 @@ infrastructure:
               add_header Access-Control-Allow-Methods "POST, GET, OPTIONS, PUT, PATCH, DELETE";
               add_header Access-Control-Allow-Credentials true;
               add_header Access-Control-Allow-Headers "DNT,X-CustomHeader,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Authorization";
-        preStartScript: |
-          /opt/jboss/keycloak/bin/add-user.sh -u admin -p admin
-          /opt/jboss/keycloak/bin/add-user-keycloak.sh -r master -u admin -p admin
-          cp /realm/activiti-realm.json .
-          sed -i 's/activiti-cloud-demo-ui:30082/activiti-keycloak.activiti.envalfresco.com/g' activiti-realm.json
-          sed -i 's/activiti-cloud-demo-ui:\*/activiti-keycloak.activiti.envalfresco.com:*/g' activiti-realm.json
-          sed -i 's/placeholder.com/activiti-keycloak.activiti.envalfresco.com:*/g' activiti-realm.json
-          sed -i 's/dummy.com/activiti-cloud-gateway.activiti.envalfresco.com:*/g' activiti-realm.json
-          sed -i 's/activiti-cloud-sso-idm-kub:30082/activiti-cloud-gateway.activiti.envalfresco.com/g' activiti-realm.json
-          sed -i 's/activiti-cloud-demo-ui:3000/activiti-cloud-demo-ui.activiti.envalfresco.com/g' activiti-realm.json
   activiti-cloud-gateway:
     ingress:
       enabled: true
-      hostName: "activiti-cloud-gateway.activiti.envalfresco.com"
+      hostName: "activiti-cloud-gateway.REPLACEME"
       annotations:
         kubernetes.io/ingress.class: nginx
         nginx.ingress.kubernetes.io/rewrite-target: /
