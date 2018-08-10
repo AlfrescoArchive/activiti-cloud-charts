@@ -1,9 +1,9 @@
 dependencies:
 - name: infrastructure
   repository: https://activiti.github.io/activiti-cloud-charts/
-  version: 0.1.9
+  version: 0.2.0
 - name: application
   repository: https://activiti.github.io/activiti-cloud-charts/
-  version: 0.1.17
-digest: sha256:b4c3151ffc01deaeefda76906cb023ce1b40ff70129e4a50f6d3cde23b3ca847
-generated: 2018-08-07T18:05:57.039410707+01:00
+  version: 0.2.0
+digest: sha256:f68457c59b0c028c8b2c8a9178f064a35df06238d6d6e30eb473eff5d3910cc8
+generated: 2018-08-10T18:23:37.979793029+01:00
