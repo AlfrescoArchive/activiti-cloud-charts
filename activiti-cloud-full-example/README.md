@@ -41,7 +41,7 @@ You will need to copy the EXTERNAL-IP from your controller and now you can use N
 ```<SERVICE-NAME>.<EXTERNAL-IP>.nip.io```
 
 # Activiti Example Installation
-Before installing the Activiti example chart you will need to provide a values.yaml file (myvalues.yaml) which you can copy from the file in this directory and update with your DNS name. Look for <REPLACEME> inside the values.yaml file and replace accordingly with your DNS.
+Before installing the Activiti example chart you will need to provide a values.yaml file (myvalues.yaml) which you can copy from the file in this directory and update with your DNS name. Look for \<REPLACEME\> inside the values.yaml file and replace accordingly with your DNS.
 
 You can install this chart by running against a Kubernetes Cluster:
 
