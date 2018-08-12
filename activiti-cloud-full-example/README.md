@@ -32,6 +32,9 @@ You can install the nginx ingress controller with helm:
 
 ```helm install stable/nginx-ingress```
 
+**Notice that you might need to configure a Service Account and a Role Binding for HELM if you haven't done so: 
+https://medium.com/google-cloud/helm-on-gke-cluster-quick-hands-on-guide-ecffad94b0 **
+
 Once you get your Ingress Controller up and running you will need to get its external IP address, and you can use a service such as [nip.io](http://nip.io) as DNS service. This will allow you to access your services by name under the same domain.
 
 In order to get the Ingress Controller external IP you can run:
