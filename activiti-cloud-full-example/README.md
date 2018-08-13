@@ -15,7 +15,7 @@ This example includes all the building blocks that conforms an Activiti Cloud ap
 
 You will need to be able expose services from your kubernetes cluster externally. The activiti example install process is simpler if services are exposed with a wildcard DNS and the DNS is mapped to an ingress in advance of the install. This available out of the box with Jenkins-X. You may also have this on your cluster already if you have an Ingress controller and wildcard DNS mapped to it (e.g. Route53). We suggest installing an nginx ingress controller and using the free, public nip.io service for DNS. This should work for most platforms.
 
-There will be serval places where the external DNS or IP will need to be set. The easiest way to do this is to copy-paste the contents of the values.yaml here to create a localy file (e.g. 'myvalues.yaml') and modify or find-replace in that file.
+There are several places where the external DNS or IP need to be set. The easiest way to do this is to copy-paste the contents of the values.yaml here to create a local file (e.g. 'myvalues.yaml') and modify or find-replace in that file. The helm install can then be done with the -f option to use that file.
 
 ## Jenkins X Users
 If you use Jenkins-X you can get your DNS name by doing
@@ -23,7 +23,7 @@ If you use Jenkins-X you can get your DNS name by doing
 jx env dev
 jx get urls
 ```
-You’ll see url of the form http://jenkins.jx.<CLUSTER_IP>. You can then skip to `Activiti Example Installation`
+You’ll see url of the form http://jenkins.jx.<CLUSTER_IP>. You can then skip to `Activiti Example Installation`. But note that in jenkins-x you'll likely not use `helm install`. Instead you'll add the `helm repo add` command to the staging environment's Makefile and this chart should be added to the requirements.yaml. The values (as modified in `Activiti Example Installation`) then go in the values.yaml of the staging environment.
 
 ## Minikube
 
