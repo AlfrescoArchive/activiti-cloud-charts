@@ -15,6 +15,8 @@ This example includes all the building blocks that conforms an Activiti Cloud ap
 
 You will need to be able expose services from your kubernetes cluster externally. The activiti example install process is simpler if services are exposed with a wildcard DNS and the DNS is mapped to an ingress in advance of the install. This available out of the box with Jenkins-X. You may also have this on your cluster already if you have an Ingress controller and wildcard DNS mapped to it (e.g. Route53). We suggest installing an nginx ingress controller and using the free, public nip.io service for DNS. This should work for most platforms.
 
+There will be serval places where the external DNS or IP will need to be set. The easiest way to do this is to copy-paste the contents of the values.yaml here to create a localy file (e.g. 'myvalues.yaml') and modify or find-replace in that file.
+
 ## Jenkins X Users
 If you use Jenkins-X you can get your DNS name by doing
 ```
@@ -32,7 +34,7 @@ You can install the nginx ingress controller with helm:
 
 ```helm install stable/nginx-ingress```
 
-**Notice that you might need to configure a Service Account and a Role Binding for HELM if you haven't done so: 
+**Notice that you might need to configure a Service Account and a Role Binding for HELM if you haven't done so:
 https://medium.com/google-cloud/helm-on-gke-cluster-quick-hands-on-guide-ecffad94b0 **
 
 Once you get your Ingress Controller up and running you will need to get its external IP address, and you can use a service such as [nip.io](http://nip.io) as DNS service. This will allow you to access your services by name under the same domain.
