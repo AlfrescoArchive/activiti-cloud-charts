@@ -25,9 +25,34 @@ jx get urls
 ```
 You’ll see url of the form http://jenkins.jx.<CLUSTER_IP>. You can then skip to `Activiti Example Installation`. But note that in jenkins-x you'll likely not use `helm install`. Instead you'll add the `helm repo add` command to the staging environment's Makefile and this chart should be added to the requirements.yaml. The values (as modified in `Activiti Example Installation`) then go in the values.yaml of the staging environment.
 
-## Minikube
+## Running Locally
 
-For minikube you can find your minikube ip from `minikube dashboard` and then set keycloak's service.type to NodePort and service.nodePort to e.g. 30100 (the port must be in the NodePort range) and the gateway's service.type to nodePort and its service.nodePort to e.g. 30101 in the values.yaml. Be sure to also set the keycloak url in the values.yaml. You can start minikube with extra resources e.g. ``minikube start --memory 8000 --cpus 4`. You do not need to install ingress. Run the helm commands from `Activiti Example Installation` but do not perform any DNS name replacement as you need to replace all the same values with ip and port combinations instead. After installing check the pods come up with `kubectl get pods` and go to `Interacting with the services`.
+In a local Kubernetes environment, such as is provided by *minikube* or *Docker Desktop*, you don't need an ingress.  Instead you can set the Keycloak and API Gateway to use NodePort.  To make this change, add a *type* and *nodePort* property to these services in your values.yaml file, as illustrated in these code snippets.
+```
+  ...
+  activiti-keycloak:
+    keycloak:
+      enabled: true
+      keycloak:
+        service:
+          type: NodePort
+          nodePort: 30100
+          ...
+      activiti-cloud-gateway:
+        service:
+          type: NodePort
+          nodePort: 30101 
+          ...     
+```
+Also, be sure to set the keycloak url in the values.yaml to match the host ip and port, as illustrated.
+ ```
+ global:
+   keycloak:
+     url: "http://localhost:30100/auth"
+ ```
+When you start minikube you can allow extra resources e.g. ```minikube start --memory 8000 --cpus 4```.  Similarly in Docker Desktop, you can allocate memory, cpu's and swap using the Preferences dialog.  
+
+Then run the helm commands from `Activiti Example Installation` but do not perform any DNS name replacement as you need to replace all the same values with ip and port combinations instead. After installing, check the pods come up with `kubectl get pods` and go to `Interacting with the services`.
 
 ## Installing Ingress
 You can install the nginx ingress controller with helm:
