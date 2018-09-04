@@ -1,0 +1,65 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: {{ template "fullname" . }}
+  labels:
+    draft: {{ default "draft-app" .Values.draft }}
+    chart: "{{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}"
+spec:
+  replicas: {{ .Values.replicaCount }}
+  template:
+    metadata:
+      labels:
+        draft: {{ default "draft-app" .Values.draft }}
+        app: {{ template "fullname" . }}
+{{- if .Values.podAnnotations }}
+      annotations:
+{{ toYaml .Values.podAnnotations | indent 8 }}
+{{- end }}
+    spec:
+      containers:
+      - name: {{ .Chart.Name }}
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+        imagePullPolicy: {{ .Values.image.pullPolicy }}
+        env:
+        - name: JAVA_OPTS
+          value: "-Xmx{{ .Values.javaOpts.xmx }} -Xms{{ .Values.javaOpts.xms }} {{ .Values.javaOpts.other}}"
+        - name: SPRING_APPLICATION_NAME
+{{- if .Values.service.name }}
+          value: "{{ .Values.service.name }}"
+{{- else }}
+          value: {{ template "fullname" . }}
+{{- end }}
+        - name: SPRING_RABBITMQ_HOST
+        {{- if .Values.global.rabbitmq.host}}
+          value: "{{ .Values.global.rabbitmq.host }}"
+        {{ else }}
+          value: "{{ .Release.Name }}-rabbitmq"
+        {{ end }}
+        - name: SPRING_RABBITMQ_USERNAME
+          value: {{ .Values.global.rabbitmq.username }}
+        - name: SPRING_RABBITMQ_PASSWORD
+          value: {{ .Values.global.rabbitmq.password }}
+        - name: SPRING_CLOUD_STREAM_BINDINGS_EVENTSADAPTERCONSUMER_DESTINATION
+          value: {{ .Values.global.rabbitmq.destination }}
+        - name: SPRING_CLOUD_STREAM_BINDINGS_EVENTSADAPTERCONSUMER_GROUP
+          value: {{ .Values.global.rabbitmq.group }}
+        - name: SPRING_CLOUD_STREAM_BINDINGS_EVENTSADAPTERCONSUMER_CONTENTTYPE
+          value: {{ .Values.global.rabbitmq.contentType }}
+        - name: ACTIVITI_CLOUD_EVENTS_ADAPTER_TOPIC_HOST
+        {{- if .Values.global.activemq.host }}  
+          value: "{{ .Values.global.activemq.host }}"
+        {{ else }}
+          value: "{{ .Release.Name }}-activemq-broker"
+        {{ end }}
+        - name: ACTIVITI_CLOUD_EVENTS_ADAPTER_TOPIC_USERNAME
+          value: {{ .Values.global.activemq.username }}
+        - name: ACTIVITI_CLOUD_EVENTS_ADAPTER_TOPIC_PASSWORD
+          value: {{ .Values.global.activemq.password }}
+        - name: ACTIVITI_CLOUD_EVENTS_ADAPTER_TOPIC_NAME
+          value: {{ .Values.global.activemq.topicName }}
+{{- with .Values.extraEnv }}
+{{ tpl . $ | indent 8 }}
+{{- end }}
+        ports:
+        - containerPort: {{ .Values.service.internalPort }}

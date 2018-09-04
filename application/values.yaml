@@ -1,3 +1,6 @@
+activiti-cloud-events-adapter:
+  enabled: true
+
 activiti-cloud-query:
   enabled: true
   db:
