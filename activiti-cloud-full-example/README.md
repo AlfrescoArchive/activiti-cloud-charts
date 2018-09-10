@@ -36,9 +36,7 @@ You can install the nginx ingress controller with helm:
 
 ## Installing Ingress on AWS 
 
-```helm install stable/nginx-ingress \
-   --set controller.scope.enabled=true \
-   --set controller.config.ssl-redirect=false```
+```helm install stable/nginx-ingress --set controller.scope.enabled=true --set controller.config.ssl-redirect=false```
 
 **Only for AWS***
 
