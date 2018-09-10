@@ -34,6 +34,19 @@ You can install the nginx ingress controller with helm:
 
 ```helm install stable/nginx-ingress```
 
+## Installing Ingress on AWS 
+
+```helm install stable/nginx-ingress \
+   --set controller.scope.enabled=true \
+   --set controller.config.ssl-redirect=false```
+
+**Only for AWS***
+
+Replace full url for keyclock: ```i.e http://activiti-keycloak.REPLACEME/auth``` with ```http://<DNS/auth```
+Replace full url for Ingress Host: ```activiti-keycloak.REPLACEME``` with ```http://<DNS```
+Replace full url for activiti-cloud-gateway: ```activiti-cloud-gateway.REPLACEME``` with ```http://<DNS>```
+      
+
 **Notice that you might need to configure a Service Account and a Role Binding for HELM if you haven't done so:
 https://medium.com/google-cloud/helm-on-gke-cluster-quick-hands-on-guide-ecffad94b0 **
 
