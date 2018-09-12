@@ -42,8 +42,12 @@ Once you get your Ingress Controller up and running you will need to get its ext
 In order to get the Ingress Controller external IP you can run:
 > kubectl get service
 
+![Screenshot](https://github.com/Activiti/activiti-cloud-charts/blob/master/resources/images/kubectl-get-service.jpg)
+
 You will need to copy the EXTERNAL-IP from your controller and now you can use NIP.io by pointing to your services at:
 ```<SERVICE-NAME>.<EXTERNAL-IP>.nip.io```
+
+
 
 # Activiti Example Installation
 Before installing the Activiti example chart you will need to provide a values.yaml file (myvalues.yaml) which you can copy from the file in this directory and update with your DNS name. Look for \<REPLACEME\> inside the values.yaml file and replace accordingly with your DNS.
@@ -56,6 +60,9 @@ helm repo update
 helm install -f myvalues.yaml activiti-cloud-charts/activiti-cloud-full-example
 ```
 
+# Upgrading the helm release
+If any change in myvalues.yaml is required, there is no need to delete the helm release and start the process again. You can easily run:
+> helm upgrade <release-name> activiti-cloud-charts/activiti-cloud-full-example --reuse-values -f myvalues.yaml
 
 # Interacting with the services
 
