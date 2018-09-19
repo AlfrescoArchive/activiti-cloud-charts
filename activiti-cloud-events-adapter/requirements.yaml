@@ -1,4 +1,4 @@
 dependencies:
-  - name: alfresco-infrastructure
-    version: 2.0.0-SNAPSHOT
+  - name: activemq
+    version: ^0.1.0
     repository: https://kubernetes-charts.alfresco.com/incubator

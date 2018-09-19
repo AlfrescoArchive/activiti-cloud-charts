@@ -3,20 +3,6 @@
 # Declare variables to be passed into your templates.
 replicaCount: 1
 
-alfresco-infrastructure:
-  rabbitmq-ha:
-    enabled: false
-  persistence:
-    enabled: false
-  nginx-ingress:
-    enabled: false
-  alfresco-activiti-cloud-registry:
-    enabled: false
-  alfresco-api-gateway:
-    enabled: false
-  alfresco-identity-service:
-    enabled: false
-  
 global:
   rabbitmq:
     host: ""
