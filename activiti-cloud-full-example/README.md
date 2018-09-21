@@ -41,15 +41,11 @@ In a local Kubernetes environment, such as is provided by *minikube* or *Docker 
       activiti-cloud-gateway:
         service:
           type: NodePort
-          nodePort: 30101 
+          nodePort: 30101
           ...     
 ```
-Also, be sure to set the keycloak url in the values.yaml to match the host ip and port, as illustrated.
- ```
- global:
-   keycloak:
-     url: "http://localhost:30100/auth"
- ```
+Also, be sure to set the keycloak url in the values.yaml to match the host ip and port. For minikube use the minikube ip, which can be found from `minikube dashboard`. For docker for desktop get the IP from `kubectl describe node docker-for-desktop`.
+
 When you start minikube you can allow extra resources e.g. ```minikube start --memory 8000 --cpus 4```.  Similarly in Docker Desktop, you can allocate memory, cpu's and swap using the Preferences dialog.  
 
 Then run the helm commands from `Activiti Example Installation` but do not perform any DNS name replacement as you need to replace all the same values with ip and port combinations instead. After installing, check the pods come up with `kubectl get pods` and go to `Interacting with the services`.
