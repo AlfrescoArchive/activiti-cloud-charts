@@ -1,6 +1,10 @@
 target
 /local
 
+# Kubernetes and Helm
+requirements.lock
+**/charts/*.tgz
+
 # Netbeans and IntelliJ files
 !.gitignore
 /nbproject
