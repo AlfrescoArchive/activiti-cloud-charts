@@ -1,5 +1,5 @@
 activiti-cloud-events-adapter:
-  enabled: true
+  enabled: false
 
 activiti-cloud-query:
   enabled: true
