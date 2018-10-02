@@ -98,6 +98,7 @@ infrastructure:
         ingress:
           enabled: true
           path: /
+          proxyBufferSize: "16k"
           hosts:
             - "activiti-keycloak.REPLACEME"
           annotations:
