@@ -46,6 +46,22 @@ Replace full url for Ingress Host: ```activiti-keycloak.REPLACEME``` with ```htt
 
 Replace full url for activiti-cloud-gateway: ```activiti-cloud-gateway.REPLACEME``` with ```http://<DNS>```
       
+### Get ELB IP and copy it for linking the ELB in AWS Route53:
+
+```bash
+export ELBADDRESS=$(kubectl get services $AMSRELEASE-nginx-ingress-controller --namespace=$DESIREDNAMESPACE -o jsonpath={.status.loadBalancer.ingress[0].hostname})
+echo $ELBADDRESS
+```
+
+### Create a Route 53 Record Set in your Hosted Zone
+
+* Go to **AWS Management Console** and open the **Route 53** console.
+* Click **Hosted Zones** in the left navigation panel, then **Create Record Set**.
+* In the **Name** field, enter your "`$ELB_CNAME`" defined in step 4.
+* In the **Alias Target**, select your ELB address ("`$ELBADDRESS`").
+* Click **Create**.
+
+You may need to wait a couple of minutes before the record set propagates around the world.
 
 **Notice that you might need to configure a Service Account and a Role Binding for HELM if you haven't done so:
 https://medium.com/google-cloud/helm-on-gke-cluster-quick-hands-on-guide-ecffad94b0 **
