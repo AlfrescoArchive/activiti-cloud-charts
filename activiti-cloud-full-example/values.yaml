@@ -109,6 +109,7 @@ infrastructure:
               more_set_headers 'Access-Control-Allow-Credentials: true';
               more_set_headers 'Access-Control-Allow-Headers: "DNT,X-CustomHeader,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Authorization,authorization"';
               more_set_headers 'Access-Control-Allow-Origin: $http_origin';
+            nginx.ingress.kubernetes.io/proxy-buffer-size: "16k"
         preStartScript: |
           /opt/jboss/keycloak/bin/add-user.sh -u admin -p admin
           /opt/jboss/keycloak/bin/add-user-keycloak.sh -r master -u admin -p admin
