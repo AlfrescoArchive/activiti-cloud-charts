@@ -11,44 +11,81 @@ global:
     password:
       value: guest
   keycloak:
-    url: ""
+    url: "http://activiti-keycloak.activiti.envalfresco.com/auth"
     name: keycloak
+    realm: activiti
+    client: activiti
     service:
       type: http
       port: 80
-javaOpts:
-  xmx: 512m
-  xms: 512m
-  other: -XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap -Dsun.zip.disableMemoryMapping=true -XX:+UseParallelGC -XX:MinHeapFreeRatio=5 -XX:MaxHeapFreeRatio=10 -XX:GCTimeRatio=4 -XX:AdaptiveSizePolicyWeight=90
-image:
-  repository: activiti/activiti-cloud-modeling
-  tag: dev
-  pullPolicy: IfNotPresent
 service:
   name: activiti-cloud-modeling
   type: ClusterIP
-  externalPort: 80
-  internalPort: 8080
+  backend:
+    externalPort: 8080
+    internalPort: 8080
+  frontend:
+    externalPort: 80
+    internalPort: 80
   annotations:
     fabric8.io/expose: "false"
     fabric8.io/ingress.annotations: "kubernetes.io/ingress.class: nginx"
-resources:
-  limits:
-    cpu: 1024m
-    memory: 1024Mi
-  requests:
-    cpu: 1000m
-    memory: 1024Mi
-probePath: /actuator/health
-livenessProbe:
-  initialDelaySeconds: 140
-  periodSeconds: 15
-  successThreshold: 1
-  timeoutSeconds: 4
-readinessProbe:
-  periodSeconds: 15
-  successThreshold: 1
-  timeoutSeconds: 3
+
+gateway:
+  host: "activiti-cloud-gateway"
+
+frontend:
+#if behind gateway should be gw path, else use ""
+  basepath: "activiti-cloud-modeling"
+  image:
+    repository: ryandawsonuk/activiti-modeler-app
+    tag: 7.0.0.TEST2
+    pullPolicy: Always
+  resources:
+    limits:
+      memory: 384Mi
+    requests:
+      cpu: 200m
+      memory: 256Mi
+  probePath: /
+  livenessProbe:
+    initialDelaySeconds: 140
+    periodSeconds: 15
+    successThreshold: 1
+    timeoutSeconds: 4
+  readinessProbe:
+    periodSeconds: 15
+    successThreshold: 1
+    timeoutSeconds: 3
+
+backend:
+  url: "localhost:8081"
+  prefix: ""
+  javaOpts:
+    xmx: 512m
+    xms: 512m
+    other: -XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap -Dsun.zip.disableMemoryMapping=true -XX:+UseParallelGC -XX:MinHeapFreeRatio=5 -XX:MaxHeapFreeRatio=10 -XX:GCTimeRatio=4 -XX:AdaptiveSizePolicyWeight=90
+  image:
+    repository: ryandawsonuk/activiti-cloud-modeling
+    tag: 7.0.0.TEST2
+    pullPolicy: Always
+  resources:
+    limits:
+      memory: 768Mi
+    requests:
+      cpu: 400m
+      memory: 512Mi
+  probePath: /actuator/health
+  livenessProbe:
+    initialDelaySeconds: 140
+    periodSeconds: 15
+    successThreshold: 1
+    timeoutSeconds: 4
+  readinessProbe:
+    periodSeconds: 15
+    successThreshold: 1
+    timeoutSeconds: 3
+
 terminationGracePeriodSeconds: 20
 
 ingress:

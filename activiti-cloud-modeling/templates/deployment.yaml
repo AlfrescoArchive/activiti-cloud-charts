@@ -18,45 +18,67 @@ spec:
 {{- end }}
     spec:
       containers:
-      - name: {{ .Chart.Name }}
-        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+      - name: {{ .Chart.Name }}-backend
+        image: "{{ .Values.backend.image.repository }}:{{ .Values.backend.image.tag }}"
         env:
         - name: JAVA_OPTS
-          value: "-Xmx{{ .Values.javaOpts.xmx }} -Xms{{ .Values.javaOpts.xms }} {{ .Values.javaOpts.other}}"
+          value: "-Xmx{{ .Values.backend.javaOpts.xmx }} -Xms{{ .Values.backend.javaOpts.xms }} {{ .Values.backend.javaOpts.other}}"
         - name: SPRING_APPLICATION_NAME
 {{- if .Values.service.name }}
           value: "{{ .Values.service.name }}"
 {{- else }}
           value: {{ template "fullname" . }}
 {{- end }}
+        - name: SERVER_PORT
+          value: "{{ .Values.service.backend.internalPort }}"
         - name: ACT_KEYCLOAK_URL
           value: {{ .Values.global.keycloak.url }}
-        - name: EUREKA_CLIENT_ENABLED
-          value: "false"
-        - name: ACTIVITI_CLOUD_SERVICES_METADATA_EUREKA_STATIC_ENABLED
-          value: "false"
-        - name: ACTIVITI_CLOUD_SERVICES_METADATA_EUREKA_DYNAMIC_ENABLED
-          value: "false"
-        - name: ACT_CLOUD_CONFIG_SERVER_ENABLED
-          value: "false"
-        imagePullPolicy: {{ .Values.image.pullPolicy }}
+        imagePullPolicy: {{ .Values.backend.image.pullPolicy }}
         ports:
-        - containerPort: {{ .Values.service.internalPort }}
+        - containerPort: {{ .Values.service.backend.internalPort }}
+      - name: {{ .Chart.Name }}
+        image: "{{ .Values.frontend.image.repository }}:{{ .Values.frontend.image.tag }}"
+        env:
+        - name: APP_CONFIG_OAUTH2_HOST
+          value: "{{ .Values.global.keycloak.url }}/realms/{{ .Values.global.keycloak.realm }}"
+        - name: APP_CONFIG_OAUTH2_CLIENTID
+          value: {{ .Values.global.keycloak.client }}
+        - name: API_URL
+{{- if .Values.backend.url }}
+          value: {{ .Values.backend.url }}
+{{- else }}
+          value: {{ .Release.Name }}-{{ .Values.gateway.host }}
+{{- end }}
+{{- if .Values.frontend.basepath }}
+        - name: BASE_PATH
+          value: "/{{ .Values.frontend.basepath }}/"
+        - name: APP_CONFIG_OAUTH2_REDIRECT_SILENT_IFRAME_URI
+          value: "/{{ .Values.frontend.basepath }}/assets/silent-refresh.html"
+        - name: APP_CONFIG_OAUTH2_REDIRECT_LOGIN
+          value: "/{{ .Values.frontend.basepath }}"
+        - name: APP_CONFIG_OAUTH2_REDIRECT_LOGOUT
+          value: "/{{ .Values.frontend.basepath }}"
+{{- end }}
+        - name: API_PATH_PREFIX
+          value: "{{ .Values.backend.prefix }}"
+        imagePullPolicy: {{ .Values.frontend.image.pullPolicy }}
+        ports:
+        - containerPort: {{ .Values.service.frontend.internalPort }}
         livenessProbe:
           httpGet:
-            path: {{ .Values.probePath }}
-            port: {{ .Values.service.internalPort }}
-          initialDelaySeconds: {{ .Values.livenessProbe.initialDelaySeconds }}
-          periodSeconds: {{ .Values.livenessProbe.periodSeconds }}
-          successThreshold: {{ .Values.livenessProbe.successThreshold }}
-          timeoutSeconds: {{ .Values.livenessProbe.timeoutSeconds }}
+            path: {{ .Values.frontend.probePath }}
+            port: {{ .Values.service.frontend.internalPort }}
+          initialDelaySeconds: {{ .Values.frontend.livenessProbe.initialDelaySeconds }}
+          periodSeconds: {{ .Values.frontend.livenessProbe.periodSeconds }}
+          successThreshold: {{ .Values.frontend.livenessProbe.successThreshold }}
+          timeoutSeconds: {{ .Values.frontend.livenessProbe.timeoutSeconds }}
         readinessProbe:
           httpGet:
-            path: {{ .Values.probePath }}
-            port: {{ .Values.service.internalPort }}
-          periodSeconds: {{ .Values.readinessProbe.periodSeconds }}
-          successThreshold: {{ .Values.readinessProbe.successThreshold }}
-          timeoutSeconds: {{ .Values.readinessProbe.timeoutSeconds }}
+            path: {{ .Values.frontend.probePath }}
+            port: {{ .Values.service.frontend.internalPort }}
+          periodSeconds: {{ .Values.frontend.readinessProbe.periodSeconds }}
+          successThreshold: {{ .Values.frontend.readinessProbe.successThreshold }}
+          timeoutSeconds: {{ .Values.frontend.readinessProbe.timeoutSeconds }}
         resources:
-{{ toYaml .Values.resources | indent 12 }}
+{{ toYaml .Values.frontend.resources | indent 12 }}
       terminationGracePeriodSeconds: {{ .Values.terminationGracePeriodSeconds }}

@@ -15,8 +15,15 @@ metadata:
 spec:
   type: {{ .Values.service.type }}
   ports:
-  - port: {{ .Values.service.externalPort }}
-    targetPort: {{ .Values.service.internalPort }}
+  - port: {{ .Values.service.backend.externalPort }}
+    targetPort: {{ .Values.service.backend.internalPort }}
+    {{- if (and (eq .Values.service.type "NodePort") (not (empty .Values.service.backend.nodePort))) }}
+    nodePort: {{ .Values.service.backend.nodePort }}
+    {{- end }}
+    protocol: TCP
+    name: http-backend
+  - port: {{ .Values.service.frontend.externalPort }}
+    targetPort: {{ .Values.service.frontend.internalPort }}
     {{- if (and (eq .Values.service.type "NodePort") (not (empty .Values.service.nodePort))) }}
     nodePort: {{ .Values.service.nodePort }}
     {{- end }}
