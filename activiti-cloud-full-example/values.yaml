@@ -6,7 +6,8 @@
 global:
   keycloak:
     url: "http://activiti-keycloak.REPLACEME/auth"
-
+  gateway:
+    host: &gatewayhost "activiti-cloud-gateway.REPLACEME"
 
 application:
   runtime-bundle:
@@ -119,7 +120,7 @@ infrastructure:
   activiti-cloud-gateway:
     ingress:
       enabled: true
-      hostName: "activiti-cloud-gateway.REPLACEME"
+      hostName: *gatewayhost
       annotations:
         kubernetes.io/ingress.class: nginx
         nginx.ingress.kubernetes.io/rewrite-target: /
