@@ -25,14 +25,16 @@ spec:
           value: "-Xmx{{ .Values.backend.javaOpts.xmx }} -Xms{{ .Values.backend.javaOpts.xms }} {{ .Values.backend.javaOpts.other}}"
         - name: SPRING_APPLICATION_NAME
 {{- if .Values.service.name }}
-          value: "{{ .Values.service.name }}"
+          value: {{ .Values.service.name }}-backend
 {{- else }}
-          value: {{ template "fullname" . }}
+          value: {{ template "fullname" . }}-backend
 {{- end }}
         - name: SERVER_PORT
           value: "{{ .Values.service.backend.internalPort }}"
         - name: ACT_KEYCLOAK_URL
           value: {{ .Values.global.keycloak.url }}
+        - name: ACTIVITI_CLOUD_MODELING_URL
+          value: "localhost:{{ .Values.service.backend.internalPort }}"
         imagePullPolicy: {{ .Values.backend.image.pullPolicy }}
         ports:
         - containerPort: {{ .Values.service.backend.internalPort }}

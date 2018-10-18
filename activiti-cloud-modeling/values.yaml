@@ -19,13 +19,13 @@ global:
       type: http
       port: 80
   gateway:
-    host: "activiti-cloud-gateway.activiti.envalfresco.com"
+    host: "http://activiti-cloud-gateway.activiti.envalfresco.com"
 
 service:
   name: activiti-cloud-modeling
   type: ClusterIP
   backend:
-    externalPort: 8080
+    externalPort: 80
     internalPort: 8080
   frontend:
     externalPort: 80
@@ -61,7 +61,7 @@ frontend:
 
 backend:
   url: ""
-  prefix: "activiti-cloud-modeling"
+  prefix: "activiti-cloud-modeling-backend"
   javaOpts:
     xmx: 512m
     xms: 512m
