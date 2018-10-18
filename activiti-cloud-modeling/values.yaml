@@ -19,7 +19,7 @@ global:
       type: http
       port: 80
   gateway:
-    host: "http://activiti-cloud-gateway.activiti.envalfresco.com"
+    host: "activiti-cloud-gateway.activiti.envalfresco.com"
 
 service:
   name: activiti-cloud-modeling
@@ -39,8 +39,8 @@ frontend:
 #if behind gateway should be gw path, else use ""
   basepath: "activiti-cloud-modeling"
   image:
-    repository: ryandawsonuk/activiti-modeler-app
-    tag: 7.0.0.TEST2
+    repository: activiti/activiti-modeler-app
+    tag: develop
     pullPolicy: Always
   resources:
     limits:
@@ -67,8 +67,8 @@ backend:
     xms: 512m
     other: -XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap -Dsun.zip.disableMemoryMapping=true -XX:+UseParallelGC -XX:MinHeapFreeRatio=5 -XX:MaxHeapFreeRatio=10 -XX:GCTimeRatio=4 -XX:AdaptiveSizePolicyWeight=90
   image:
-    repository: ryandawsonuk/activiti-cloud-modeling
-    tag: 7.0.0.TEST2
+    repository: activiti/activiti-cloud-modeling
+    tag: develop
     pullPolicy: Always
   resources:
     limits:
