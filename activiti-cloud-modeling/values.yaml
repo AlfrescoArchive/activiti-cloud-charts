@@ -18,6 +18,9 @@ global:
     service:
       type: http
       port: 80
+  gateway:
+    host: "activiti-cloud-gateway.activiti.envalfresco.com"
+
 service:
   name: activiti-cloud-modeling
   type: ClusterIP
@@ -31,8 +34,6 @@ service:
     fabric8.io/expose: "false"
     fabric8.io/ingress.annotations: "kubernetes.io/ingress.class: nginx"
 
-gateway:
-  host: "activiti-cloud-gateway"
 
 frontend:
 #if behind gateway should be gw path, else use ""
@@ -59,8 +60,8 @@ frontend:
     timeoutSeconds: 3
 
 backend:
-  url: "localhost:8081"
-  prefix: ""
+  url: ""
+  prefix: "activiti-cloud-modeling"
   javaOpts:
     xmx: 512m
     xms: 512m
