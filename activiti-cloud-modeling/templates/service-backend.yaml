@@ -1,0 +1,26 @@
+apiVersion: v1
+kind: Service
+metadata:
+{{- if .Values.service.name }}
+  name: {{ .Values.service.name }}-backend
+{{- else }}
+  name: {{ template "fullname" . }}-backend
+{{- end }}
+  labels:
+    chart: "{{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}"
+{{- if .Values.service.annotations }}
+  annotations:
+{{ toYaml .Values.service.annotations | indent 4 }}
+{{- end }}
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+  - port: {{ .Values.service.backend.externalPort }}
+    targetPort: {{ .Values.service.backend.internalPort }}
+    {{- if (and (eq .Values.service.type "NodePort") (not (empty .Values.service.backend.nodePort))) }}
+    nodePort: {{ .Values.service.backend.nodePort }}
+    {{- end }}
+    protocol: TCP
+    name: http-backend
+  selector:
+    app: {{ template "fullname" . }}
