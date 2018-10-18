@@ -9,6 +9,9 @@ global:
   gateway:
     host: &gatewayhost "activiti-cloud-gateway.REPLACEME"
 
+activiti-cloud-modeling:
+  enabled: false
+
 application:
   runtime-bundle:
     enabled: true
