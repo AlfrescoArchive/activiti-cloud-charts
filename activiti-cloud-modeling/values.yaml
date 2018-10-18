@@ -11,7 +11,7 @@ global:
     password:
       value: guest
   keycloak:
-    url: "http://activiti-keycloak.activiti.envalfresco.com/auth"
+    url: ""
     name: keycloak
     realm: activiti
     client: activiti
@@ -19,7 +19,7 @@ global:
       type: http
       port: 80
   gateway:
-    host: "activiti-cloud-gateway.activiti.envalfresco.com"
+    host: ""
 
 service:
   name: activiti-cloud-modeling
