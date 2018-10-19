@@ -7,5 +7,5 @@ dependencies:
   version: 0.2.0
 - name: activiti-cloud-modeling
   repository: https://activiti.github.io/activiti-cloud-charts/
-  version: 0.2.3
+  version: 0.2.4
   condition: activiti-cloud-modeling.enabled,modeling.enabled
