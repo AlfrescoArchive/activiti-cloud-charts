@@ -26,5 +26,5 @@ dependencies:
   condition: application.activiti-cloud-connector.enabled,activiti-cloud-connector.enabled
 - name: activiti-cloud-events-adapter
   repository: https://activiti.github.io/activiti-cloud-charts/
-  version: 0.0.2
+  version: 0.0.3
   condition: application.activiti-cloud-events-adapter.enabled,activiti-cloud-events-adapter.enabled
