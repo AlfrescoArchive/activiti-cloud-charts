@@ -28,6 +28,7 @@ image:
   pullPolicy: IfNotPresent
 service:
   name: event-adapter
+  type: ClusterIP
   externalPort: 8080
   internalPort: 8080
   annotations:
