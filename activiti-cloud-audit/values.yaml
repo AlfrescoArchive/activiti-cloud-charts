@@ -37,7 +37,7 @@ javaOpts:
 
 image:
   repository: activiti/activiti-cloud-audit
-  tag: 7.0.0.Beta1
+  tag: 7.0.0.Beta2
   pullPolicy: IfNotPresent
 service:
   name: audit

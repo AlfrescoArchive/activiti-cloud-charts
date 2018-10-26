@@ -39,8 +39,8 @@ frontend:
 #if behind gateway or ingress should be gw path
   basepath: "activiti-cloud-modeling"
   image:
-    repository: activiti/activiti-modeler-app
-    tag: develop
+    repository: activiti/activiti-modeling-app
+    tag: 7.0.0.Beta2
     pullPolicy: Always
   resources:
     limits:
@@ -69,7 +69,7 @@ backend:
     other: -XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap -Dsun.zip.disableMemoryMapping=true -XX:+UseParallelGC -XX:MinHeapFreeRatio=5 -XX:MaxHeapFreeRatio=10 -XX:GCTimeRatio=4 -XX:AdaptiveSizePolicyWeight=90
   image:
     repository: activiti/activiti-cloud-modeling
-    tag: develop
+    tag: 7.0.0.Beta2
     pullPolicy: Always
   resources:
     limits:
