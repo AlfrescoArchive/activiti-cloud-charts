@@ -132,3 +132,5 @@ There is a flag in the values.yaml to enable a demo ui if desired and commented 
 To enable postgres rather than h2 set db.deployPostgres. See individual charts for more options.
 
 If you don't want to use DNS then remove the Ingresses and instead set the Services to type LoadBalancer. It would then be necessary to deploy to find out the IPs and then update the values.yaml after you've found out the IPs (from kubectl get services) and update the helm release with `helm upgrade`.
+
+To enable modeling, change the value of the `activiti-cloud-modeling` flag in your `myvalues.yaml` that you reference with `-f`. The modeler should then be available on the `activiti-cloud-modeling` path of the gateway host.
