@@ -27,7 +27,7 @@ application:
     #   - name: ACTIVITI_SECURITY_POLICIES_0_SERVICENAME
     #     value: "rb-my-app"
     #   - name: ACTIVITI_SECURITY_POLICIES_0_KEYS
-    #     value: "SimpleProcess,ConnectorProcess,fixSystemFailure"
+    #     value: "SimpleProcess,ConnectorProcess,fixSystemFailure,twoTaskProcess"
     #   - name: ACTIVITI_SECURITY_POLICIES_1_NAME
     #     value: "testgroup not restricted at all"
     #   - name: ACTIVITI_SECURITY_POLICIES_1_GROUPS
@@ -52,7 +52,7 @@ application:
     #   - name: ACTIVITI_SECURITY_POLICIES_0_SERVICENAME
     #     value: "rb-my-app"
     #   - name: ACTIVITI_SECURITY_POLICIES_0_KEYS
-    #     value: "SimpleProcess,ConnectorProcess,fixSystemFailure"
+    #     value: "SimpleProcess,ConnectorProcess,fixSystemFailure,twoTaskProcess"
     #   - name: ACTIVITI_SECURITY_POLICIES_1_NAME
     #     value: "testgroup not restricted at all"
     #   - name: ACTIVITI_SECURITY_POLICIES_1_GROUPS
@@ -82,7 +82,7 @@ application:
     #   - name: ACTIVITI_SECURITY_POLICIES_0_SERVICENAME
     #     value: "rb-my-app"
     #   - name: ACTIVITI_SECURITY_POLICIES_0_KEYS
-    #     value: "SimpleProcess,ConnectorProcess,fixSystemFailure"
+    #     value: "SimpleProcess,ConnectorProcess,fixSystemFailure,twoTaskProcess"
     #   - name: ACTIVITI_SECURITY_POLICIES_1_NAME
     #     value: "testgroup not restricted at all"
     #   - name: ACTIVITI_SECURITY_POLICIES_1_GROUPS
