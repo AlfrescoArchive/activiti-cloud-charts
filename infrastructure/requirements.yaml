@@ -5,5 +5,5 @@ dependencies:
   condition: infrastructure.activiti-keycloak.enabled,activiti-keycloak.enabled
 - name: activiti-cloud-gateway
   repository: https://activiti.github.io/activiti-cloud-charts/
-  version: 0.3.0
+  version: 0.4.0
   condition: infrastructure.activiti-cloud-gateway.enabled,activiti-cloud-gateway.enabled
