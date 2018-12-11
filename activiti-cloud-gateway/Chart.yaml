@@ -2,4 +2,4 @@ apiVersion: v1
 description: A Helm chart for Kubernetes
 icon: https://raw.githubusercontent.com/jenkins-x/jenkins-x-platform/master/images/java.png
 name: activiti-cloud-gateway
-version: 0.4.0
+version: 0.5.0

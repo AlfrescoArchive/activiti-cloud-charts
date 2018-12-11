@@ -8,7 +8,7 @@ javaOpts:
   other: -XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap -Dsun.zip.disableMemoryMapping=true -XX:+UseParallelGC -XX:MinHeapFreeRatio=5 -XX:MaxHeapFreeRatio=10 -XX:GCTimeRatio=4 -XX:AdaptiveSizePolicyWeight=90
 image:
   repository: activiti/activiti-cloud-gateway
-  tag: 7.0.0.Beta3
+  tag: 7.0.0.Beta4
   pullPolicy: IfNotPresent
 service:
   name: activiti-cloud-gateway
