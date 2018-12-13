@@ -72,7 +72,10 @@
       "composite" : false,
       "clientRole" : false,
       "containerId" : "activiti"
-    } ],
+    } {{- range .Values.realm.extraRealmRoles -}}
+      ,
+    {{ . | toJson }}
+      {{- end }} ],
     "client" : {
       "realm-management" : [ {
         "id" : "ede6b429-a4be-4343-a418-ceab9d1387ab",
@@ -302,7 +305,10 @@
     "realmRoles" : [ ],
     "clientRoles" : { },
     "subGroups" : [ ]
-  } ],
+  } {{- range .Values.realm.extraGroups -}}
+  ,
+    {{ . | toJson }}
+    {{- end }}],
   "defaultRoles" : [ "uma_authorization", "offline_access" ],
   "requiredCredentials" : [ "password" ],
   "passwordPolicy" : "hashIterations(20000)",
@@ -561,7 +567,10 @@
     },
     "notBefore" : 0,
     "groups" : [ "/testgroup" ]
-  } ],
+  }{{- range .Values.realm.extraUsers -}}
+  ,
+    {{ . | toJson }}
+    {{- end }} ],
   "clientScopeMappings" : {
     "realm-management" : [ {
       "client" : "admin-cli",
@@ -692,8 +701,8 @@
     "enabled" : true,
     "clientAuthenticatorType" : "client-secret",
     "secret" : "**********",
-    "redirectUris" : [ "http://placeholder.com", "http://localhost:*", "http://activiti-cloud-demo-ui:*", "http://dummy.com" ],
-    "webOrigins" : [ "http://activiti-cloud-demo-ui:3000", "http://activiti-cloud-sso-idm-kub:30082", "http://activiti-cloud-demo-ui:30082", "http://localhost:3000" ],
+    "redirectUris" : {{ .Values.realm.activiti.redirectUris | toJson }},
+    "webOrigins" : {{ .Values.realm.activiti.webOrigins | toJson }},
     "notBefore" : 0,
     "bearerOnly" : false,
     "consentRequired" : false,
