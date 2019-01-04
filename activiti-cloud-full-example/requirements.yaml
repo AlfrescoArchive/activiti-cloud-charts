@@ -1,11 +1,11 @@
 dependencies:
 - name: infrastructure
   repository: https://activiti.github.io/activiti-cloud-charts/
-  version: 0.5.1
+  version: 0.6.0
 - name: application
   repository: https://activiti.github.io/activiti-cloud-charts/
-  version: 0.5.0
+  version: 0.6.0
 - name: activiti-cloud-modeling
   repository: https://activiti.github.io/activiti-cloud-charts/
-  version: 0.5.0
+  version: 0.6.0
   condition: activiti-cloud-modeling.enabled,modeling.enabled
