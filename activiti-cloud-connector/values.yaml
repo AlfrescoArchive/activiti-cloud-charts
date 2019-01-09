@@ -82,3 +82,14 @@ ingress:
     nginx.ingress.kubernetes.io/enable-cors: "true"
     nginx.ingress.kubernetes.io/cors-allow-headers: "X-Forwarded-For, X-Forwarded-Proto, X-Forwarded-Port, X-Forwarded-Prefix,DNT,X-CustomHeader,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Authorization,X-CSRF-Token,Access-Control-Request-Headers,Access-Control-Request-Method,accept,Keep-Alive"
     nginx.ingress.kubernetes.io/x-forwarded-prefix: "true"
+
+
+#only needed when using sck8s
+rbac:
+  create: true
+serviceAccount:
+  create: true
+
+#config for configmap if using sck8s
+#configMap:
+#  feed.rate: 1000
