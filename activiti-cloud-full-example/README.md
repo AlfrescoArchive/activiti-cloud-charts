@@ -61,9 +61,9 @@ You can install the nginx ingress controller with helm:
 
 **Only for AWS***
 
-Replace full url for keyclock: ```i.e http://activiti-keycloak.REPLACEME/auth``` with ```http://<DNS/auth```
+Replace full url for keyclock: ```i.e http://activiti-keycloak.REPLACEME/auth``` with ```http://<DNS>/auth```
 
-Replace full url for Ingress Host: ```activiti-keycloak.REPLACEME``` with ```http://<DNS```
+Replace full url for Ingress Host: ```activiti-keycloak.REPLACEME``` with ```http://<DNS>```
 
 Replace full url for activiti-cloud-gateway: ```activiti-cloud-gateway.REPLACEME``` with ```http://<DNS>```
       
