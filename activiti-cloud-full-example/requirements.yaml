@@ -4,7 +4,7 @@ dependencies:
   version: 0.6.0
 - name: application
   repository: https://activiti.github.io/activiti-cloud-charts/
-  version: 0.6.1
+  version: 0.6.2
 - name: activiti-cloud-modeling
   repository: https://activiti.github.io/activiti-cloud-charts/
   version: 0.6.0
