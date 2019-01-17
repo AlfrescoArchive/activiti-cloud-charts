@@ -93,3 +93,7 @@ serviceAccount:
 #config for configmap if using sck8s
 #configMap:
 #  feed.rate: 1000
+
+## Add additional volumes and mounts
+extraVolumes: |
+extraVolumeMounts: |
