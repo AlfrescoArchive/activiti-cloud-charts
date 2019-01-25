@@ -43,7 +43,7 @@ javaOpts:
   other: -XX:+UnlockExperimentalVMOptions -Dsun.zip.disableMemoryMapping=true -XX:+UseParallelGC -XX:MinHeapFreeRatio=5 -XX:MaxHeapFreeRatio=10 -XX:GCTimeRatio=4 -XX:AdaptiveSizePolicyWeight=90
 image:
   repository: activiti/example-runtime-bundle
-  tag: 7.0.0.Beta5
+  tag: 7.0.0.RC1
   pullPolicy: IfNotPresent
 service:
   name: rb-my-app
