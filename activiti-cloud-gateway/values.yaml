@@ -6,6 +6,8 @@ javaOpts:
   xmx: 512m
   xms: 512m
   other: -XX:+UnlockExperimentalVMOptions -Dsun.zip.disableMemoryMapping=true -XX:+UseParallelGC -XX:MinHeapFreeRatio=5 -XX:MaxHeapFreeRatio=10 -XX:GCTimeRatio=4 -XX:AdaptiveSizePolicyWeight=90
+# only set this variable if a private registry secret is needed to pull the image
+#registryPullSecrets: private-registry-secret
 image:
   repository: activiti/activiti-cloud-gateway
   tag: 7.0.0.RC1
