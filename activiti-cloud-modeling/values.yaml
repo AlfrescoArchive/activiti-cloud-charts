@@ -34,6 +34,8 @@ service:
     fabric8.io/expose: "false"
     fabric8.io/ingress.annotations: "kubernetes.io/ingress.class: nginx"
 
+# only set this variable if a private registry secret is needed to pull the image
+#registryPullSecrets: private-registry-secret
 
 frontend:
 #if behind gateway or ingress should be gw path
