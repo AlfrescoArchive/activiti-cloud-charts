@@ -35,6 +35,9 @@ spec:
           value: {{ .Values.global.keycloak.url }}
         - name: ACTIVITI_CLOUD_MODELING_URL
           value: "localhost:{{ .Values.service.backend.internalPort }}"
+{{- with .Values.backend.extraEnv }}
+{{ tpl . $ | indent 8 }}
+{{- end }}
         imagePullPolicy: {{ .Values.backend.image.pullPolicy }}
         ports:
         - containerPort: {{ .Values.service.backend.internalPort }}
@@ -63,6 +66,9 @@ spec:
 {{- end }}
         - name: API_PATH_PREFIX
           value: "{{ .Values.backend.prefix }}"
+{{- with .Values.frontend.extraEnv }}
+{{ tpl . $ | indent 8 }}
+{{- end }}
         imagePullPolicy: {{ .Values.frontend.image.pullPolicy }}
         ports:
         - containerPort: {{ .Values.service.frontend.internalPort }}
