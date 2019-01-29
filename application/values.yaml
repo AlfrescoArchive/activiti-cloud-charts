@@ -21,6 +21,10 @@ runtime-bundle:
 activiti-cloud-connector:
   enabled: false
 
+#enable postgres in query to use notifications
+activiti-cloud-notifications-graphql:
+  enabled: false
+
 rabbitmq:
   enabled: true
   service:

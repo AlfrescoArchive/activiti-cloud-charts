@@ -33,3 +33,7 @@ dependencies:
   repository: https://activiti.github.io/activiti-cloud-charts/
   version: 0.0.4
   condition: application.activiti-cloud-events-adapter.enabled,activiti-cloud-events-adapter.enabled
+- name: activiti-cloud-notifications-graphql
+  repository: https://activiti.github.io/activiti-cloud-charts/
+  version: 0.7.0
+  condition: application.activiti-cloud-notifications-graphql.enabled,activiti-cloud-notifications-graphql.enabled
