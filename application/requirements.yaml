@@ -7,6 +7,11 @@ dependencies:
   repository: https://activiti.github.io/activiti-cloud-charts/
   version: 0.7.0
   condition: application.activiti-cloud-audit.enabled,activiti-cloud-audit.enabled
+- alias: activiti-cloud-notifications 
+  name: activiti-cloud-notifications-graphql
+  repository: https://activiti.github.io/activiti-cloud-charts/
+  version: 0.7.0
+  condition: application.activiti-cloud-notifications.enabled,activiti-cloud-notifications.enabled
 - alias: rabbitmq
   name: rabbitmq-ha
   repository: https://kubernetes-charts.storage.googleapis.com

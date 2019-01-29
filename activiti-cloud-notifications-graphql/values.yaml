@@ -1,0 +1,98 @@
+# Default values for Maven projects.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+replicaCount: 1
+
+global:
+  rabbitmq:
+    host:
+      value: ""
+    username:
+      value: guest
+    password:
+      value: guest
+  keycloak:
+    url: "http://activiti-keycloak.192.168.99.100.nip.io"
+    name: keycloak
+    service:
+      type: http
+      port: 80
+  gateway:
+    host: "activiti-cloud-gateway.192.168.99.100.nip.io"
+    ingress:
+      tls: # true | false
+      tlsSecret: # custom secret name or auto-generated 'tls-.Release.Name-activiti-cloud-gateway' if tls true
+      # global annotations to be added to all service ingresses i.e.        
+      # certmanager.k8s.io/issuer: letsencrypt-prod
+      # kubernetes.io/tls-acme: "true"    
+      annotations: []
+
+db:
+  uri: ""
+  name: querypostgresql
+  pass: query
+  port: 5432
+  generateDdl: false
+  ddlAuto: none
+
+javaOpts:
+  xmx: 1536m
+  xms: 768m
+  other: -XX:+UnlockExperimentalVMOptions -Dsun.zip.disableMemoryMapping=true -XX:+UseParallelGC -XX:MinHeapFreeRatio=5 -XX:MaxHeapFreeRatio=10 -XX:GCTimeRatio=4 -XX:AdaptiveSizePolicyWeight=90
+
+## Allows the specification of additional environment variables
+extraEnv: |
+  # - name: ACT_KEYCLOAK_URL
+  #   valueFrom:
+  #     configMapKeyRef:
+  #       name: {{ .Release.Name }}-keycloak-http
+  #       key: expose-keycloak-service-key
+
+image:
+  repository: activiti/activiti-cloud-notifications-graphql
+  tag: 7.0.0.RC1 
+  pullPolicy: IfNotPresent
+  
+service:
+  name: activiti-cloud-notifications
+  type: ClusterIP
+  externalPort: 80
+  internalPort: 8080
+  annotations:
+    fabric8.io/expose: "false"
+    
+resources:
+  limits:
+    memory: 2048Mi
+  requests:
+    cpu: 1
+    memory: 1024Mi
+probePath: /actuator/health
+livenessProbe:
+  initialDelaySeconds: 140
+  periodSeconds: 15
+  successThreshold: 1
+  timeoutSeconds: 4
+readinessProbe:
+  periodSeconds: 15
+  successThreshold: 1
+  timeoutSeconds: 3
+terminationGracePeriodSeconds: 20
+
+ingress:
+  ## Set to true to enable ingress record generation
+  enabled: true
+  tls: # overrides .Values.global.gateway.tls  
+  tlsSecret: # overrides .Values.global.gateway.tlsSecret  
+  hostName: # overrides .Values.global.gateway.host
+  graphiql: 
+    enabled: true
+    path: /graphiql
+    annotations: [] # customize annotations
+  web:
+    path: /graphql
+  ws: 
+    path: /ws/graphql
+  annotations: [] # customize annotations
+
+    
