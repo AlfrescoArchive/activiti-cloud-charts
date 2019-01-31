@@ -81,6 +81,9 @@ backend:
   #     configMapKeyRef:
   #       name: {{ .Release.Name }}-keycloak-http
   #       key: expose-keycloak-service-key
+  ## Add additional volumes and mounts
+  extraVolumes: |
+  extraVolumeMounts: |
   image:
     repository: activiti/activiti-cloud-modeling
     tag: 7.0.0.RC1
