@@ -3,20 +3,21 @@ activiti-cloud-events-adapter:
 
 activiti-cloud-query:
   enabled: true
-  db:
-    name: querypostgresql
-    password: query
+  postgres:
+    enable: true
+
 activiti-cloud-audit:
   enabled: true
-
-querypostgresql:
-   postgresPassword: query
+  postgres:
+    enable: true
 
 activiti-cloud-demo-ui:
   enabled: false
 
 runtime-bundle:
-  enabled: false
+  enabled: true
+  postgres:
+    enable: true
 
 activiti-cloud-connector:
   enabled: false
@@ -24,6 +25,9 @@ activiti-cloud-connector:
 #enable postgres in query to use notifications
 activiti-cloud-notifications-graphql:
   enabled: false
+
+postgres:
+  enabled: true
 
 rabbitmq:
   enabled: true

@@ -20,14 +20,22 @@ global:
   ## Most likely this will be just one host, but in the event more hosts are needed, this is an array
   ingress:
     hostName: ""
-db:
-  uri: ""
-  name: activitipostgresql
-  deployPostgres: false
-  port: 5432
 
-activitipostgresql:
-   postgresPassword: activiti
+db:
+  uri:
+  username:
+  password:
+  driver:
+  platform:
+  generateDdl:
+  ddlAuto:
+
+postgres:
+  enable: false
+  name: postgres
+  port: 5432
+  username: postgres
+  password:
 
 ## Allows the specification of additional environment variables
 extraEnv: |

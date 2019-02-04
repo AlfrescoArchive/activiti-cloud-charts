@@ -28,12 +28,20 @@ global:
       annotations: []
 
 db:
-  uri: ""
-  name: querypostgresql
-  pass: query
+  uri:
+  username:
+  password:
+  driver:
+  platform:
+  generateDdl:
+  ddlAuto:
+
+postgres:
+  enable: false
+  name: postgres
   port: 5432
-  generateDdl: false
-  ddlAuto: none
+  username: postgres
+  password:
 
 javaOpts:
   xmx: 1536m
