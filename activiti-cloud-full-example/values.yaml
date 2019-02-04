@@ -12,6 +12,9 @@ global:
 activiti-cloud-modeling:
   enabled: false
 
+activiti-cloud-notifications-graphql:
+  enabled: true
+
 application:
   runtime-bundle:
     enabled: true
