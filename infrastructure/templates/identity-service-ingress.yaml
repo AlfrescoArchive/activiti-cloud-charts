@@ -1,0 +1,36 @@
+{{- if .Values.keycloak.enabled }}
+  {{- if .Values.ingress.enabled }}
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: {{ template "keycloak.fullname" . }}
+  labels:
+    app: {{ template "keycloak.name" . }}
+    chart: {{ template "keycloak.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+  annotations:
+    {{- include "common.ingress-annotations" . | indent 4 }}
+spec:
+  rules:
+    {{- if include "alfresco-identity-service.ingress-host" . }}
+    - host: {{ template "alfresco-identity-service.ingress-host" . }}
+      http:
+    {{- else }}
+    - http:
+    {{- end }}
+    paths:
+      - path: {{ template "alfresco-identity-service.ingress-path" . }}
+        backend:
+          serviceName: {{ template "activiti.keycloak.fullname" . }}-http
+          servicePort: http
+  {{- if include "common.ingress-tls" . }}
+  tls:
+    - secretName: {{ template "alfresco-identity-service.ingress-tlssecretname" . }}
+      {{- if include "alfresco-identity-service.ingress-host" . }}
+      hosts:
+        - {{ template "alfresco-identity-service.ingress-host" . }}
+      {{- end }}
+  {{- end }}
+  {{- end }}
+  {{- end }}
