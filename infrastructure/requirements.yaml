@@ -2,6 +2,7 @@ dependencies:
 - name: alfresco-identity-service
   repository: https://kubernetes-charts.alfresco.com/stable
   version: 1.1.0
+  condition: infrastructure.alfresco-identity-service.enabled,alfresco-identity-service.enabled
 - name: activiti-cloud-gateway
   repository: https://activiti.github.io/activiti-cloud-charts/
   version: 0.7.0

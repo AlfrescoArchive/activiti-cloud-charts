@@ -99,6 +99,7 @@ application:
 
 infrastructure:
   alfresco-identity-service:
+    enabled: true
     keycloak:
       keycloak:
         hosts: *keycloakhost
