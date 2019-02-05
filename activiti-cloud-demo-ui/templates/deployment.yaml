@@ -24,12 +24,12 @@ spec:
         env:
         - name: ACT_GATEWAY_URL
           value: "{{ .Values.gatewayUrl }}"
-        {{- if .Values.idmUrl }}
+        {{- if .Values.global.keycloak.url }}
         - name: ACT_IDM_URL
-          value: "{{ .Values.idmUrl }}"
+          value: "{{ .Values.global.keycloak.url }}"
         {{ end }}
         - name: ACT_IDM_CLIENT_ID
-          value: "{{ .Values.idmClientId }}"
+          value: "{{ .Values.global.keycloak.client }}"
 {{- with .Values.extraEnv }}
 {{ tpl . $ | indent 8 }}
 {{- end }}

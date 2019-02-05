@@ -17,6 +17,8 @@ global:
     service:
       type: http
       port: 80
+    realm: ""
+    resource: ""
   gateway:
     host: "activiti-cloud-gateway.192.168.99.100.nip.io"
     ingress:
