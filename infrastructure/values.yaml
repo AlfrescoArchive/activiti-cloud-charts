@@ -1,1 +1,134 @@
 #see charts in requirements
+alfresco-identity-service:
+  keycloak:
+    enabled: true
+    keycloak:
+      username: admin
+      password: admin
+      persistence:
+        deployPostgres: false
+        dbVendor: H2
+      ingress:
+        enabled: false
+        proxyBufferSize: "16k"
+  realm:
+    alfresco:
+      extraRealmRoles:
+       - name: "ACTIVITI_USER"
+       - name: "ACTIVITI_MODELER"
+       - name: "ACTIVITI_ADMIN"
+      extraGroups:
+        - name: "hr"
+        - name: "testgroup"
+      extraUsers:
+        - username: client
+          enabled: true
+          firstName: "client"
+          lastName: User
+          email: "client@test.com"
+          credentials:
+          - type: password
+            value: client
+          realmRoles:
+            - "offline_access"
+            - "uma_authorization"
+            - "ACTIVITI_USER"
+          clientRoles:
+            account:
+              - "manage-account"
+              - "view-profile"
+        - username: modeler
+          enabled: true
+          firstName: "modeler"
+          lastName: User
+          email: "modeler@test.com"
+          credentials:
+          - type: password
+            value: password
+          realmRoles:
+            - "offline_access"
+            - "uma_authorization"
+            - "ACTIVITI_MODELER"
+          clientRoles:
+            account:
+              - "manage-account"
+              - "view-profile"
+        - username: hruser
+          enabled: true
+          firstName: "hruser"
+          lastName: hruser
+          email: "hruser@test.com"
+          credentials:
+          - type: password
+            value: password
+          realmRoles:
+            - "offline_access"
+            - "uma_authorization"
+            - "ACTIVITI_USER"
+          clientRoles:
+            account:
+              - "manage-account"
+              - "view-profile"
+          groups:
+            - "hr"
+        - username: hradmin
+          enabled: true
+          firstName: "hradmin"
+          lastName: hradmin
+          email: "hradmin@test.com"
+          credentials:
+          - type: password
+            value: password
+          realmRoles:
+            - "offline_access"
+            - "uma_authorization"
+            - "ACTIVITI_USER"
+            - "ACTIVITI_ADMIN"
+          clientRoles:
+            account:
+              - "manage-account"
+              - "view-profile"
+          groups:
+            - "hr"
+        - username: testuser
+          enabled: true
+          firstName: "testuser"
+          lastName: testuser
+          email: "testuser@test.com"
+          credentials:
+          - type: password
+            value: password
+          realmRoles:
+            - "offline_access"
+            - "uma_authorization"
+            - "ACTIVITI_USER"
+          clientRoles:
+            account:
+              - "manage-account"
+              - "view-profile"
+          groups:
+            - "testgroup"
+        - username: testadmin
+          enabled: true
+          firstName: "testadmin"
+          lastName: testadmin
+          email: "testadmin@test.com"
+          credentials:
+          - type: password
+            value: password
+          realmRoles:
+            - "offline_access"
+            - "uma_authorization"
+            - "ACTIVITI_USER"
+            - "ACTIVITI_ADMIN"
+          clientRoles:
+            account:
+              - "manage-account"
+              - "view-profile"
+          groups:
+            - "testgroup"
+      client:
+        webOrigins:
+          - "*"
+        redirectUris:
+          - "*"
