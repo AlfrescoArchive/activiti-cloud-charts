@@ -20,6 +20,8 @@ spec:
       containers:
       - name: {{ .Chart.Name }}-backend
         image: "{{ .Values.backend.image.repository }}:{{ .Values.backend.image.tag }}"
+        resources:
+{{ toYaml .Values.backend.resources | indent 10 }}
         env:
         - name: JAVA_OPTS
           value: "-Xmx{{ .Values.backend.javaOpts.xmx }} -Xms{{ .Values.backend.javaOpts.xms }} {{ .Values.backend.javaOpts.other}}"
@@ -74,13 +76,16 @@ spec:
           periodSeconds: {{ .Values.frontend.livenessProbe.periodSeconds }}
           successThreshold: {{ .Values.frontend.livenessProbe.successThreshold }}
           timeoutSeconds: {{ .Values.frontend.livenessProbe.timeoutSeconds }}
+          failureThreshold: {{ .Values.frontend.livenessProbe.failureThreshold }}
         readinessProbe:
           httpGet:
             path: {{ .Values.frontend.probePath }}
             port: {{ .Values.service.frontend.internalPort }}
+          initialDelaySeconds: {{ .Values.frontend.readinessProbe.initialDelaySeconds }}
           periodSeconds: {{ .Values.frontend.readinessProbe.periodSeconds }}
           successThreshold: {{ .Values.frontend.readinessProbe.successThreshold }}
           timeoutSeconds: {{ .Values.frontend.readinessProbe.timeoutSeconds }}
+          failureThreshold: {{ .Values.frontend.readinessProbe.failureThreshold }}
         resources:
 {{ toYaml .Values.frontend.resources | indent 12 }}
       terminationGracePeriodSeconds: {{ .Values.terminationGracePeriodSeconds }}

@@ -44,7 +44,8 @@ frontend:
     pullPolicy: Always
   resources:
     limits:
-      memory: 384Mi
+      cpu: 500m
+      memory: 1024Mi
     requests:
       cpu: 200m
       memory: 256Mi
@@ -54,17 +55,19 @@ frontend:
     periodSeconds: 15
     successThreshold: 1
     timeoutSeconds: 4
+    failureThreshold: 10
   readinessProbe:
     periodSeconds: 15
     successThreshold: 1
     timeoutSeconds: 3
+    failureThreshold: 10
 
 backend:
   # if not using gateway then external host and http method to reach backend here
   url: ""
   prefix: "activiti-cloud-modeling-backend"
   javaOpts:
-    xmx: 512m
+    xmx: 1024m
     xms: 512m
     other: -XX:+UnlockExperimentalVMOptions -Dsun.zip.disableMemoryMapping=true -XX:+UseParallelGC -XX:MinHeapFreeRatio=5 -XX:MaxHeapFreeRatio=10 -XX:GCTimeRatio=4 -XX:AdaptiveSizePolicyWeight=90
   image:
@@ -73,7 +76,7 @@ backend:
     pullPolicy: Always
   resources:
     limits:
-      memory: 768Mi
+      memory: 1024Mi
     requests:
       cpu: 400m
       memory: 512Mi
@@ -83,11 +86,13 @@ backend:
     periodSeconds: 15
     successThreshold: 1
     timeoutSeconds: 4
+    failureThreshold: 10
   readinessProbe:
+    initialDelaySeconds: 30
     periodSeconds: 15
     successThreshold: 1
     timeoutSeconds: 3
-
+    failureThreshold: 10
 terminationGracePeriodSeconds: 20
 
 ingress:
