@@ -38,8 +38,8 @@ extraEnv: |
   #       key: expose-keycloak-service-key
 
 javaOpts:
-  xmx: 768m
-  xms: 512m
+  xmx: 2048m
+  xms: 768m
   other: -XX:+UnlockExperimentalVMOptions -Dsun.zip.disableMemoryMapping=true -XX:+UseParallelGC -XX:MinHeapFreeRatio=5 -XX:MaxHeapFreeRatio=10 -XX:GCTimeRatio=4 -XX:AdaptiveSizePolicyWeight=90
 image:
   repository: activiti/example-runtime-bundle
@@ -54,20 +54,23 @@ service:
     fabric8.io/expose: "false"
 resources:
   limits:
-    memory: 768Mi
+    memory: 2048Mi
   requests:
-    cpu: 400m
+    cpu: 800m
     memory: 768Mi
 probePath: /actuator/health
 livenessProbe:
   initialDelaySeconds: 140
   periodSeconds: 15
+  timeoutSeconds: 20
   successThreshold: 1
-  timeoutSeconds: 4
+  failureThreshold: 40
 readinessProbe:
+  initialDelaySeconds: 30
   periodSeconds: 15
+  timeoutSeconds: 10
   successThreshold: 1
-  timeoutSeconds: 3
+  failureThreshold: 20
 terminationGracePeriodSeconds: 20
 
 
