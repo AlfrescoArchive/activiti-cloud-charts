@@ -3,9 +3,9 @@
 # Declare variables to be passed into your templates.
 replicaCount: 1
 javaOpts:
-  xmx: 512m
+  xmx: 1024m
   xms: 512m
-  other: -XX:+UnlockExperimentalVMOptions -Dsun.zip.disableMemoryMapping=true -XX:+UseParallelGC -XX:MinHeapFreeRatio=5 -XX:MaxHeapFreeRatio=10 -XX:GCTimeRatio=4 -XX:AdaptiveSizePolicyWeight=90
+  other: -XX:+UnlockExperimentalVMOptions  -Dsun.zip.disableMemoryMapping=true -XX:+UseParallelGC -XX:MinHeapFreeRatio=5 -XX:MaxHeapFreeRatio=10 -XX:GCTimeRatio=4 -XX:AdaptiveSizePolicyWeight=90
 image:
   repository: activiti/activiti-cloud-gateway
   tag: 7.0.0.RC1
@@ -25,20 +25,24 @@ service:
       nginx.ingress.kubernetes.io/x-forwarded-prefix: true
 resources:
   limits:
-    memory: 768Mi
+    cpu: 1
+    memory: 1024Mi
   requests:
-    cpu: 400m
+    cpu: 500m
     memory: 512Mi
 probePath: /actuator/health
 livenessProbe:
-  initialDelaySeconds: 40
-  periodSeconds: 10
+  initialDelaySeconds: 140
+  periodSeconds: 15
+  timeoutSeconds: 20
   successThreshold: 1
-  timeoutSeconds: 1
+  failureThreshold: 40
 readinessProbe:
-  periodSeconds: 10
+  initialDelaySeconds: 20
+  periodSeconds: 15
+  timeoutSeconds: 10
   successThreshold: 1
-  timeoutSeconds: 1
+  failureThreshold: 40
 terminationGracePeriodSeconds: 10
 
 ## Allows the specification of additional environment variables
