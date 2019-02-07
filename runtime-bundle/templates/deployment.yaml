@@ -21,6 +21,10 @@ spec:
 {{ toYaml .Values.podAnnotations | indent 8 }}
 {{- end }}
     spec:
+{{- if .Values.registryPullSecrets }}
+      imagePullSecrets:
+      - name: {{ .Values.registryPullSecrets }}
+{{- end }}
       containers:
       - name: {{ .Chart.Name }}
         image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"

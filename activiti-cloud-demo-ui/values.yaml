@@ -9,6 +9,9 @@ global:
     realm: ""
     client: ""
 
+# only set this variable if a private registry secret is needed to pull the image
+#registryPullSecrets: private-registry-secret
+
 image:
   repository: activiti/activiti-cloud-demo-ui
   tag: latest
