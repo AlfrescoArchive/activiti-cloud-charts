@@ -12,6 +12,11 @@ dependencies:
   repository: https://kubernetes-charts.storage.googleapis.com
   version: 1.6.2
   condition: application.rabbitmq.enabled,rabbitmq.enabled
+- alias: postgres
+  name: postgresql
+  repository: https://kubernetes-charts.storage.googleapis.com
+  version: 0.11.0
+  condition: application.postgres.enabled,postgres.enabled
 - name: activiti-cloud-demo-ui
   repository: https://activiti.github.io/activiti-cloud-charts/
   version: 0.1.4
