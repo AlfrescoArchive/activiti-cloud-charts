@@ -44,6 +44,14 @@ spec:
         - name: ACT_KEYCLOAK_URL
           value: "{{ .Values.global.keycloak.url }}"
         {{ end }}
+        {{- if .Values.global.keycloak.realm }}
+        - name: ACT_KEYCLOAK_REALM
+          value: "{{ .Values.global.keycloak.realm }}"
+        {{ end }}
+        {{- if .Values.global.keycloak.resource }}
+        - name: ACT_KEYCLOAK_RESOURCE
+          value: "{{ .Values.global.keycloak.resource }}"
+        {{ end }}
 {{- if .Values.db.deployPostgres }}
         - name: SPRING_DATASOURCE_URL
   {{- if .Values.db.uri }}

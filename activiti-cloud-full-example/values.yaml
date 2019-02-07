@@ -6,6 +6,9 @@
 global:
   keycloak:
     url: "http://activiti-keycloak.REPLACEME/auth"
+    realm: "activiti"
+    resource: "activiti"
+    client: "activiti"
   gateway:
     host: &gatewayhost "activiti-cloud-gateway.REPLACEME"
 
