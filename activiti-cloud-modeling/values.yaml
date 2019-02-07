@@ -38,6 +38,13 @@ service:
 frontend:
 #if behind gateway or ingress should be gw path
   basepath: "activiti-cloud-modeling"
+  ## Allows the specification of additional environment variables
+  extraEnv: |
+  # - name: ACT_KEYCLOAK_URL
+  #   valueFrom:
+  #     configMapKeyRef:
+  #       name: {{ .Release.Name }}-keycloak-http
+  #       key: expose-keycloak-service-key
   image:
     repository: activiti/activiti-modeling-app
     tag: 7.0.0.RC1
@@ -70,6 +77,16 @@ backend:
     xmx: 1024m
     xms: 512m
     other: -XX:+UnlockExperimentalVMOptions -Dsun.zip.disableMemoryMapping=true -XX:+UseParallelGC -XX:MinHeapFreeRatio=5 -XX:MaxHeapFreeRatio=10 -XX:GCTimeRatio=4 -XX:AdaptiveSizePolicyWeight=90
+  ## Allows the specification of additional environment variables
+  extraEnv: |
+  # - name: ACT_KEYCLOAK_URL
+  #   valueFrom:
+  #     configMapKeyRef:
+  #       name: {{ .Release.Name }}-keycloak-http
+  #       key: expose-keycloak-service-key
+  ## Add additional volumes and mounts
+  extraVolumes: |
+  extraVolumeMounts: |
   image:
     repository: activiti/activiti-cloud-modeling
     tag: 7.0.0.RC1

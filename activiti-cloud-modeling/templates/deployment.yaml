@@ -37,9 +37,33 @@ spec:
           value: {{ .Values.global.keycloak.url }}
         - name: ACTIVITI_CLOUD_MODELING_URL
           value: "localhost:{{ .Values.service.backend.internalPort }}"
+{{- with .Values.backend.extraEnv }}
+{{ tpl . $ | indent 8 }}
+{{- end }}
         imagePullPolicy: {{ .Values.backend.image.pullPolicy }}
         ports:
         - containerPort: {{ .Values.service.backend.internalPort }}
+        livenessProbe:
+          httpGet:
+            path: {{ .Values.backend.probePath }}
+            port: {{ .Values.service.backend.internalPort }}
+          initialDelaySeconds: {{ .Values.backend.livenessProbe.initialDelaySeconds }}
+          periodSeconds: {{ .Values.backend.livenessProbe.periodSeconds }}
+          successThreshold: {{ .Values.backend.livenessProbe.successThreshold }}
+          timeoutSeconds: {{ .Values.backend.livenessProbe.timeoutSeconds }}
+        readinessProbe:
+          httpGet:
+            path: {{ .Values.backend.probePath }}
+            port: {{ .Values.service.backend.internalPort }}
+          periodSeconds: {{ .Values.backend.readinessProbe.periodSeconds }}
+          successThreshold: {{ .Values.backend.readinessProbe.successThreshold }}
+          timeoutSeconds: {{ .Values.backend.readinessProbe.timeoutSeconds }}
+{{- if .Values.extraVolumeMounts }}
+        volumeMounts:
+{{- with .Values.extraVolumeMounts }}
+{{ tpl . $ | indent 10 }}
+{{- end }}
+{{- end }}
       - name: {{ .Chart.Name }}
         image: "{{ .Values.frontend.image.repository }}:{{ .Values.frontend.image.tag }}"
         env:
@@ -65,6 +89,9 @@ spec:
 {{- end }}
         - name: API_PATH_PREFIX
           value: "{{ .Values.backend.prefix }}"
+{{- with .Values.frontend.extraEnv }}
+{{ tpl . $ | indent 8 }}
+{{- end }}
         imagePullPolicy: {{ .Values.frontend.image.pullPolicy }}
         ports:
         - containerPort: {{ .Values.service.frontend.internalPort }}
@@ -89,3 +116,9 @@ spec:
         resources:
 {{ toYaml .Values.frontend.resources | indent 12 }}
       terminationGracePeriodSeconds: {{ .Values.terminationGracePeriodSeconds }}
+{{- if .Values.extraVolumeMounts }}
+      volumes:
+{{- with .Values.extraVolumes }}
+{{ tpl . $ | indent 8 }}
+{{- end }}
+{{- end }}
