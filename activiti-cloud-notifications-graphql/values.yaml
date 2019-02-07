@@ -36,8 +36,8 @@ db:
   ddlAuto: none
 
 javaOpts:
-  xmx: 1536m
-  xms: 768m
+  xmx: 2048m
+  xms: 1024m
   other: -XX:+UnlockExperimentalVMOptions -Dsun.zip.disableMemoryMapping=true -XX:+UseParallelGC -XX:MinHeapFreeRatio=5 -XX:MaxHeapFreeRatio=10 -XX:GCTimeRatio=4 -XX:AdaptiveSizePolicyWeight=90
 
 ## Allows the specification of additional environment variables
@@ -71,12 +71,15 @@ probePath: /actuator/health
 livenessProbe:
   initialDelaySeconds: 140
   periodSeconds: 15
+  timeoutSeconds: 20
   successThreshold: 1
-  timeoutSeconds: 4
+  failureThreshold: 40
 readinessProbe:
+  initialDelaySeconds: 20
   periodSeconds: 15
+  timeoutSeconds: 10
   successThreshold: 1
-  timeoutSeconds: 3
+  failureThreshold: 40
 terminationGracePeriodSeconds: 20
 
 ingress:
