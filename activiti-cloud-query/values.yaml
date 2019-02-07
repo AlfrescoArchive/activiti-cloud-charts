@@ -28,8 +28,8 @@ db:
   ddlAuto: update
 
 javaOpts:
-  xmx: 768m
-  xms: 512m
+  xmx: 2048m
+  xms: 1024m
   other: -XX:+UnlockExperimentalVMOptions -Dsun.zip.disableMemoryMapping=true -XX:+UseParallelGC -XX:MinHeapFreeRatio=5 -XX:MaxHeapFreeRatio=10 -XX:GCTimeRatio=4 -XX:AdaptiveSizePolicyWeight=90
 
 querypostgresql:
@@ -57,20 +57,24 @@ service:
     fabric8.io/ingress.annotations: "kubernetes.io/ingress.class: nginx"
 resources:
   limits:
-    memory: 1280Mi
+    cpu: 1
+    memory: 2048Mi
   requests:
-    cpu: 500m
-    memory: 768Mi
+    cpu: 800m
+    memory: 1024Mi
 probePath: /actuator/health
 livenessProbe:
   initialDelaySeconds: 140
   periodSeconds: 15
+  timeoutSeconds: 20
   successThreshold: 1
-  timeoutSeconds: 4
+  failureThreshold: 40
 readinessProbe:
-  periodSeconds: 15
+  initialDelaySeconds: 20
+  periodSeconds: 10
+  timeoutSeconds: 10
   successThreshold: 1
-  timeoutSeconds: 3
+  failureThreshold: 40
 terminationGracePeriodSeconds: 20
 
 ingress:
