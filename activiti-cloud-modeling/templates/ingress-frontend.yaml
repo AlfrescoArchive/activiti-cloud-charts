@@ -9,14 +9,10 @@ metadata:
     release: {{ .Release.Name }}
     heritage: {{ .Release.Service }}
   annotations:
-{{- if .Values.ingress.ws.enabled }}
-  {{- if .Values.service.name }}
-    nginx.org/websocket-services: {{ .Values.service.name }}
-  {{- else }}
-    nginx.org/websocket-services: {{ template "fullname" . }}
-  {{- end }}
-{{- end}}
     {{- range $key, $value := .Values.ingress.annotations }}
+    {{ $key }}: {{ $value | quote }}
+    {{- end }}
+    {{- range $key, $value := .Values.ingress.frontend.annotations }}
     {{ $key }}: {{ $value | quote }}
     {{- end }}
 spec:
@@ -28,14 +24,14 @@ spec:
     - http:
     {{- end }}
         paths:
-          - path: {{ .Values.ingress.path }}
+          - path: {{ .Values.ingress.frontend.path }}
             backend:
 {{- if .Values.service.name }}
               serviceName: {{ .Values.service.name }}
 {{- else }}
               serviceName: {{ template "fullname" . }}
 {{- end }}
-              servicePort: {{ .Values.service.externalPort }}
+              servicePort: {{ .Values.service.frontend.externalPort }}
 {{- if .Values.ingress.tls }}
   tls:
     - secretName: {{  .Values.ingress.tlsSecret }}
