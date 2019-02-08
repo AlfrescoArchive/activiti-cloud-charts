@@ -32,7 +32,7 @@ resources:
     cpu: 400m
     memory: 256Mi
   requests:
-    cpu: 200m
+    cpu: 150m
     memory: 128Mi
 probePath: /
 livenessProbe:

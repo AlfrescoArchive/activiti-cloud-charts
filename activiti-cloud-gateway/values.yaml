@@ -4,7 +4,7 @@
 replicaCount: 1
 javaOpts:
   xmx: 1024m
-  xms: 512m
+  xms: 256m
   other: -XX:+UnlockExperimentalVMOptions  -Dsun.zip.disableMemoryMapping=true -XX:+UseParallelGC -XX:MinHeapFreeRatio=5 -XX:MaxHeapFreeRatio=10 -XX:GCTimeRatio=4 -XX:AdaptiveSizePolicyWeight=90
 # only set this variable if a private registry secret is needed to pull the image
 #registryPullSecrets: private-registry-secret
@@ -30,8 +30,8 @@ resources:
     cpu: 1
     memory: 1024Mi
   requests:
-    cpu: 500m
-    memory: 512Mi
+    cpu: 150m
+    memory: 256Mi
 probePath: /actuator/health
 livenessProbe:
   initialDelaySeconds: 140

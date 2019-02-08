@@ -66,10 +66,15 @@ frontend:
     timeoutSeconds: 4
     failureThreshold: 10
   readinessProbe:
+    initialDelaySeconds: 30
     periodSeconds: 15
     successThreshold: 1
     timeoutSeconds: 3
     failureThreshold: 10
+
+## Add additional volumes and mounts
+extraVolumes: |
+extraVolumeMounts: |
 
 backend:
   # if not using gateway then external host and http method to reach backend here
@@ -86,9 +91,6 @@ backend:
   #     configMapKeyRef:
   #       name: {{ .Release.Name }}-keycloak-http
   #       key: expose-keycloak-service-key
-  ## Add additional volumes and mounts
-  extraVolumes: |
-  extraVolumeMounts: |
   image:
     repository: activiti/activiti-cloud-modeling
     tag: 7.0.0.RC1

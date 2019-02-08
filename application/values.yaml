@@ -22,9 +22,8 @@ runtime-bundle:
 activiti-cloud-connector:
   enabled: false
 
-#enable postgres in query to use notifications
 activiti-cloud-notifications-graphql:
-  enabled: false
+  enabled: true
 
 postgres:
   enabled: true
@@ -43,8 +42,8 @@ rabbitmq:
     cpu: 1
     memory: 2Gi
    requests:
-    cpu: 700m
-    memory: 1Gi
+    cpu: 300m
+    memory: 512Mi
   rbac:
     create: true
   replicaCount: 1

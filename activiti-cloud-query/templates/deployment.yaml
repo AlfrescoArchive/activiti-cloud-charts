@@ -65,7 +65,8 @@ spec:
           {{ if .Values.postgres.uri }}
           value: {{ .Values.postgres.uri | quote }}
           {{ else }}
-          value: "jdbc:postgresql://{{ .Release.Name }}-{{ .Values.postgres.name }}:{{ .Values.postgres.port }}/postgres" {{ end }}
+          value: "jdbc:postgresql://{{ .Release.Name }}-{{ .Values.postgres.name }}:{{ .Values.postgres.port }}/postgres"
+          {{ end }}
         - name: SPRING_DATASOURCE_DRIVER_CLASS_NAME
           value: {{ default "org.postgresql.Driver" .Values.postgres.driver | quote }}
         - name: SPRING_DATASOURCE_USERNAME

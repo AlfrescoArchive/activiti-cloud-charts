@@ -124,7 +124,7 @@ spec:
         resources:
 {{ toYaml .Values.frontend.resources | indent 12 }}
       terminationGracePeriodSeconds: {{ .Values.terminationGracePeriodSeconds }}
-{{- if .Values.extraVolumeMounts }}
+{{- if .Values.extraVolumes }}
       volumes:
 {{- with .Values.extraVolumes }}
 {{ tpl . $ | indent 8 }}
