@@ -2,7 +2,7 @@
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
-  name: {{ template "fullname" . }}
+  name: {{ template "fullname" . }}-backend
   labels:
     app: {{ template "fullname" . }}
     chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
@@ -10,6 +10,9 @@ metadata:
     heritage: {{ .Release.Service }}
   annotations:
     {{- range $key, $value := .Values.ingress.annotations }}
+    {{ $key }}: {{ $value | quote }}
+    {{- end }}
+    {{- range $key, $value := .Values.ingress.backend.annotations }}
     {{ $key }}: {{ $value | quote }}
     {{- end }}
 spec:
@@ -21,14 +24,6 @@ spec:
     - http:
     {{- end }}
         paths:
-          - path: {{ .Values.ingress.frontend.path }}
-            backend:
-{{- if .Values.service.name }}
-              serviceName: {{ .Values.service.name }}
-{{- else }}
-              serviceName: {{ template "fullname" . }}
-{{- end }}
-              servicePort: {{ .Values.service.frontend.externalPort }}
           - path: {{ .Values.ingress.backend.path }}
             backend:
 {{- if .Values.service.name }}

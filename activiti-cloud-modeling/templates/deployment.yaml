@@ -59,13 +59,16 @@ spec:
           periodSeconds: {{ .Values.backend.livenessProbe.periodSeconds }}
           successThreshold: {{ .Values.backend.livenessProbe.successThreshold }}
           timeoutSeconds: {{ .Values.backend.livenessProbe.timeoutSeconds }}
+          failureThreshold: {{ .Values.backend.livenessProbe.failureThreshold }}
         readinessProbe:
           httpGet:
             path: {{ .Values.backend.probePath }}
             port: {{ .Values.service.backend.internalPort }}
+          initialDelaySeconds: {{ .Values.backend.readinessProbe.initialDelaySeconds }}
           periodSeconds: {{ .Values.backend.readinessProbe.periodSeconds }}
           successThreshold: {{ .Values.backend.readinessProbe.successThreshold }}
           timeoutSeconds: {{ .Values.backend.readinessProbe.timeoutSeconds }}
+          failureThreshold: {{ .Values.backend.readinessProbe.failureThreshold }}
 {{- if .Values.extraVolumeMounts }}
         volumeMounts:
 {{- with .Values.extraVolumeMounts }}
