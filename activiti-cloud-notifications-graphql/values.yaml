@@ -58,6 +58,8 @@ extraEnv: |
   #       name: {{ .Release.Name }}-keycloak-http
   #       key: expose-keycloak-service-key
 
+# only set this variable if a private registry secret is needed to pull the image
+#registryPullSecrets: private-registry-secret
 image:
   repository: activiti/activiti-cloud-notifications-graphql
   tag: 7.0.0.RC1 
