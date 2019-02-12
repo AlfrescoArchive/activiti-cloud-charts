@@ -10,6 +10,7 @@ activiti-cloud-audit:
   enabled: true
   postgres:
     enable: true
+    password:
 
 activiti-cloud-demo-ui:
   enabled: false
