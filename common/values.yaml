@@ -1,0 +1,26 @@
+# common values shared between all charts
+
+global:
+  gateway:
+    host: ""
+    ## Set to false to enable tls for ingresses
+    http: true 
+  keycloak:
+    enabled: true
+    # Overrides gateway host configuration
+    url: "" 
+    path: "/auth"
+
+ingress:
+  ## Set this to true in order to enable TLS on the ingress record
+  tls: false
+
+  path: /
+
+  ## If TLS is set to true, you must declare what secret will store the key/certificate for TLS
+  tlsSecret: 
+
+  ## If set, overrides .Values.global.gateway.host
+  hostName: 
+ 
+  annotations: {} 
