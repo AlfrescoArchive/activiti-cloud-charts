@@ -9,16 +9,14 @@ metadata:
     release: {{ .Release.Name }}
     heritage: {{ .Release.Service }}
   annotations:
-    {{- range $key, $value := .Values.ingress.annotations }}
-    {{ $key }}: {{ $value | quote }}
-    {{- end }}
+    {{- include "common.ingress-annotations" . | indent 4 }} 
     {{- range $key, $value := .Values.ingress.frontend.annotations }}
     {{ $key }}: {{ $value | quote }}
     {{- end }}
 spec:
   rules:
-    {{- if .Values.ingress.hostName }}
-    - host: {{ .Values.ingress.hostName }}
+    {{- if include "common.ingress-host" $ }}
+    - host: {{ include "common.ingress-host" $ }}
       http:
     {{- else }}
     - http:
@@ -26,18 +24,18 @@ spec:
         paths:
           - path: {{ .Values.ingress.frontend.path }}
             backend:
-{{- if .Values.service.name }}
+            {{- if .Values.service.name }}
               serviceName: {{ .Values.service.name }}
-{{- else }}
+            {{- else }}
               serviceName: {{ template "fullname" . }}
-{{- end }}
+            {{- end }}
               servicePort: {{ .Values.service.frontend.externalPort }}
-{{- if .Values.ingress.tls }}
+  {{- if include "common.ingress-tls" $ }}
   tls:
-    - secretName: {{  .Values.ingress.tlsSecret }}
-      {{- if .Values.ingress.hostName }}
+    - secretName: {{  include "common.ingress-tlssecretname" $ }}
+    {{- if include "common.ingress-host" $ }}
       hosts:
-        - {{ .Values.ingress.hostName }}
+        - {{ include "common.ingress-host" $ }}
       {{- end }}
-{{- end }}
+  {{- end }}
 {{- end }}

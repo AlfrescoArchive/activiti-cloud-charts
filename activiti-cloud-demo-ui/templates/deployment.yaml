@@ -31,11 +31,11 @@ spec:
         imagePullPolicy: {{ .Values.image.pullPolicy }}
         env:
         - name: ACT_GATEWAY_URL
-          value: "{{ .Values.gatewayUrl }}"
-        {{- if .Values.global.keycloak.url }}
+          value: {{ include "common.gateway-url" $ | quote }}
+        {{- if include "common.keycloak-enabled" $ }}
         - name: ACT_IDM_URL
-          value: "{{ .Values.global.keycloak.url }}"
-        {{ end }}
+          value: {{ include "common.keycloak-url" $ | quote }}
+        {{- end }}
         - name: ACT_IDM_CLIENT_ID
           value: "{{ .Values.global.keycloak.client }}"
 {{- with .Values.extraEnv }}

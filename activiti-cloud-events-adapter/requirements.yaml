@@ -1,4 +1,4 @@
 dependencies:
-  - name: activemq
-    version: ^1.0.0
-    repository: https://kubernetes-charts.alfresco.com/stable
+- name: activemq
+  version: ^1.0.0
+  repository: https://kubernetes-charts.alfresco.com/stable

@@ -2,18 +2,35 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
+## i.e Jx environment
+# expose: 
+#   config:
+#     domain: &domain "1.2.3.4.nip.io"
+#     http: &http true
 
 global:
   keycloak:
-    url: "http://activiti-keycloak.REPLACEME/auth"
+    ## Set full url to configure external Keycloak, https://my.keycloak.com/auth
+    # if not set, keycloak deployment is automatically exposed on gatetway host, i.e. http://activiti-cloud-gateway.REPLACEME/auth
+    url: ""
     realm: "activiti"
     resource: "activiti"
     client: "activiti"
   gateway:
-    host: &gatewayhost "activiti-cloud-gateway.REPLACEME"
+    ## Set to configure single domain name for all services, i.e. 
+    # helm install --name activiti . --dry-run --debug --set "global.gateway.host=activiti-cloud-gateway.jx-staging.1.2.3.4.nip.io"
+    host: "activiti-cloud-gateway.REPLACEME"
+
+    ## Configure global annotations for all service ingresses, i.e. certmanager.k8s.io/issuer: letsencrypt-prod
+    annotations: {}
+
+    ## Or simply enable templated domain host coniguration in Jx environment
+    # host: "activiti-cloud-gateway.{{ .Release.Namespace }}.{{ .Values.global.gateway.domain }}"
+    # domain: *domain ## Sync with Jx expose controller domain conig 
+    # http: *http ## Sync with Jx expose controller http conig
 
 activiti-cloud-modeling:
-  enabled: false
+  enabled: true
 
 application:
   runtime-bundle:
@@ -72,6 +89,11 @@ application:
     image:
       pullPolicy: Always
 
+  activiti-cloud-notifications-graphql:
+    enabled: true
+    image:
+      pullPolicy: Always
+
   activiti-cloud-audit:
     image:
       pullPolicy: Always
@@ -99,24 +121,12 @@ application:
 
 infrastructure:
   activiti-keycloak:
+    enabled: true
+    ingress:
+      enabled: true
     keycloak:
       enabled: true
       keycloak:
-        ingress:
-          enabled: true
-          path: /
-          proxyBufferSize: "16k"
-          hosts:
-            - "activiti-keycloak.REPLACEME"
-          annotations:
-            kubernetes.io/ingress.class: nginx
-            nginx.ingress.kubernetes.io/rewrite-target: /
-            nginx.ingress.kubernetes.io/configuration-snippet: |
-              more_set_headers 'Access-Control-Allow-Methods: "POST, GET, OPTIONS, PUT, PATCH, DELETE"';
-              more_set_headers 'Access-Control-Allow-Credentials: true';
-              more_set_headers 'Access-Control-Allow-Headers: "DNT,X-CustomHeader,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Authorization,authorization"';
-              more_set_headers 'Access-Control-Allow-Origin: $http_origin';
-            nginx.ingress.kubernetes.io/proxy-buffer-size: "16k"
         preStartScript: |
           /opt/jboss/keycloak/bin/add-user.sh -u admin -p admin
           /opt/jboss/keycloak/bin/add-user-keycloak.sh -r master -u admin -p admin
@@ -126,10 +136,8 @@ infrastructure:
   activiti-cloud-gateway:
     ingress:
       enabled: true
-      hostName: *gatewayhost
       annotations:
         kubernetes.io/ingress.class: nginx
-        nginx.ingress.kubernetes.io/rewrite-target: /
-        nginx.ingress.kubernetes.io/enable-cors: true
+        nginx.ingress.kubernetes.io/enable-cors: "true"
         nginx.ingress.kubernetes.io/cors-allow-headers: "*"
-        nginx.ingress.kubernetes.io/x-forwarded-prefix: true
+        nginx.ingress.kubernetes.io/x-forwarded-prefix: "true"

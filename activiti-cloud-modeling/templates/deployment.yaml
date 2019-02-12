@@ -42,7 +42,7 @@ spec:
         - name: SERVER_PORT
           value: "{{ .Values.service.backend.internalPort }}"
         - name: ACT_KEYCLOAK_URL
-          value: {{ .Values.global.keycloak.url }}
+          value: {{ include "common.keycloak-url" $ | quote }}
         - name: ACTIVITI_CLOUD_MODELING_URL
           value: "localhost:{{ .Values.service.backend.internalPort }}"
 {{- with .Values.backend.extraEnv }}
@@ -79,14 +79,14 @@ spec:
         image: "{{ .Values.frontend.image.repository }}:{{ .Values.frontend.image.tag }}"
         env:
         - name: APP_CONFIG_OAUTH2_HOST
-          value: "{{ .Values.global.keycloak.url }}/realms/{{ .Values.global.keycloak.realm }}"
+          value: {{ include "common.keycloak-url" $ }}/realms/{{ .Values.global.keycloak.realm }}
         - name: APP_CONFIG_OAUTH2_CLIENTID
           value: {{ .Values.global.keycloak.client }}
         - name: API_URL
 {{- if .Values.backend.url }}
           value: {{ .Values.backend.url }}
 {{- else }}
-          value: "http://{{ .Values.global.gateway.host }}"
+          value: {{ include "common.gateway-url" $ | quote }}
 {{- end }}
 {{- if .Values.frontend.basepath }}
         - name: BASE_PATH

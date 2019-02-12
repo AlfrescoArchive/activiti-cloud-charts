@@ -1,10 +1,12 @@
 dependencies:
 - name: activiti-cloud-query
-  repository: https://activiti.github.io/activiti-cloud-charts/
+  # repository: https://activiti.github.io/activiti-cloud-charts/
+  repository: file://../activiti-cloud-query
   version: 1.0.0
   condition: application.activiti-cloud-query.enabled,activiti-cloud-query.enabled
 - name: activiti-cloud-audit
-  repository: https://activiti.github.io/activiti-cloud-charts/
+  # repository: https://activiti.github.io/activiti-cloud-charts/
+  repository: file://../activiti-cloud-audit
   version: 1.0.0
   condition: application.activiti-cloud-audit.enabled,activiti-cloud-audit.enabled
 - alias: rabbitmq
@@ -18,22 +20,30 @@ dependencies:
   version: 0.11.0
   condition: application.postgres.enabled,postgres.enabled
 - name: activiti-cloud-demo-ui
-  repository: https://activiti.github.io/activiti-cloud-charts/
+  # repository: https://activiti.github.io/activiti-cloud-charts/
+  repository: file://../activiti-cloud-demo-ui
   version: 0.1.4
   condition: application.activiti-cloud-demo-ui.enabled,activiti-cloud-demo-ui.enabled
 - name: runtime-bundle
-  repository: https://activiti.github.io/activiti-cloud-charts/
+  # repository: https://activiti.github.io/activiti-cloud-charts/
+  repository: file://../runtime-bundle
   version: 1.0.1
   condition: application.runtime-bundle.enabled,runtime-bundle.enabled
 - name: activiti-cloud-connector
-  repository: https://activiti.github.io/activiti-cloud-charts/
+  # repository: https://activiti.github.io/activiti-cloud-charts/
+  repository: file://../activiti-cloud-connector
   version: 1.0.0
   condition: application.activiti-cloud-connector.enabled,activiti-cloud-connector.enabled
 - name: activiti-cloud-events-adapter
-  repository: https://activiti.github.io/activiti-cloud-charts/
+  # repository: https://activiti.github.io/activiti-cloud-charts/
+  repository: file://../activiti-cloud-events-adapter
   version: 0.0.4
   condition: application.activiti-cloud-events-adapter.enabled,activiti-cloud-events-adapter.enabled
 - name: activiti-cloud-notifications-graphql
-  repository: https://activiti.github.io/activiti-cloud-charts/
+  # repository: https://activiti.github.io/activiti-cloud-charts/
+  repository: file://../activiti-cloud-notifications-graphql
   version: 1.0.0
   condition: application.activiti-cloud-notifications-graphql.enabled,activiti-cloud-notifications-graphql.enabled
+- name: common
+  repository: file://../common
+  version: 0.0.1-SNAPSHOT

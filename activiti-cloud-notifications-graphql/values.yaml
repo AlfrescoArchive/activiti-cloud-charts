@@ -12,7 +12,7 @@ global:
     password:
       value: guest
   keycloak:
-    url: "http://activiti-keycloak.192.168.99.100.nip.io"
+    url: "" 
     name: keycloak
     service:
       type: http
@@ -20,14 +20,7 @@ global:
     realm: ""
     resource: ""
   gateway:
-    host: "activiti-cloud-gateway.192.168.99.100.nip.io"
-    ingress:
-      tls: # true | false
-      tlsSecret: # custom secret name or auto-generated 'tls-.Release.Name-activiti-cloud-gateway' if tls true
-      # global annotations to be added to all service ingresses i.e.        
-      # certmanager.k8s.io/issuer: letsencrypt-prod
-      # kubernetes.io/tls-acme: "true"    
-      annotations: []
+    host: "" 
 
 db:
   uri:
@@ -35,15 +28,17 @@ db:
   password:
   driver:
   platform:
-  generateDdl:
-  ddlAuto:
+  generateDdl: "false"
+  ddlAuto: "none"
 
 postgres:
-  enable: false
+  enable: true # should be enabled by default for application chart
   name: postgres
   port: 5432
   username: postgres
   password:
+  generateDdl: "false" # default to disable generating Ddl schema
+  ddlAuto: "none" # default to disable ddl update
 
 javaOpts:
   xmx: 2048m
@@ -75,11 +70,10 @@ service:
     
 resources:
   limits:
-    cpu: 1
     memory: 2048Mi
   requests:
-    cpu: 150m
-    memory: 512Mi
+    cpu: 500m # more cpu is better for notifications
+    memory: 768Mi
 probePath: /actuator/health
 livenessProbe:
   initialDelaySeconds: 140
@@ -98,17 +92,16 @@ terminationGracePeriodSeconds: 20
 ingress:
   ## Set to true to enable ingress record generation
   enabled: true
-  tls: # overrides .Values.global.gateway.tls  
-  tlsSecret: # overrides .Values.global.gateway.tlsSecret  
-  hostName: # overrides .Values.global.gateway.host
+  tls: # true | false 
+  tlsSecret: # secret name of the gateway host, tls-activiti-cloud-gateway
+  hostName: # override .Values.global.gateway.host
   graphiql: 
     enabled: true
     path: /graphiql
-    annotations: [] # customize annotations
   web:
+    enabled: true
     path: /graphql
   ws: 
+    enabled: true
     path: /ws/graphql
-  annotations: [] # customize annotations
-
-    
+  annotations: {}

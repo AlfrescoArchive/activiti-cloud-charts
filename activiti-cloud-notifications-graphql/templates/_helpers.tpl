@@ -27,17 +27,3 @@ Create a default service name.
 {{- printf "%s" $name | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
-{{/*
-Create a default tls secrtet name.
-*/}}
-{{- define "tlssecretname" -}}
-{{- $name := default (printf "tls-%s-%s" .Release.Name "activiti-cloud-gateway")  (or .Values.ingress.tlsSecret .Values.global.gateway.ingress.tlsSecret) -}}
-{{- printf "%s" $name | trunc 63 | trimSuffix "-" -}}
-{{- end -}}
-
-{{/*
-Create a default ingress host.
-*/}}
-{{- define "ingresshost" -}}
-{{- default .Values.global.gateway.host .Values.ingress.hostName -}}
-{{- end -}}

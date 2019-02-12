@@ -13,22 +13,11 @@ keycloak:
     persistence:
       deployPostgres: false
       dbVendor: H2
-    ingress:
-      enabled: false
-      proxyBufferSize: "16k"
-#      hosts:
-#        - "activiti-keycloak.REPLACEME"
-#      annotations:
-#        kubernetes.io/ingress.class: nginx
-#        nginx.ingress.kubernetes.io/rewrite-target: /
-#        nginx.ingress.kubernetes.io/configuration-snippet: |
-#          more_set_headers 'Access-Control-Allow-Methods: "POST, GET, OPTIONS, PUT, PATCH, DELETE"';
-#          more_set_headers 'Access-Control-Allow-Credentials: true';
-#          more_set_headers 'Access-Control-Allow-Headers: "DNT,X-CustomHeader,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Authorization,authorization"';
-#          more_set_headers 'Access-Control-Allow-Origin: $http_origin';
-#        nginx.ingress.kubernetes.io/proxy-buffer-size: "16k"
     livenessProbe:
       initialDelaySeconds: 100
+    extraEnv: |
+      - name: PROXY_ADDRESS_FORWARDING
+        value: "true"
     extraVolumes: |
       - name: realm-secret
         secret:
@@ -42,6 +31,21 @@ keycloak:
       /opt/jboss/keycloak/bin/add-user.sh -u admin -p admin
       /opt/jboss/keycloak/bin/add-user-keycloak.sh -r master -u admin -p admin
       cp /realm/activiti-realm.json .
+
+## Define custom ingress resource for Keycloak to run on the gateway host domain
+ingress:
+  enabled: true
+  path: /auth
+  proxyBufferSize: "16k"
+  hostName: # overrides global.gateway.host value
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/configuration-snippet: |
+      more_set_headers 'Access-Control-Allow-Methods: "POST, GET, OPTIONS, PUT, PATCH, DELETE"';
+      more_set_headers 'Access-Control-Allow-Credentials: true';
+      more_set_headers 'Access-Control-Allow-Headers: "DNT,X-CustomHeader,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Authorization,authorization"';
+      more_set_headers 'Access-Control-Allow-Origin: $http_origin';
+    nginx.ingress.kubernetes.io/proxy-buffer-size: "16k"
 
 #extensions to the activiti base realm
 realm:
