@@ -43,7 +43,7 @@ rabbitmq:
     cpu: 1
     memory: 2Gi
    requests:
-    cpu: 300m
+    cpu: 350m
     memory: 512Mi
   rbac:
     create: true

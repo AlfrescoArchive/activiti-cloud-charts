@@ -1,6 +1,13 @@
 keycloak:
   enabled: true
   keycloak:
+    resources:
+      limits:
+        cpu: 1
+        memory: "2048Mi"
+      requests:
+        cpu: "150m"
+        memory: "512Mi"
     username: admin
     password: admin
     persistence:
@@ -21,7 +28,7 @@ keycloak:
 #          more_set_headers 'Access-Control-Allow-Origin: $http_origin';
 #        nginx.ingress.kubernetes.io/proxy-buffer-size: "16k"
     livenessProbe:
-      initialDelaySeconds: 140
+      initialDelaySeconds: 100
     extraVolumes: |
       - name: realm-secret
         secret:
