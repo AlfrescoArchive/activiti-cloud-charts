@@ -48,13 +48,14 @@ Create default ingress annotations
 {{- $noCommon := omit .Values "common" -}} 
 {{- $overrides := dict "Values" $noCommon -}} 
 {{- $noValues := omit . "Values" -}} 
-{{- with merge $noValues $overrides $common -}}
+{{- $values := merge $noValues $overrides $common -}} 
+{{- with $values -}}
 
 {{- range $key, $value := .Values.global.gateway.annotations }}
-{{ $key }}: {{ tpl $value . | quote }}
+{{ $key }}: {{ tpl (printf "%s" $value) $values | quote }}
 {{- end }}
 {{- range $key, $value := .Values.ingress.annotations }}
-{{ $key }}: {{ tpl $value . | quote }}
+{{ $key }}: {{ tpl (printf "%s" $value) $values | quote }}
 {{- end }}
 {{- if or (eq .Values.global.gateway.http false) .Values.ingress.tls }}
 {{ tpl "kubernetes.io/tls-acme: \"true\"" . }}
