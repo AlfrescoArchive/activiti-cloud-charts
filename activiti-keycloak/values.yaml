@@ -35,7 +35,7 @@ keycloak:
 ## Define custom ingress resource for Keycloak to run on the gateway host domain
 ingress:
   enabled: true
-  path: /auth
+  path: "{{ include \"common.keycloak-path\" $ }}" # Uses global.keycloak.path template
   proxyBufferSize: "16k"
   hostName: # overrides global.gateway.host value
   annotations:

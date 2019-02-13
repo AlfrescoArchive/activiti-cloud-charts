@@ -41,3 +41,19 @@ Create a default tls secret name.
 		{{- tpl (printf "%s" $tlssecretname) . | trunc 63 | trimSuffix "-" -}} 
 	{{- end -}} 
 {{- end -}} 
+
+{{/*
+Create a default ingress path.
+*/}}
+{{- define "activiti-keycloak.ingress-path" -}}
+	{{- $common := dict "Values" .Values.common -}} 
+	{{- $noCommon := omit .Values "common" -}} 
+	{{- $overrides := dict "Values" $noCommon -}} 
+	{{- $noValues := omit . "Values" -}} 
+	{{- with merge $noValues $overrides $common -}}
+		{{- $ingressPath := include "common.ingress-path" . -}}
+		{{- $keycloakPath := include "common.keycloak-path" . -}}
+		{{- $value := default $keycloakPath $ingressPath -}}
+		{{- tpl (printf "%s" $value) . -}}
+	{{- end -}}
+{{- end -}}

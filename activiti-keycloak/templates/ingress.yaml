@@ -13,23 +13,23 @@ metadata:
     {{- include "common.ingress-annotations" . | indent 4 }} 
 spec:
   rules:
-    {{- if include "activiti-keycloak.ingress-host" $ }}
-    - host: {{ include "activiti-keycloak.ingress-host" $ }}
+    {{- if include "activiti-keycloak.ingress-host" . }}
+    - host: {{ template "activiti-keycloak.ingress-host" . }}
       http:
     {{- else }}
     - http:
     {{- end }}
         paths:
-          - path: {{ .Values.ingress.path }}
+          - path: {{ template "activiti-keycloak.ingress-path" . }}
             backend:
               serviceName: {{ template "activiti.keycloak.fullname" . }}-http
               servicePort: http
-  {{- if include "common.ingress-tls" $ }}
+  {{- if include "common.ingress-tls" . }}
   tls:
-  - secretName: {{ include "activiti-keycloak.ingress-tlssecretname" $ }}
-    {{- if include "activiti-keycloak.ingress-host" $ }}
+  - secretName: {{ template "activiti-keycloak.ingress-tlssecretname" . }}
+    {{- if include "activiti-keycloak.ingress-host" . }}
     hosts:
-    - {{ include "activiti-keycloak.ingress-host" $ }}
+    - {{ template "activiti-keycloak.ingress-host" . }}
     {{- end }}
   {{- end }}
 {{- end }}

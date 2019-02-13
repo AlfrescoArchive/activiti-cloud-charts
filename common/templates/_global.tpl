@@ -9,10 +9,12 @@ Create a keycloak url template
 	{{- $noValues := omit . "Values" -}} 
 	{{- with merge $noValues $overrides $common -}}
 		{{- $proto := include "common.gateway-proto" . -}}
-		{{- $host := include "common.gateway-host"  . -}}
-		{{- $auth := include "common.keycloak-path" . -}}
-		{{- $defaultUrl := printf "%s://%s%s" $proto $host $auth -}}
-		{{- $keycloakUrl := default $defaultUrl .Values.global.keycloak.url -}}
+		{{- $gatewayHost := include "common.gateway-host" . -}}
+		{{- $keycloakHost := include "common.keycloak-host" . -}}
+		{{- $host := default $gatewayHost $keycloakHost -}}
+		{{- $path := include "common.keycloak-path" . -}}
+		{{- $url := printf "%s://%s%s" $proto $host $path -}}
+		{{- $keycloakUrl := default $url .Values.global.keycloak.url -}}
 		{{- tpl (printf "%s" $keycloakUrl ) . -}}
 	{{- end -}}
 {{- end -}}
