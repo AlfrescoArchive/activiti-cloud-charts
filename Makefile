@@ -19,11 +19,11 @@ up: application/up infrastructure/up
 
 # make install domain=nip.io 
 install:
-	@echo helm upgrade $(name) ./$(EXAMPLE) --install --set global.gateway.domain=$(domain)
+	helm upgrade $(name) ./$(EXAMPLE) --install --set global.gateway.domain=$(domain)
 
 # make delete name=example 
 delete:
-	@echo helm delete $(name) --purge
+	helm delete $(name) --purge
 
 # make chart/up
 $(foreach chart,$(CHARTS),$(chart)/up):
