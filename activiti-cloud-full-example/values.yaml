@@ -30,7 +30,7 @@ global:
     http: true
 
     ## Set to configure gateway domain template, i.e. {{ .Release.Namespace }}.1.3.4.5.nip.io
-    #  helm upgrade activiti . --install--set "global.gateway.domain=1.2.3.4.nip.io"
+    #  helm upgrade activiti . --install --set global.gateway.domain=1.2.3.4.nip.io
     domain: "REPLACEME"
 
     ## Configure global annotations for all service ingresses, i.e. certmanager.k8s.io/issuer: letsencrypt-prod
