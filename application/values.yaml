@@ -28,6 +28,10 @@ activiti-cloud-notifications-graphql:
 
 postgres:
   enabled: true
+  resources:
+    requests:
+      cpu: 350m
+      memory: 512Mi
 
 rabbitmq:
   enabled: true
