@@ -2,10 +2,10 @@
 
 global:
   gateway:
-    ## Configure default domain for gateway host
-    domain: "127.0.0.1.nip.io"
-    ## Confige default gateway host Helm template
-    host: "activiti-cloud-gateway.{{ .Values.global.gateway.domain }}"
+    ## Configure default domain for gateway host, i.e. "{{ .Relase.Name }}.127.0.0.1.nip.io"
+    domain: ""
+    ## Confige default gateway host Helm template, i.e. "activiti-cloud-gateway.{{ .Values.global.gateway.domain }}"
+    host: ""
     ## Set to false to enable tls for ingresses
     http: true 
   keycloak:
@@ -14,14 +14,15 @@ global:
     url: "" 
     ## Configure default keycloak path 
     path: "/auth"
-    ## Configure default keycloak host template
-    host: "activiti-keycloak.{{ .Values.global.gateway.domain }}"
+    ## Configure default keycloak host template, i.e "activiti-keycloak.{{ .Values.global.gateway.domain }}"
+    host: ""
 
 ingress:
   ## Set this to true in order to enable TLS on the ingress record
   tls: false
 
-  path: /
+  ## Empty default. Each ingress should provide its own value or template
+  path: 
 
   ## If TLS is set to true, you must declare what secret will store the key/certificate for TLS
   tlsSecret: 

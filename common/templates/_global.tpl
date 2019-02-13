@@ -45,7 +45,7 @@ Create a gateway url template
 {{- end -}}
 
 {{- define "common.gateway-domain" -}}
-{{- $value := default "localhost" .Values.global.gateway.domain -}}
+{{- $value := default "" .Values.global.gateway.domain -}}
 {{- tpl (printf "%s" $value) . -}}
 {{- end -}}
 
