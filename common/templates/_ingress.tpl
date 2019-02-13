@@ -28,6 +28,20 @@ Create a default ingress host.
 {{- end -}}
 
 {{/*
+Create a default ingress path.
+*/}}
+{{- define "common.ingress-path" -}}
+	{{- $common := dict "Values" .Values.common -}} 
+	{{- $noCommon := omit .Values "common" -}} 
+	{{- $overrides := dict "Values" $noCommon -}} 
+	{{- $noValues := omit . "Values" -}} 
+	{{- with merge $noValues $overrides $common -}}
+		{{- $value := .Values.ingress.path -}}
+		{{- tpl (printf "%s" $value) . -}}
+	{{- end -}}
+{{- end -}}
+
+{{/*
 Create a default ingress tls.
 */}}
 {{- define "common.ingress-tls" -}}
