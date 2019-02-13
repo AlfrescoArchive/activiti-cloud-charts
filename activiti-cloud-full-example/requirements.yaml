@@ -6,7 +6,7 @@ dependencies:
 - name: application
   # repository: https://activiti.github.io/activiti-cloud-charts/
   repository: file://../application
-  version: 1.0.0
+  version: 1.0.1
 - name: activiti-cloud-modeling
   # repository: https://activiti.github.io/activiti-cloud-charts/
   repository: file://../activiti-cloud-modeling
