@@ -13,8 +13,8 @@ metadata:
     {{- include "common.ingress-annotations" . | indent 4 }} 
 spec:
   rules:
-    {{- if include "common.ingress-host" $ }}
-    - host: {{ include "common.ingress-host" $ }}
+    {{- if include "activiti-keycloak.ingress-host" $ }}
+    - host: {{ include "activiti-keycloak.ingress-host" $ }}
       http:
     {{- else }}
     - http:
@@ -26,10 +26,10 @@ spec:
               servicePort: http
   {{- if include "common.ingress-tls" $ }}
   tls:
-  - secretName: {{ include "common.ingress-tlssecretname" $ }}
-    {{- if include "common.ingress-host" $ }}
+  - secretName: {{ include "activiti-keycloak.ingress-tlssecretname" $ }}
+    {{- if include "activiti-keycloak.ingress-host" $ }}
     hosts:
-    - {{ include "common.ingress-host" $ }}
+    - {{ include "activiti-keycloak.ingress-host" $ }}
     {{- end }}
   {{- end }}
 {{- end }}

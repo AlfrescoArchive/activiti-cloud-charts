@@ -22,8 +22,8 @@ Create a default ingress host.
 	{{- $overrides := dict "Values" $noCommon -}} 
 	{{- $noValues := omit . "Values" -}} 
 	{{- with merge $noValues $overrides $common -}}
-		{{- $ingresshost := default .Values.global.gateway.host .Values.ingress.hostName -}}
-		{{- tpl (printf "%s" $ingresshost) $ -}}
+		{{- $ingressHost := default (include "common.gateway-host" .) .Values.ingress.hostName -}}
+		{{- tpl (printf "%s" $ingressHost) . -}}
 	{{- end -}}
 {{- end -}}
 
@@ -51,10 +51,10 @@ Create default ingress annotations
 {{- with merge $noValues $overrides $common -}}
 
 {{- range $key, $value := .Values.global.gateway.annotations }}
-{{ $key }}: {{ tpl $value $ | quote }}
+{{ $key }}: {{ tpl $value . | quote }}
 {{- end }}
 {{- range $key, $value := .Values.ingress.annotations }}
-{{ $key }}: {{ tpl $value $ | quote }}
+{{ $key }}: {{ tpl $value . | quote }}
 {{- end }}
 {{- if or (eq .Values.global.gateway.http false) .Values.ingress.tls }}
 {{ tpl "kubernetes.io/tls-acme: \"true\"" . }}
