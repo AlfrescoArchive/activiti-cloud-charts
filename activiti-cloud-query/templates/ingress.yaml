@@ -19,14 +19,14 @@ metadata:
     {{- include "common.ingress-annotations" . | indent 4 }} 
 spec:
   rules:
-    {{- if include "common.ingress-host" $ }}
-    - host: {{ include "common.ingress-host" $ }}
+    {{- if include "common.ingress-host" . }}
+    - host: {{ template "common.ingress-host" . }}
       http:
     {{- else }}
     - http:
     {{- end }}
         paths:
-          - path: {{ .Values.ingress.path }}
+          - path: {{ template "common.ingress-path" . }}
             backend:
             {{- if .Values.service.name }}
               serviceName: {{ .Values.service.name }}
@@ -34,12 +34,12 @@ spec:
               serviceName: {{ template "fullname" . }}
             {{- end }}
               servicePort: {{ .Values.service.externalPort }}
-  {{- if include "common.ingress-tls" $ }}
+  {{- if include "common.ingress-tls" . }}
   tls:
-  - secretName: {{ include "common.ingress-tlssecretname" $ }}
-    {{- if include "common.ingress-host" $ }}
+  - secretName: {{ template "common.ingress-tlssecretname" . }}
+    {{- if include "common.ingress-host" . }}
     hosts:
-    - {{ include "common.ingress-host" $ }}
+    - {{ template "common.ingress-host" . }}
     {{- end }}
   {{- end }}
 {{- end }}

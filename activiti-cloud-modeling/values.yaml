@@ -119,13 +119,15 @@ terminationGracePeriodSeconds: 20
 
 ingress:
   enabled: true
-
+  
+  path: # configure base path for frontend and backend ingresses "/{{ .Release.Namespace }}"
+  
   backend:
-    path: /activiti-cloud-modeling-backend
+    path: "/activiti-cloud-modeling-backend"
     annotations: {}
     # nginx.ingress.kubernetes.io/rewrite-target: /
 
-  ## Set to override global.gateway.host value
+  ## Set to override global.gateway.host value, i.e. "modeler.{{ include \"common.gateway-domain\" . }}"
   hostName: 
 
   annotations:
@@ -140,12 +142,12 @@ ingress:
     enabled: false
 
   frontend:
-    path: /activiti-cloud-modeling
+    path: "/activiti-cloud-modeling"
     annotations: {}
     # nginx.ingress.kubernetes.io/rewrite-target: /
 
-  ## Set this to true in order to enable TLS on the ingress record
-  tls: # true | false
+  ## Set this to true in order to enable TLS on the ingress record, i.e. true | false
+  tls: 
 
   ## If TLS is set to true, you must declare what secret will store the key/certificate for TLS
   tlsSecret: 

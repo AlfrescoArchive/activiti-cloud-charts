@@ -16,6 +16,7 @@ global:
     realm: "activiti"
     resource: "activiti"
     client: "activiti"
+    host: "keycloak.{{ .Release.Name }}.{{ .Release.Namespace }}.{{ .Values.global.gateway.domain }}"
   gateway:
     ## Set to configure single domain name for all services, i.e. 
     # helm install --name activiti . --dry-run --debug --set "global.gateway.host=activiti-cloud-gateway.jx-staging.1.2.3.4.nip.io"

@@ -14,3 +14,33 @@ We truncate at 63 chars because some Kubernetes name fields are limited to this 
 {{- $name := default .Chart.Name .Values.nameOverride -}}
 {{- printf "%s-%s" .Release.Name $name | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
+
+{{/*
+Create a frontend ingress path.
+*/}}
+{{- define "activiti-cloud-modeling.ingress-path-frontend" -}}
+	{{- $common := dict "Values" .Values.common -}} 
+	{{- $noCommon := omit .Values "common" -}} 
+	{{- $overrides := dict "Values" $noCommon -}} 
+	{{- $noValues := omit . "Values" -}} 
+	{{- with merge $noValues $overrides $common -}}
+		{{- $basePath := include "common.ingress-path" . -}}
+		{{- $value := tpl .Values.ingress.frontend.path . -}}
+		{{- tpl (printf "%s%s" $basePath $value) . -}}
+	{{- end -}}
+{{- end -}}
+
+{{/*
+Create a ws-graphql ingress path.
+*/}}
+{{- define "activiti-cloud-modeling.ingress-path-backend" -}}
+	{{- $common := dict "Values" .Values.common -}} 
+	{{- $noCommon := omit .Values "common" -}} 
+	{{- $overrides := dict "Values" $noCommon -}} 
+	{{- $noValues := omit . "Values" -}} 
+	{{- with merge $noValues $overrides $common -}}
+		{{- $basePath := include "common.ingress-path" . -}}
+		{{- $value := tpl .Values.ingress.backend.path . -}}
+		{{- tpl (printf "%s%s" $basePath $value) . -}}
+	{{- end -}}
+{{- end -}}

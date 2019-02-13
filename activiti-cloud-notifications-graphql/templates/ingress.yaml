@@ -23,37 +23,37 @@ metadata:
     {{- include "common.ingress-annotations" . | indent 4 }} 
 spec:
   rules:
-    {{- if include "common.ingress-host" $ }}
-    - host: {{ include "common.ingress-host" $ }}
+    {{- if include "common.ingress-host" . }}
+    - host: {{ template "common.ingress-host" . }}
       http:
     {{- else }}
     - http:
     {{- end }}
         paths:
         {{- if .Values.ingress.web.enabled }}
-        - path: {{ .Values.ingress.web.path }}
+        - path: {{ template "activiti-cloud-notifications-graphql.ingress-path-web" . }}
           backend:
             serviceName: {{ template "servicename" . }}
             servicePort: {{ .Values.service.externalPort }}
         {{- end }}
         {{- if .Values.ingress.ws.enabled }}
-        - path: {{ .Values.ingress.ws.path }}
+        - path: {{ template "activiti-cloud-notifications-graphql.ingress-path-ws-graphql" . }}
           backend:
             serviceName: {{ template "servicename" . }}
             servicePort: {{ .Values.service.externalPort }}
         {{- end }}
         {{- if .Values.ingress.graphiql.enabled }}
-        - path: {{ .Values.ingress.graphiql.path }}
+        - path: {{ template "activiti-cloud-notifications-graphql.ingress-path-graphiql" . }}
           backend:
             serviceName: {{ template "servicename" . }}
             servicePort: {{ .Values.service.externalPort }}
         {{- end }}
-  {{- if include "common.ingress-tls" $ }}
+  {{- if include "common.ingress-tls" . }}
   tls:
-  - secretName: {{ include "common.ingress-tlssecretname" $ }}
-    {{- if include "common.ingress-host" $ }}
+  - secretName: {{ template "common.ingress-tlssecretname" . }}
+    {{- if include "common.ingress-host" . }}
     hosts:
-    - {{ include "common.ingress-host" $ }}
+    - {{ template "common.ingress-host" . }}
     {{- end }}
   {{- end }}
 {{- end }}
