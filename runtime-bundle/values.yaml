@@ -55,7 +55,7 @@ javaOpts:
 #registryPullSecrets: private-registry-secret
 image:
   repository: activiti/example-runtime-bundle
-  tag: 7.0.0.RC1
+  tag: 7.0.0.GA
   pullPolicy: IfNotPresent
 service:
   name: rb-my-app
@@ -75,15 +75,15 @@ probePath: /actuator/health
 livenessProbe:
   initialDelaySeconds: 140
   periodSeconds: 15
-  timeoutSeconds: 20
+  timeoutSeconds: 4
   successThreshold: 1
-  failureThreshold: 40
+  failureThreshold: 4
 readinessProbe:
   initialDelaySeconds: 30
   periodSeconds: 15
-  timeoutSeconds: 10
+  timeoutSeconds: 3
   successThreshold: 1
-  failureThreshold: 20
+  failureThreshold: 3
 terminationGracePeriodSeconds: 20
 
 

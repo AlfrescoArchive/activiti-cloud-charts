@@ -1,11 +1,11 @@
 dependencies:
 - name: activiti-cloud-query
   repository: https://activiti.github.io/activiti-cloud-charts/
-  version: 0.8.0
+  version: 1.0.0
   condition: application.activiti-cloud-query.enabled,activiti-cloud-query.enabled
 - name: activiti-cloud-audit
   repository: https://activiti.github.io/activiti-cloud-charts/
-  version: 0.8.0
+  version: 1.0.0
   condition: application.activiti-cloud-audit.enabled,activiti-cloud-audit.enabled
 - alias: rabbitmq
   name: rabbitmq-ha
@@ -23,11 +23,11 @@ dependencies:
   condition: application.activiti-cloud-demo-ui.enabled,activiti-cloud-demo-ui.enabled
 - name: runtime-bundle
   repository: https://activiti.github.io/activiti-cloud-charts/
-  version: 0.8.0
+  version: 1.0.0
   condition: application.runtime-bundle.enabled,runtime-bundle.enabled
 - name: activiti-cloud-connector
   repository: https://activiti.github.io/activiti-cloud-charts/
-  version: 0.8.0
+  version: 1.0.0
   condition: application.activiti-cloud-connector.enabled,activiti-cloud-connector.enabled
 - name: activiti-cloud-events-adapter
   repository: https://activiti.github.io/activiti-cloud-charts/
@@ -35,5 +35,5 @@ dependencies:
   condition: application.activiti-cloud-events-adapter.enabled,activiti-cloud-events-adapter.enabled
 - name: activiti-cloud-notifications-graphql
   repository: https://activiti.github.io/activiti-cloud-charts/
-  version: 0.8.0
+  version: 1.0.0
   condition: application.activiti-cloud-notifications-graphql.enabled,activiti-cloud-notifications-graphql.enabled

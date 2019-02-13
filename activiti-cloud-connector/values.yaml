@@ -39,7 +39,7 @@ javaOpts:
 #registryPullSecrets: private-registry-secret
 image:
   repository: activiti/example-cloud-connector
-  tag: 7.0.0.RC1
+  tag: 7.0.0.GA
   pullPolicy: IfNotPresent
 service:
   name: example-cloud-connector
@@ -59,15 +59,15 @@ probePath: /actuator/health
 livenessProbe:
   initialDelaySeconds: 140
   periodSeconds: 15
-  timeoutSeconds: 20
-  failureThreshold: 40
+  timeoutSeconds: 4
+  failureThreshold: 4
   successThreshold: 1
 readinessProbe:
   initialDelaySeconds: 30
   periodSeconds: 15
-  timeoutSeconds: 10
+  timeoutSeconds: 3
   successThreshold: 1
-  failureThreshold: 40
+  failureThreshold: 4
 terminationGracePeriodSeconds: 20
 
 

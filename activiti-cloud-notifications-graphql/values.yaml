@@ -62,7 +62,7 @@ extraEnv: |
 #registryPullSecrets: private-registry-secret
 image:
   repository: activiti/activiti-cloud-notifications-graphql
-  tag: 7.0.0.RC1 
+  tag: 7.0.0.GA
   pullPolicy: IfNotPresent
   
 service:
@@ -84,15 +84,15 @@ probePath: /actuator/health
 livenessProbe:
   initialDelaySeconds: 140
   periodSeconds: 15
-  timeoutSeconds: 20
+  timeoutSeconds: 4
   successThreshold: 1
-  failureThreshold: 40
+  failureThreshold: 4
 readinessProbe:
   initialDelaySeconds: 20
   periodSeconds: 15
-  timeoutSeconds: 10
+  timeoutSeconds: 3
   successThreshold: 1
-  failureThreshold: 40
+  failureThreshold: 4
 terminationGracePeriodSeconds: 20
 
 ingress:
