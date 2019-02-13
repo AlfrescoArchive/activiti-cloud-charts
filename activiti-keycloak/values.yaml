@@ -1,13 +1,3 @@
-global:
-  gateway:
-    domain: "{{ .Release.Namespace }}.nip.io"
-    host: "activiti-cloud-gateway.{{ .Values.global.gateway.domain }}"
-    http: true
-
-  keycloak:
-    host: "keycloak.{{ .Values.global.gateway.domain }}"  
-    path: "/{{ .Release.Namespace }}/auth"
-
 keycloak:
   enabled: true
   keycloak:
