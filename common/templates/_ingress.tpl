@@ -8,8 +8,8 @@ Create a default tls secret name.
 	{{- $overrides := dict "Values" $noCommon -}} 
 	{{- $noValues := omit . "Values" -}} 
 	{{- with merge $noValues $overrides $common -}}
-		{{- $tlssecretname := default (printf "tls-%s" (include "common.ingress-host" $ | replace "." "-" )) .Values.ingress.tlsSecret -}}
-		{{- tpl (printf "%s" $tlssecretname) $ | trunc 63 | trimSuffix "-" -}}
+		{{- $tlssecretname := default (printf "tls-%s-%s" .Release.Name .Chart.Name) .Values.ingress.tlsSecret -}}
+		{{- tpl (printf "%s" $tlssecretname) $ | trunc 48 | trimSuffix "-" -}}
 	{{- end -}}
 {{- end -}}
 

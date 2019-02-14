@@ -33,8 +33,9 @@ global:
     #  helm upgrade activiti . --install --set global.gateway.domain=1.2.3.4.nip.io
     domain: "REPLACEME"
 
-    ## Configure global annotations for all service ingresses, i.e. certmanager.k8s.io/issuer: letsencrypt-prod
-    annotations: {}
+    ## Configure global annotations for all service ingresses, i.e. 
+    annotations: 
+      certmanager.k8s.io/issuer: letsencrypt-prod
 
     ## Or simply enable templated domain host coniguration in Jx environment
     # host: "activiti-cloud-gateway.{{ .Release.Namespace }}.{{ .Values.global.gateway.domain }}"
