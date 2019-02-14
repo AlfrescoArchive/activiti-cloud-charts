@@ -3,7 +3,7 @@ OS := $(shell uname)
 CHARTS := $(shell ls -d */ | cut -f1 -d'/')
 EXAMPLE := activiti-cloud-full-example
 name := example
-domain := $(shell kubectl get cm ingress-config -o=go-template --template='{{.data.domain}}' -n jx)
+domain := REPLACEME
 
 .PHONY: ;
 
