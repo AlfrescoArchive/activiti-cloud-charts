@@ -14,8 +14,6 @@ init:
 	helm repo add activiti-cloud-helm-charts https://activiti.github.io/activiti-cloud-helm-charts
 	helm repo add activiti-cloud-charts https://activiti.github.io/activiti-cloud-charts
 
-up: application/up infrastructure/up
-	./dep-up.sh $(EXAMPLE)
 
 # make install domain=nip.io 
 install:
@@ -25,11 +23,6 @@ install:
 delete:
 	helm delete $(name) --purge
 
-# make chart/up
-$(foreach chart,$(CHARTS),$(chart)/up):
-	$(eval CHART := $(subst /up,,$@))
-	./dep-up.sh $(CHART)
-	
 # make chart/template
 $(foreach chart,$(CHARTS),$(chart)/template):
 	$(eval CHART := $(subst /template,,$@))
