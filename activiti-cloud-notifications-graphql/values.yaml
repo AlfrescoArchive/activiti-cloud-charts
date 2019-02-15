@@ -76,7 +76,7 @@ resources:
     memory: 768Mi
 probePath: /actuator/health
 livenessProbe:
-  initialDelaySeconds: 140
+  initialDelaySeconds: 60
   periodSeconds: 15
   timeoutSeconds: 4
   successThreshold: 1

@@ -60,13 +60,13 @@ frontend:
       memory: 256Mi
   probePath: /
   livenessProbe:
-    initialDelaySeconds: 140
+    initialDelaySeconds: 60
     periodSeconds: 15
     successThreshold: 1
     timeoutSeconds: 4
     failureThreshold: 40
   readinessProbe:
-    initialDelaySeconds: 30
+    initialDelaySeconds: 20
     periodSeconds: 15
     successThreshold: 1
     timeoutSeconds: 3
@@ -103,13 +103,13 @@ backend:
       memory: 512Mi
   probePath: /actuator/health
   livenessProbe:
-    initialDelaySeconds: 140
+    initialDelaySeconds: 60
     periodSeconds: 15
     successThreshold: 1
     timeoutSeconds: 4
     failureThreshold: 40
   readinessProbe:
-    initialDelaySeconds: 30
+    initialDelaySeconds: 20
     periodSeconds: 15
     successThreshold: 1
     timeoutSeconds: 3

@@ -39,6 +39,12 @@ postgres:
   username: postgres
   password:
 
+init:
+  image:
+    repository: alpine
+    tag: 3.8
+    pullPolicy: IfNotPresent
+
 ## Allows the specification of additional environment variables
 extraEnv: |
   # - name: ACT_KEYCLOAK_URL
@@ -46,6 +52,9 @@ extraEnv: |
   #     configMapKeyRef:
   #       name: {{ .Release.Name }}-keycloak-http
   #       key: expose-keycloak-service-key
+
+## Additional init containers, e. g. to wait for a db or SSO
+extraInitContainers: |
 
 javaOpts:
   xmx: 2048m
@@ -66,20 +75,20 @@ service:
     fabric8.io/expose: "false"
 resources:
   limits:
-    cpu: 1.5
+    cpu: 2
     memory: 2048Mi
   requests:
     cpu: 200m
     memory: 512Mi
 probePath: /actuator/health
 livenessProbe:
-  initialDelaySeconds: 140
+  initialDelaySeconds: 60
   periodSeconds: 15
   timeoutSeconds: 4
   successThreshold: 1
   failureThreshold: 4
 readinessProbe:
-  initialDelaySeconds: 30
+  initialDelaySeconds: 20
   periodSeconds: 15
   timeoutSeconds: 3
   successThreshold: 1
