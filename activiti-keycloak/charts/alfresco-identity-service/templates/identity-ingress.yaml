@@ -1,0 +1,18 @@
+{{- if .Values.ingress.enabled }}
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: {{ template "alfresco-identity.fullname" . }}
+{{- with .Values.ingress.annotations }}
+  annotations:
+{{ toYaml . | indent 4 }}
+{{- end }}
+spec:
+  rules:
+  - http:
+      paths:
+      - path: {{ .Values.ingress.path }}
+        backend: 
+          serviceName: {{ template "keycloak.fullname" . }}-http
+          servicePort: {{ .Values.keycloak.keycloak.service.port }}
+{{- end }}

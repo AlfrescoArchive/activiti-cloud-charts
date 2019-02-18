@@ -1,36 +1,156 @@
 keycloak:
   enabled: true
+  ingress:
+    enabled: false
+  persistence:
+    deployPostgres: false
+    dbVendor: H2
+  realm:
+    alfresco:
+      extraRealmRoles:
+        - name: "ACTIVITI_USER"
+        - name: "ACTIVITI_MODELER"
+        - name: "ACTIVITI_ADMIN"
+      extraGroups:
+        - name: "hr"
+        - name: "testgroup"
+      extraUsers:
+        - username: client
+          enabled: true
+          firstName: "client"
+          lastName: User
+          email: "client@test.com"
+          credentials:
+            - type: password
+              value: client
+          realmRoles:
+            - "offline_access"
+            - "uma_authorization"
+            - "ACTIVITI_USER"
+          clientRoles:
+            account:
+              - "manage-account"
+              - "view-profile"
+        - username: modeler
+          enabled: true
+          firstName: "modeler"
+          lastName: User
+          email: "modeler@test.com"
+          credentials:
+            - type: password
+              value: password
+          realmRoles:
+            - "offline_access"
+            - "uma_authorization"
+            - "ACTIVITI_MODELER"
+          clientRoles:
+            account:
+              - "manage-account"
+              - "view-profile"
+        - username: hruser
+          enabled: true
+          firstName: "hruser"
+          lastName: hruser
+          email: "hruser@test.com"
+          credentials:
+            - type: password
+              value: password
+          realmRoles:
+            - "offline_access"
+            - "uma_authorization"
+            - "ACTIVITI_USER"
+          clientRoles:
+            account:
+              - "manage-account"
+              - "view-profile"
+          groups:
+            - "hr"
+        - username: hradmin
+          enabled: true
+          firstName: "hradmin"
+          lastName: hradmin
+          email: "hradmin@test.com"
+          credentials:
+            - type: password
+              value: password
+          realmRoles:
+            - "offline_access"
+            - "uma_authorization"
+            - "ACTIVITI_USER"
+            - "ACTIVITI_ADMIN"
+          clientRoles:
+            account:
+              - "manage-account"
+              - "view-profile"
+          groups:
+            - "hr"
+        - username: testuser
+          enabled: true
+          firstName: "testuser"
+          lastName: testuser
+          email: "testuser@test.com"
+          credentials:
+            - type: password
+              value: password
+          realmRoles:
+            - "offline_access"
+            - "uma_authorization"
+            - "ACTIVITI_USER"
+          clientRoles:
+            account:
+              - "manage-account"
+              - "view-profile"
+          groups:
+            - "testgroup"
+        - username: testadmin
+          enabled: true
+          firstName: "testadmin"
+          lastName: testadmin
+          email: "testadmin@test.com"
+          credentials:
+            - type: password
+              value: password
+          realmRoles:
+            - "offline_access"
+            - "uma_authorization"
+            - "ACTIVITI_USER"
+            - "ACTIVITI_ADMIN"
+          clientRoles:
+            account:
+              - "manage-account"
+              - "view-profile"
+          groups:
+            - "testgroup"
+      client:
+        webOrigins:
+          - "*"
+        redirectUris:
+          - "*"
   keycloak:
-    resources:
-      limits:
-        cpu: 1
-        memory: "2048Mi"
-      requests:
-        cpu: "150m"
-        memory: "512Mi"
-    username: admin
-    password: admin
-    persistence:
-      deployPostgres: false
-      dbVendor: H2
-    livenessProbe:
-      initialDelaySeconds: 100
-    extraEnv: |
-      - name: PROXY_ADDRESS_FORWARDING
-        value: "true"
-    extraVolumes: |
-      - name: realm-secret
-        secret:
-          secretName: {{ .Release.Name }}-realm-secret
-    extraVolumeMounts: |
-      - name: realm-secret
-        mountPath: "/realm/"
-        readOnly: true
-    extraArgs: -Dkeycloak.import=activiti-realm.json
-    preStartScript: |
-      /opt/jboss/keycloak/bin/add-user.sh -u admin -p admin
-      /opt/jboss/keycloak/bin/add-user-keycloak.sh -r master -u admin -p admin
-      cp /realm/activiti-realm.json .
+    enabled: true
+    ingress:
+      enabled: false
+    keycloak:
+      resources:
+        limits:
+          cpu: 1
+          memory: "2048Mi"
+        requests:
+          cpu: "150m"
+          memory: "512Mi"
+      username: admin
+      password: admin
+      persistence:
+        deployPostgres: false
+        dbVendor: H2
+      livenessProbe:
+        initialDelaySeconds: 100
+      extraEnv: |
+        - name: PROXY_ADDRESS_FORWARDING
+          value: "true"
+      preStartScript: |
+        /opt/jboss/keycloak/bin/add-user.sh -u admin -p admin
+        /opt/jboss/keycloak/bin/add-user-keycloak.sh -r master -u admin -p admin
 
 ## Define custom ingress resource for Keycloak to run on the gateway host domain
 ingress:
@@ -47,34 +167,3 @@ ingress:
       more_set_headers 'Access-Control-Allow-Origin: $http_origin';
     nginx.ingress.kubernetes.io/proxy-buffer-size: "16k"
 
-#extensions to the activiti base realm
-realm:
-#  extraRealmRoles:
-#    - name: "ACTIVITI_TEST"
-#    - name: "ACTIVITI_SUPER"
-#  extraGroups:
-#    - name: "ACTIVITI_GROUP"
-#  extraUsers:
-#    - username: superadminuser
-#      enabled: true
-#      firstName: "Super Admin"
-#      lastName: User
-#      email: "superadminuser@test.com"
-#      credentials:
-#      - type: password
-#        value: password
-#      realmRoles:
-#        - "offline_access"
-#        - "uma_authorization"
-#        - "ACTIVITI_USER"
-#      clientRoles:
-#        account:
-#          - "manage-account"
-#          - "view-profile"
-#      groups:
-#        - "hr"
-  activiti:
-    webOrigins:
-      - "*"
-    redirectUris:
-      - "*"

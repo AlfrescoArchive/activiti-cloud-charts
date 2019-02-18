@@ -10,7 +10,6 @@
 
 global:
   keycloak:
-<<<<<<< HEAD
     ## Configure Activiti Keycloak host template, i.e. "activiti-keycloak.{{ .Release.Namespace }}.{{ .Values.global.gateway.domain }}"
     host: ""
 
@@ -19,9 +18,9 @@ global:
     url: ""
 
     ## Configure Keycloak realm
-    realm: "activiti"
-    resource: "activiti"
-    client: "activiti"
+    realm: "alfresco"
+    resource: "alfresco"
+    client: "alfresco"
 
   gateway:
     ## Set to configure single domain name for all services, i.e. "activiti-cloud-gateway.{{ .Release.Namespace }}.{{ .Values.global.gateway.domain }}"
@@ -43,15 +42,6 @@ global:
     # domain: *domain ## Sync with Jx expose controller domain conig 
     # http: *http ## Sync with Jx expose controller http conig
 
-=======
-    url: &keycloakhost "http://activiti-keycloak.REPLACEME/auth"
-    realm: "alfresco"
-    resource: "alfresco"
-    client: "alfresco"
-  gateway:
-    host: &gatewayhost "activiti-cloud-gateway.REPLACEME"
-    
->>>>>>> BUILDER-96: Create env that has ACS, APS 2.1 and Event Gateway
 activiti-cloud-modeling:
   enabled: true
 
@@ -143,35 +133,9 @@ application:
     #     value: "*"
 
 infrastructure:
-<<<<<<< HEAD
   activiti-keycloak:
     enabled: true
-    ingress:
-      enabled: true
-=======
-  alfresco-identity-service:
->>>>>>> BUILDER-96: Create env that has ACS, APS 2.1 and Event Gateway
-    keycloak:
-      keycloak:
-<<<<<<< HEAD
-        preStartScript: |
-          /opt/jboss/keycloak/bin/add-user.sh -u admin -p admin
-          /opt/jboss/keycloak/bin/add-user-keycloak.sh -r master -u admin -p admin
-          cp /realm/activiti-realm.json .
-          sed -i 's/placeholder.com/*/g' activiti-realm.json
-=======
-        hosts: *keycloakhost
-    realm:
-      alfresco:
-        client:
-          redirectUris:
-            - "http://activiti-keycloak.REPLACEME/*"
-            - "http://activiti-cloud-gateway.REPLACEME/*"
-          webOrigins:
-            - "http://activiti-keycloak.REPLACEME/*"
-            - "http://activiti-cloud-gateway.REPLACEME/*"
->>>>>>> BUILDER-96: Create env that has ACS, APS 2.1 and Event Gateway
-  
+
   activiti-cloud-gateway:
     ingress:
       enabled: true

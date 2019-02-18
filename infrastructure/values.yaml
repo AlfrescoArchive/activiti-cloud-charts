@@ -1,7 +1,7 @@
 
 #see charts in requirements
 ## Define custom ingress resource for Keycloak to run on the gateway host domain
-ingress:
+ssoingress:
   enabled: true
   path: "{{ include \"common.keycloak-path\" $ }}" # Uses global.keycloak.path template
   proxyBufferSize: "16k"
@@ -16,6 +16,9 @@ ingress:
     nginx.ingress.kubernetes.io/proxy-buffer-size: "16k"
 
 alfresco-identity-service:
+  enabled: true
+  ingress:
+    enabled: false
   keycloak:
     enabled: true
     keycloak:

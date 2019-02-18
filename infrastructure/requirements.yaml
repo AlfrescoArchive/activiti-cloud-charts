@@ -1,7 +1,8 @@
 dependencies:
-- name: alfresco-identity-service
-  repository: https://kubernetes-charts.alfresco.com/stable
-  version: 1.1.0
+- name: activiti-keycloak
+  repository: https://activiti.github.io/activiti-cloud-charts/
+  version: 2.0.0
+  condition: infrastructure.activiti-keycloak.enabled,activiti-keycloak.enabled
 - name: activiti-cloud-gateway
   repository: https://activiti.github.io/activiti-cloud-charts/
   version: 1.1.1
