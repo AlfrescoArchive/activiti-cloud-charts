@@ -13,8 +13,8 @@ global:
   keycloak:
     url: ""
     name: keycloak
-    realm: activiti
-    client: activiti
+    realm: alfresco
+    client: alfresco
     service:
       type: http
       port: 80
