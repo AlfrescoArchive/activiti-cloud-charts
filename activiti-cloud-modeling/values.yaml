@@ -118,7 +118,7 @@ backend:
 terminationGracePeriodSeconds: 20
 
 ingress:
-  enabled: true
+  enabled: false
   
   path: # configure base path for frontend and backend ingresses "/{{ .Release.Namespace }}"
   
