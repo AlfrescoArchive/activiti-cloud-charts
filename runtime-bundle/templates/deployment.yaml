@@ -98,7 +98,7 @@ spec:
           valueFrom:
             secretKeyRef:
               name: {{ .Release.Name }}-{{ .Values.postgres.name }}
-              key: postgres-password
+              key: postgresql-password
           {{- end }}
         - name: SPRING_JPA_DATABASE_PLATFORM
           value: {{ default "org.hibernate.dialect.PostgreSQLDialect" .Values.postgres.platform | quote }}

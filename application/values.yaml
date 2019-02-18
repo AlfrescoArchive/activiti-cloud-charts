@@ -10,7 +10,6 @@ activiti-cloud-audit:
   enabled: true
   postgres:
     enable: true
-    password:
 
 activiti-cloud-demo-ui:
   enabled: false
@@ -25,9 +24,12 @@ activiti-cloud-connector:
 
 activiti-cloud-notifications-graphql:
   enabled: true
+  postgres:
+    enable: true
 
 postgres:
   enabled: true
+  postgresqlPassword: password
   resources:
     requests:
       cpu: 350m
