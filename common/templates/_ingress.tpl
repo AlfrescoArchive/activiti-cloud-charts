@@ -59,7 +59,7 @@ Create a default ingress tls.
 	{{- $overrides := dict "Values" $noCommon -}} 
 	{{- $noValues := omit . "Values" -}} 
 	{{- with merge $noValues $overrides $common -}}
-		{{- $tlsacme := toString .Values.global.gateway.tlsacme -}}
+		{{- $tlsacme := include "common.tlsacme-enabled" . -}}
 		{{- $tls := toString .Values.ingress.tls -}}
 		{{- default "" (or (eq $tlsacme "true") (eq $tls "true")) -}}
 	{{- end -}}
