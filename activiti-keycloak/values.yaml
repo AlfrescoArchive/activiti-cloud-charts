@@ -31,6 +31,17 @@ keycloak:
             account:
               - "manage-account"
               - "view-profile"
+            broker:
+              - "read-token"
+            realm-management:
+              - "manage-users"
+              - "manage-clients"
+              - "manage-authorization"
+              - "manage-events"
+              - "manage-realm"
+              - "create-client"
+              - "impersonation"
+              - "realm-admin"
         - username: modeler
           enabled: true
           firstName: "modeler"
