@@ -69,3 +69,22 @@ Create a gateway url template
 {{- default "" .Values.global.keycloak.enabled -}}
 {{- end -}}
  
+{{/*
+Create default pull secrets
+*/}}
+{{- define "common.registry-pull-secrets" -}}
+{{- $common := dict "Values" .Values.common -}} 
+{{- $noCommon := omit .Values "common" -}} 
+{{- $overrides := dict "Values" $noCommon -}} 
+{{- $noValues := omit . "Values" -}} 
+{{- $values := merge $noValues $overrides $common -}} 
+{{- with $values -}}
+{{- range $value := .Values.global.registryPullSecrets -}}
+- "name": {{ tpl (printf "%s" $value) $values | quote }}
+{{- end }}
+{{- range $value := .Values.registryPullSecrets -}}
+- "name": {{ tpl (printf "%s" $value) $values | quote }}
+{{- end }}
+
+{{- end }}
+{{- end -}}

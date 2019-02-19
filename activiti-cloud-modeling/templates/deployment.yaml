@@ -21,9 +21,9 @@ spec:
 {{ toYaml .Values.podAnnotations | indent 8 }}
 {{- end }}
     spec:
-{{- if .Values.registryPullSecrets }}
+{{- if include "common.registry-pull-secrets" . }}
       imagePullSecrets:
-      - name: {{ .Values.registryPullSecrets }}
+      {{- include "common.registry-pull-secrets" . | indent 6 }}
 {{- end }}
       containers:
       - name: {{ .Chart.Name }}-backend

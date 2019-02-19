@@ -26,6 +26,12 @@ global:
     resource: "activiti"
     client: "activiti"
 
+  ## Configure pull secrets for all deployments
+  registryPullSecrets: []
+
+## Configures additional pull secrets for this deployment
+registryPullSecrets: []
+
 ingress:
   ## Set this to true in order to enable TLS on the ingress record
   tls: 
