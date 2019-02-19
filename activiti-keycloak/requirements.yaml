@@ -1,7 +1,7 @@
 dependencies:
 - name: alfresco-identity-service
   alias: keycloak
-  repository: https://kubernetes-charts.alfresco.com/stable
+  repository: https://kubernetes-charts.alfresco.com/incubator
   version: 1.1.1
   condition: keycloak.enabled
 - name: common
