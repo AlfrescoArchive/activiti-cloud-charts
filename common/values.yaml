@@ -17,6 +17,11 @@ global:
     ## Configure default keycloak host template, i.e "activiti-keycloak.{{ .Values.global.gateway.domain }}"
     host: ""
 
+    ## Configure default Keycloak realm
+    realm: "activiti"
+    resource: "activiti"
+    client: "activiti"
+
 ingress:
   ## Set this to true in order to enable TLS on the ingress record
   tls: false
