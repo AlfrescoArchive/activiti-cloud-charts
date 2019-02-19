@@ -37,7 +37,7 @@ spec:
           value: {{ include "common.keycloak-url" $ | quote }}
         {{- end }}
         - name: ACT_IDM_CLIENT_ID
-          value: "{{ .Values.global.keycloak.client }}"
+          value: "{{ include "common.keycloak-client" . | quote }}"
 {{- with .Values.extraEnv }}
 {{ tpl . $ | indent 8 }}
 {{- end }}

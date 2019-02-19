@@ -79,9 +79,9 @@ spec:
         image: "{{ .Values.frontend.image.repository }}:{{ .Values.frontend.image.tag }}"
         env:
         - name: APP_CONFIG_OAUTH2_HOST
-          value: {{ include "common.keycloak-url" . }}/realms/{{ .Values.global.keycloak.realm }}
+          value: {{ include "common.keycloak-url" . }}/realms/{{ include "common.keycloak-realm" . }}
         - name: APP_CONFIG_OAUTH2_CLIENTID
-          value: {{ .Values.global.keycloak.client }}
+          value: {{ include "common.keycloak-client" . | quote }}
         - name: API_URL
 {{- if .Values.backend.url }}
           value: {{ .Values.backend.url }}

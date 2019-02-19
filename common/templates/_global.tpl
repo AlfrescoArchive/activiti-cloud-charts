@@ -88,3 +88,45 @@ Create default pull secrets
 
 {{- end }}
 {{- end -}}
+
+{{/*
+Create a default keycloak realm
+*/}}
+{{- define "common.keycloak-realm" -}}
+	{{- $common := dict "Values" .Values.common -}} 
+	{{- $noCommon := omit .Values "common" -}} 
+	{{- $overrides := dict "Values" $noCommon -}} 
+	{{- $noValues := omit . "Values" -}} 
+	{{- with merge $noValues $overrides $common -}}
+		{{- $value := .Values.global.keycloak.realm -}}
+		{{- tpl (printf "%s" $value) . -}}
+	{{- end -}}
+{{- end -}}
+
+{{/*
+Create a default keycloak resource
+*/}}
+{{- define "common.keycloak-resource" -}}
+	{{- $common := dict "Values" .Values.common -}} 
+	{{- $noCommon := omit .Values "common" -}} 
+	{{- $overrides := dict "Values" $noCommon -}} 
+	{{- $noValues := omit . "Values" -}} 
+	{{- with merge $noValues $overrides $common -}}
+		{{- $value := .Values.global.keycloak.resource -}}
+		{{- tpl (printf "%s" $value) . -}}
+	{{- end -}}
+{{- end -}}
+
+{{/*
+Create a default keycloak client
+*/}}
+{{- define "common.keycloak-client" -}}
+	{{- $common := dict "Values" .Values.common -}} 
+	{{- $noCommon := omit .Values "common" -}} 
+	{{- $overrides := dict "Values" $noCommon -}} 
+	{{- $noValues := omit . "Values" -}} 
+	{{- with merge $noValues $overrides $common -}}
+		{{- $value := .Values.global.keycloak.client -}}
+		{{- tpl (printf "%s" $value) . -}}
+	{{- end -}}
+{{- end -}}
