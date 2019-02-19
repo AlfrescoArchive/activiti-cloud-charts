@@ -36,7 +36,13 @@ Create a gateway url template
 {{- end -}}
 
 {{- define "common.gateway-proto" -}}
-{{- tpl "http{{ if (eq .Values.global.gateway.http false) }}s{{ end }}" . -}}
+{{- $http := toString .Values.global.gateway.http -}}
+{{- if eq $http "false" }}https{{else}}http{{ end -}}
+{{- end -}}
+
+{{- define "common.gateway-https-enabled" -}}
+{{- $http := toString .Values.global.gateway.http -}}
+{{- default "" (eq $http "false") -}}
 {{- end -}}
 
 {{- define "common.gateway-host" -}}

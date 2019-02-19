@@ -6,8 +6,12 @@ global:
     domain: ""
     ## Confige default gateway host Helm template, i.e. "activiti-cloud-gateway.{{ .Values.global.gateway.domain }}"
     host: ""
-    ## Set to false to enable tls for ingresses
-    http: true 
+    ## Toggle creating http or https ingress rules, supports literal or boolean values
+    http: true
+
+    ## Used to enable automatic TLS for ingress if http is false
+    tlsacme: false
+
   keycloak:
     enabled: true
     ## Overrides gateway host configuration
@@ -24,7 +28,7 @@ global:
 
 ingress:
   ## Set this to true in order to enable TLS on the ingress record
-  tls: false
+  tls: 
 
   ## Empty default. Each ingress should provide its own value or template
   path: 
