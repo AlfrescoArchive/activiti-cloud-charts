@@ -36,7 +36,13 @@ Create a gateway url template
 {{- end -}}
 
 {{- define "common.gateway-proto" -}}
-{{- tpl "http{{ if (eq .Values.global.gateway.http false) }}s{{ end }}" . -}}
+{{- $http := toString .Values.global.gateway.http -}}
+{{- if eq $http "false" }}https{{else}}http{{ end -}}
+{{- end -}}
+
+{{- define "common.gateway-https-enabled" -}}
+{{- $http := toString .Values.global.gateway.http -}}
+{{- default "" (eq $http "false") -}}
 {{- end -}}
 
 {{- define "common.gateway-host" -}}
@@ -63,3 +69,64 @@ Create a gateway url template
 {{- default "" .Values.global.keycloak.enabled -}}
 {{- end -}}
  
+{{/*
+Create default pull secrets
+*/}}
+{{- define "common.registry-pull-secrets" -}}
+{{- $common := dict "Values" .Values.common -}} 
+{{- $noCommon := omit .Values "common" -}} 
+{{- $overrides := dict "Values" $noCommon -}} 
+{{- $noValues := omit . "Values" -}} 
+{{- $values := merge $noValues $overrides $common -}} 
+{{- with $values -}}
+{{- range $value := .Values.global.registryPullSecrets }}
+- name: {{ tpl (printf "%s" $value) $values | quote }}
+{{- end }}
+{{- range $value := .Values.registryPullSecrets }}
+- name: {{ tpl (printf "%s" $value) $values | quote }}
+{{- end }}
+
+{{- end }}
+{{- end -}}
+
+{{/*
+Create a default keycloak realm
+*/}}
+{{- define "common.keycloak-realm" -}}
+	{{- $common := dict "Values" .Values.common -}} 
+	{{- $noCommon := omit .Values "common" -}} 
+	{{- $overrides := dict "Values" $noCommon -}} 
+	{{- $noValues := omit . "Values" -}} 
+	{{- with merge $noValues $overrides $common -}}
+		{{- $value := .Values.global.keycloak.realm -}}
+		{{- tpl (printf "%s" $value) . -}}
+	{{- end -}}
+{{- end -}}
+
+{{/*
+Create a default keycloak resource
+*/}}
+{{- define "common.keycloak-resource" -}}
+	{{- $common := dict "Values" .Values.common -}} 
+	{{- $noCommon := omit .Values "common" -}} 
+	{{- $overrides := dict "Values" $noCommon -}} 
+	{{- $noValues := omit . "Values" -}} 
+	{{- with merge $noValues $overrides $common -}}
+		{{- $value := .Values.global.keycloak.resource -}}
+		{{- tpl (printf "%s" $value) . -}}
+	{{- end -}}
+{{- end -}}
+
+{{/*
+Create a default keycloak client
+*/}}
+{{- define "common.keycloak-client" -}}
+	{{- $common := dict "Values" .Values.common -}} 
+	{{- $noCommon := omit .Values "common" -}} 
+	{{- $overrides := dict "Values" $noCommon -}} 
+	{{- $noValues := omit . "Values" -}} 
+	{{- with merge $noValues $overrides $common -}}
+		{{- $value := .Values.global.keycloak.client -}}
+		{{- tpl (printf "%s" $value) . -}}
+	{{- end -}}
+{{- end -}}

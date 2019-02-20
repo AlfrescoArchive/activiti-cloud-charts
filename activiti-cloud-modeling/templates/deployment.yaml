@@ -21,9 +21,9 @@ spec:
 {{ toYaml .Values.podAnnotations | indent 8 }}
 {{- end }}
     spec:
-{{- if .Values.registryPullSecrets }}
+{{- if include "common.registry-pull-secrets" . }}
       imagePullSecrets:
-      - name: {{ .Values.registryPullSecrets }}
+      {{- include "common.registry-pull-secrets" . | indent 6 }}
 {{- end }}
       containers:
       - name: {{ .Chart.Name }}-backend
@@ -42,7 +42,7 @@ spec:
         - name: SERVER_PORT
           value: "{{ .Values.service.backend.internalPort }}"
         - name: ACT_KEYCLOAK_URL
-          value: {{ include "common.keycloak-url" $ | quote }}
+          value: {{ include "common.keycloak-url" . | quote }}
         - name: ACTIVITI_CLOUD_MODELING_URL
           value: "localhost:{{ .Values.service.backend.internalPort }}"
 {{- with .Values.backend.extraEnv }}
@@ -79,9 +79,9 @@ spec:
         image: "{{ .Values.frontend.image.repository }}:{{ .Values.frontend.image.tag }}"
         env:
         - name: APP_CONFIG_OAUTH2_HOST
-          value: {{ include "common.keycloak-url" $ }}/realms/{{ .Values.global.keycloak.realm }}
+          value: {{ include "common.keycloak-url" . }}/realms/{{ include "common.keycloak-realm" . }}
         - name: APP_CONFIG_OAUTH2_CLIENTID
-          value: {{ .Values.global.keycloak.client }}
+          value: {{ include "common.keycloak-client" . | quote }}
         - name: API_URL
 {{- if .Values.backend.url }}
           value: {{ .Values.backend.url }}

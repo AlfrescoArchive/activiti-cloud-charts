@@ -8,8 +8,17 @@ Create a default tls secret name.
 	{{- $overrides := dict "Values" $noCommon -}} 
 	{{- $noValues := omit . "Values" -}} 
 	{{- with merge $noValues $overrides $common -}}
-		{{- $tlssecretname := default (printf "tls-%s-%s" .Release.Name .Chart.Name) .Values.ingress.tlsSecret -}}
+		{{- $tlsacmename := include "common.tlsacme-secretname" . -}}
+		{{- $tlssecretname := default $tlsacmename .Values.ingress.tlsSecret -}}
 		{{- tpl (printf "%s" $tlssecretname) $ | trunc 48 | trimSuffix "-" -}}
+	{{- end -}}
+{{- end -}}
+
+{{- define "common.tlsacme-secretname" -}}
+	{{- if include "common.tlsacme-enabled" . -}}
+		{{- printf "tls-%s-%s" .Release.Name .Chart.Name -}}
+	{{- else -}}
+		{{- printf "" -}}
 	{{- end -}}
 {{- end -}}
 
@@ -50,7 +59,9 @@ Create a default ingress tls.
 	{{- $overrides := dict "Values" $noCommon -}} 
 	{{- $noValues := omit . "Values" -}} 
 	{{- with merge $noValues $overrides $common -}}
-		{{- default "" (or (eq .Values.global.gateway.http false) .Values.ingress.tls) -}}
+		{{- $tlsacme := include "common.tlsacme-enabled" . -}}
+		{{- $tls := toString .Values.ingress.tls -}}
+		{{- default "" (or (eq $tlsacme "true") (eq $tls "true")) -}}
 	{{- end -}}
 {{- end -}}
 
@@ -69,11 +80,24 @@ Create default ingress annotations
 {{ $key }}: {{ tpl (printf "%s" $value) $values | quote }}
 {{- end }}
 {{- range $key, $value := .Values.ingress.annotations }}
+{{- if (ne (toString $value) "null") }}
 {{ $key }}: {{ tpl (printf "%s" $value) $values | quote }}
 {{- end }}
-{{- if or (eq .Values.global.gateway.http false) .Values.ingress.tls }}
-{{ tpl "kubernetes.io/tls-acme: \"true\"" . }}
+{{- end }}
+
+{{- if include "common.tlsacme-enabled" . }}
+{{ "kubernetes.io/tls-acme" }}: {{ include "common.tlsacme-enabled" . | quote }}
 {{- end }}
 
 {{- end }}
 {{- end -}}
+
+{{/*
+Default tlsacme-enabled template
+*/}}
+{{- define "common.tlsacme-enabled" -}}
+	{{- $http := toString .Values.global.gateway.http -}}
+	{{- $tlsacme := toString .Values.global.gateway.tlsacme -}}
+	{{- default "" (and (eq $tlsacme "true") (eq $http "false")) -}}
+{{- end -}}
+

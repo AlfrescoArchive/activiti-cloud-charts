@@ -21,9 +21,9 @@ spec:
 {{ toYaml .Values.podAnnotations | indent 8 }}
 {{- end }}
     spec:
-{{- if .Values.registryPullSecrets }}
+{{- if include "common.registry-pull-secrets" . }}
       imagePullSecrets:
-      - name: {{ .Values.registryPullSecrets }}
+      {{- include "common.registry-pull-secrets" . | indent 6 }}
 {{- end }}
       containers:
       - name: {{ .Chart.Name }}
@@ -48,18 +48,18 @@ spec:
           value: {{ .Values.global.rabbitmq.username.value }}
         - name: SPRING_RABBITMQ_PASSWORD
           value: {{ .Values.global.rabbitmq.password.value }}
-{{- if include "common.keycloak-url" $ }}
+        {{- if include "common.keycloak-url" $ }}
         - name: ACT_KEYCLOAK_URL
           value: {{ include "common.keycloak-url" $ | quote }}
-{{- end }}
-{{- if .Values.global.keycloak.realm }}
+        {{- end }}
+        {{- if include "common.keycloak-realm" . }}
         - name: ACT_KEYCLOAK_REALM
-          value: {{ .Values.global.keycloak.realm | quote }}
-{{- end }}
-{{- if .Values.global.keycloak.resource }}
+          value: {{ include "common.keycloak-realm" . | quote }}
+        {{- end }}
+        {{- if include "common.keycloak-resource" . }}
         - name: ACT_KEYCLOAK_RESOURCE
-          value: {{ .Values.global.keycloak.resource | quote }}
-{{- end }}
+          value: {{ include "common.keycloak-resource" . | quote }}
+        {{- end }}
         - name: EUREKA_CLIENT_ENABLED
           value: "false"
         - name: ACTIVITI_CLOUD_SERVICES_METADATA_EUREKA_STATIC_ENABLED
