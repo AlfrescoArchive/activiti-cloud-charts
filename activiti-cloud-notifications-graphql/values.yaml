@@ -61,7 +61,6 @@ image:
   pullPolicy: IfNotPresent
   
 service:
-  name: activiti-cloud-notifications
   type: ClusterIP
   externalPort: 80
   internalPort: 8080

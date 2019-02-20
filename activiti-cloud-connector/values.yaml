@@ -42,7 +42,6 @@ image:
   tag: 7.0.0.GA
   pullPolicy: IfNotPresent
 service:
-  name: example-cloud-connector
   type: ClusterIP
   externalPort: 80
   internalPort: 8080

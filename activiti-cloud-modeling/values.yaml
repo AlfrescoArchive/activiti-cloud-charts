@@ -22,7 +22,6 @@ global:
     host: ""
 
 service:
-  name: activiti-cloud-modeling
   type: ClusterIP
   backend:
     externalPort: 80

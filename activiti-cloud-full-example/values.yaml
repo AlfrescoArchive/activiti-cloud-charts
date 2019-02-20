@@ -51,10 +51,23 @@ global:
 
 activiti-cloud-modeling:
   enabled: true
+  service:
+    name: activiti-cloud-modeling
+  ingress:
+    enabled: true
+    frontend:
+      annotations:
+        nginx.ingress.kubernetes.io/rewrite-target: "/"
+    backend:
+      annotations:
+        nginx.ingress.kubernetes.io/rewrite-target: "/"
+      
 
 application:
   runtime-bundle:
     enabled: true
+    service: 
+      name: rb-my-app
     image:
       pullPolicy: Always
     # extraEnv: |
@@ -80,6 +93,8 @@ application:
     #     value: "*"
 
   activiti-cloud-query:
+    service: 
+      name: query
     image:
       pullPolicy: Always
     # extraEnv: |
@@ -106,15 +121,21 @@ application:
 
   activiti-cloud-connector:
     enabled: true
+    service: 
+      name: example-cloud-connector
     image:
       pullPolicy: Always
 
   activiti-cloud-notifications-graphql:
     enabled: true
+    service: 
+      name: activiti-cloud-notifications
     image:
       pullPolicy: Always
 
   activiti-cloud-audit:
+    service: 
+      name: audit
     image:
       pullPolicy: Always
     # extraEnv: |
@@ -154,6 +175,8 @@ infrastructure:
           sed -i 's/placeholder.com/*/g' activiti-realm.json
   
   activiti-cloud-gateway:
+    service:
+      name: activiti-cloud-gateway
     ingress:
       enabled: true
       annotations:
