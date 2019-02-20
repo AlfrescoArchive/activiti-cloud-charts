@@ -21,9 +21,9 @@ spec:
 {{ toYaml .Values.podAnnotations | indent 8 }}
 {{- end }}
     spec:
-{{- if .Values.registryPullSecrets }}
+{{- if include "common.registry-pull-secrets" . }}
       imagePullSecrets:
-      - name: {{ .Values.registryPullSecrets }}
+      {{- include "common.registry-pull-secrets" . | indent 6 }}
 {{- end }}
       containers:
       - name: {{ .Chart.Name }}
@@ -37,7 +37,7 @@ spec:
           value: {{ include "common.keycloak-url" $ | quote }}
         {{- end }}
         - name: ACT_IDM_CLIENT_ID
-          value: "{{ .Values.global.keycloak.client }}"
+          value: "{{ include "common.keycloak-client" . | quote }}"
 {{- with .Values.extraEnv }}
 {{ tpl . $ | indent 8 }}
 {{- end }}

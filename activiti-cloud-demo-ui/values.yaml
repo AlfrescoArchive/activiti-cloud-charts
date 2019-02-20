@@ -19,7 +19,6 @@ image:
   tag: latest
   pullPolicy: IfNotPresent
 service:
-  name: activiti-cloud-demo-ui
   type: ClusterIP
   externalPort: 80
   internalPort: 3000

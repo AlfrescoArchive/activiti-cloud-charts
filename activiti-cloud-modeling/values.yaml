@@ -22,7 +22,6 @@ global:
     host: ""
 
 service:
-  name: activiti-cloud-modeling
   type: ClusterIP
   backend:
     externalPort: 80
@@ -132,10 +131,11 @@ ingress:
 
   annotations:
     kubernetes.io/ingress.class: nginx
-    nginx.ingress.kubernetes.io/rewrite-target: /
     nginx.ingress.kubernetes.io/enable-cors: "true"
     nginx.ingress.kubernetes.io/cors-allow-headers: "*"
     nginx.ingress.kubernetes.io/x-forwarded-prefix: "true"
+    ## Should skip annotation if present in the base chart by setting value to "null" literal
+    #nginx.ingress.kubernetes.io/rewrite-target: "null"
 
   ## Set to true to enable websockets
   ws:

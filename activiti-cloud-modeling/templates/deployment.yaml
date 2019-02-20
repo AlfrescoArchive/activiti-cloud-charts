@@ -42,7 +42,7 @@ spec:
         - name: SERVER_PORT
           value: "{{ .Values.service.backend.internalPort }}"
         - name: ACT_KEYCLOAK_URL
-          value: {{ include "common.keycloak-url" $ | quote }}
+          value: {{ include "common.keycloak-url" . | quote }}
         {{- if .Values.global.keycloak.realm }}
         - name: ACT_KEYCLOAK_REALM
           value: {{ .Values.global.keycloak.realm | quote }}

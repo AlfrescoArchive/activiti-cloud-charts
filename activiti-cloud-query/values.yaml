@@ -59,7 +59,6 @@ image:
   tag: 7.0.0.GA
   pullPolicy: IfNotPresent
 service:
-  name: query
   type: ClusterIP
   externalPort: 80
   internalPort: 8080
