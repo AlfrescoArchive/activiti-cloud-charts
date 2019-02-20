@@ -79,11 +79,11 @@ Create default pull secrets
 {{- $noValues := omit . "Values" -}} 
 {{- $values := merge $noValues $overrides $common -}} 
 {{- with $values -}}
-{{- range $value := .Values.global.registryPullSecrets -}}
-- "name": {{ tpl (printf "%s" $value) $values | quote }}
+{{- range $value := .Values.global.registryPullSecrets }}
+- name: {{ tpl (printf "%s" $value) $values | quote }}
 {{- end }}
-{{- range $value := .Values.registryPullSecrets -}}
-- "name": {{ tpl (printf "%s" $value) $values | quote }}
+{{- range $value := .Values.registryPullSecrets }}
+- name: {{ tpl (printf "%s" $value) $values | quote }}
 {{- end }}
 
 {{- end }}
