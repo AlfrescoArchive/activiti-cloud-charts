@@ -3,6 +3,7 @@ keycloak:
   ingress:
     enabled: false
   persistence:
+    #to enable postgres set true and set dbVendor to postgres here and also below (not sure why twice)
     deployPostgres: false
     dbVendor: H2
   realm:
@@ -141,6 +142,14 @@ keycloak:
     enabled: true
     ingress:
       enabled: false
+    postgresql:
+      #avoid restarts on upgrades if postgres
+      postgresPassword: "keycloak"
+      #put back postgresql defaults overridden by AIS chart
+      nameOverride: ""
+      persistence:
+        #AIS expects alfresco-volume-claim from alfresco-infrastructure-deployment
+        existingClaim: ""
     keycloak:
       resources:
         limits:
@@ -151,6 +160,7 @@ keycloak:
           memory: "512Mi"
       username: admin
       password: admin
+      #to enable postgres set true and set dbVendor to postgres
       persistence:
         deployPostgres: false
         dbVendor: H2
