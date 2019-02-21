@@ -21,9 +21,9 @@ spec:
 {{ toYaml .Values.podAnnotations | indent 8 }}
 {{- end }}
     spec:
-{{- if .Values.registryPullSecrets }}
+{{- if include "common.registry-pull-secrets" . }}
       imagePullSecrets:
-      - name: {{ .Values.registryPullSecrets }}
+      {{- include "common.registry-pull-secrets" . | indent 6 }}
 {{- end }}
       containers:
       - name: {{ .Chart.Name }}-backend
@@ -43,25 +43,19 @@ spec:
           value: "{{ .Values.service.backend.internalPort }}"
         - name: ACT_KEYCLOAK_URL
           value: {{ include "common.keycloak-url" . | quote }}
-        {{- if .Values.global.keycloak.realm }}
         - name: ACT_KEYCLOAK_REALM
-          value: {{ .Values.global.keycloak.realm | quote }}
-          {{- end }}
-          {{- if .Values.global.keycloak.resource }}
+          value: {{ include "common.keycloak-realm" . | quote }}
         - name: ACT_KEYCLOAK_RESOURCE
-          value: {{ .Values.global.keycloak.resource | quote }}
-        {{- end }}
+          value: {{ include "common.keycloak-resource" . | quote }}
         - name: ACTIVITI_CLOUD_MODELING_URL
           value: "localhost:{{ .Values.service.backend.internalPort }}"
-{{- with .Values.backend.extraEnv }}
-{{ tpl . $ | indent 8 }}
-{{- end }}
+{{ include "activiti-cloud-modeling.extra-env-backend" . | indent 8 }}
         imagePullPolicy: {{ .Values.backend.image.pullPolicy }}
         ports:
         - containerPort: {{ .Values.service.backend.internalPort }}
         livenessProbe:
           httpGet:
-            path: {{ .Values.backend.probePath }}
+            path: {{ tpl .Values.backend.probePath . }}
             port: {{ .Values.service.backend.internalPort }}
           initialDelaySeconds: {{ .Values.backend.livenessProbe.initialDelaySeconds }}
           periodSeconds: {{ .Values.backend.livenessProbe.periodSeconds }}
@@ -70,7 +64,7 @@ spec:
           failureThreshold: {{ .Values.backend.livenessProbe.failureThreshold }}
         readinessProbe:
           httpGet:
-            path: {{ .Values.backend.probePath }}
+            path: {{ tpl .Values.backend.probePath . }}
             port: {{ .Values.service.backend.internalPort }}
           initialDelaySeconds: {{ .Values.backend.readinessProbe.initialDelaySeconds }}
           periodSeconds: {{ .Values.backend.readinessProbe.periodSeconds }}
@@ -87,9 +81,9 @@ spec:
         image: "{{ .Values.frontend.image.repository }}:{{ .Values.frontend.image.tag }}"
         env:
         - name: APP_CONFIG_OAUTH2_HOST
-          value: {{ include "common.keycloak-url" $ }}/realms/{{ .Values.global.keycloak.realm }}
+          value: {{ include "common.keycloak-url" . }}/realms/{{ include "common.keycloak-realm" . }}
         - name: APP_CONFIG_OAUTH2_CLIENTID
-          value: {{ .Values.global.keycloak.client }}
+          value: {{ include "common.keycloak-client" . | quote }}
         - name: API_URL
 {{- if .Values.backend.url }}
           value: {{ .Values.backend.url }}
@@ -108,15 +102,13 @@ spec:
 {{- end }}
         - name: API_PATH_PREFIX
           value: "{{ .Values.backend.prefix }}"
-{{- with .Values.frontend.extraEnv }}
-{{ tpl . $ | indent 8 }}
-{{- end }}
+{{ include "activiti-cloud-modeling.extra-env-frontend" . | indent 8 }}
         imagePullPolicy: {{ .Values.frontend.image.pullPolicy }}
         ports:
         - containerPort: {{ .Values.service.frontend.internalPort }}
         livenessProbe:
           httpGet:
-            path: {{ .Values.frontend.probePath }}
+            path: {{ tpl .Values.frontend.probePath . }}
             port: {{ .Values.service.frontend.internalPort }}
           initialDelaySeconds: {{ .Values.frontend.livenessProbe.initialDelaySeconds }}
           periodSeconds: {{ .Values.frontend.livenessProbe.periodSeconds }}
@@ -125,7 +117,7 @@ spec:
           failureThreshold: {{ .Values.frontend.livenessProbe.failureThreshold }}
         readinessProbe:
           httpGet:
-            path: {{ .Values.frontend.probePath }}
+            path: {{ tpl .Values.frontend.probePath . }}
             port: {{ .Values.service.frontend.internalPort }}
           initialDelaySeconds: {{ .Values.frontend.readinessProbe.initialDelaySeconds }}
           periodSeconds: {{ .Values.frontend.readinessProbe.periodSeconds }}

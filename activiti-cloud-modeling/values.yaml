@@ -129,13 +129,7 @@ ingress:
   ## Set to override global.gateway.host value, i.e. "modeler.{{ include \"common.gateway-domain\" . }}"
   hostName: 
 
-  annotations:
-    kubernetes.io/ingress.class: nginx
-    nginx.ingress.kubernetes.io/enable-cors: "true"
-    nginx.ingress.kubernetes.io/cors-allow-headers: "*"
-    nginx.ingress.kubernetes.io/x-forwarded-prefix: "true"
-    ## Should skip annotation if present in the base chart by setting value to "null" literal
-    #nginx.ingress.kubernetes.io/rewrite-target: "null"
+  annotations: {}
 
   ## Set to true to enable websockets
   ws:

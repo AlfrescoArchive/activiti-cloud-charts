@@ -38,14 +38,12 @@ spec:
         {{- end }}
         - name: ACT_IDM_CLIENT_ID
           value: "{{ include "common.keycloak-client" . | quote }}"
-{{- with .Values.extraEnv }}
-{{ tpl . $ | indent 8 }}
-{{- end }}
+{{ include "common.extra-env" . | indent 8 }}
         ports:
         - containerPort: {{ .Values.service.internalPort }}
         livenessProbe:
           httpGet:
-            path: {{ .Values.probePath }}
+            path: {{ tpl .Values.probePath . }}
             port: {{ .Values.service.internalPort }}
           initialDelaySeconds: {{ .Values.livenessProbe.initialDelaySeconds }}
           periodSeconds: {{ .Values.livenessProbe.periodSeconds }}
@@ -53,7 +51,7 @@ spec:
           timeoutSeconds: {{ .Values.livenessProbe.timeoutSeconds }}
         readinessProbe:
           httpGet:
-            path: {{ .Values.probePath }}
+            path: {{ tpl .Values.probePath . }}
             port: {{ .Values.service.internalPort }}
           periodSeconds: {{ .Values.readinessProbe.periodSeconds }}
           successThreshold: {{ .Values.readinessProbe.successThreshold }}

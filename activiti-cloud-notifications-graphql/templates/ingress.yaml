@@ -9,17 +9,6 @@ metadata:
     release: {{ .Release.Name }}
     heritage: {{ .Release.Service }}
   annotations:
-    kubernetes.io/ingress.class: "nginx"
-    nginx.ingress.kubernetes.io/enable-cors: "true"
-    nginx.ingress.kubernetes.io/cors-allow-headers: "*"
-    nginx.ingress.kubernetes.io/cors-allow-origin: "*" 
-    nginx.ingress.kubernetes.io/cors-allow-methods: "GET,PUT,POST,DELETE,PATCH,OPTIONS"
-    nginx.ingress.kubernetes.io/cors-allow-credentials: "true"   
-    nginx.ingress.kubernetes.io/x-forwarded-prefix: "true"
-    nginx.ingress.kubernetes.io/affinity: cookie
-    nginx.ingress.kubernetes.io/session-cookie-name: "activiti-cloud-notifications-graphql-route"
-    nginx.ingress.kubernetes.io/session-cookie-hash: "md5"
-    nginx.ingress.kubernetes.io/session-cookie-path: "/"
     {{- include "common.ingress-annotations" . | indent 4 }} 
 spec:
   rules:

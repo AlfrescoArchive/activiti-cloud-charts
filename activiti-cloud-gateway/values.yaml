@@ -18,12 +18,6 @@ service:
   internalPort: 8080
   annotations:
     fabric8.io/expose: "false"
-    fabric8.io/ingress.annotations: |-
-      kubernetes.io/ingress.class: nginx
-      nginx.ingress.kubernetes.io/rewrite-target: /
-      nginx.ingress.kubernetes.io/enable-cors: true
-      nginx.ingress.kubernetes.io/cors-allow-headers: "*"
-      nginx.ingress.kubernetes.io/x-forwarded-prefix: true
 resources:
   limits:
     cpu: 1
@@ -61,8 +55,4 @@ ingress:
   tlsSecret: 
 
   ## Ingress annotations done as key:value pairs
-  annotations:
-    kubernetes.io/ingress.class: nginx
-    nginx.ingress.kubernetes.io/enable-cors: "true"
-    nginx.ingress.kubernetes.io/cors-allow-headers: "*"
-    nginx.ingress.kubernetes.io/x-forwarded-prefix: "true"
+  annotations: {}
