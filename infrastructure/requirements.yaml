@@ -1,12 +1,12 @@
 dependencies:
 - name: activiti-keycloak
   repository: https://activiti.github.io/activiti-cloud-charts/
-  version: 1.1.2
+  version: 1.1.3
   condition: infrastructure.activiti-keycloak.enabled,activiti-keycloak.enabled
 - name: activiti-cloud-gateway
   repository: https://activiti.github.io/activiti-cloud-charts/
-  version: 1.1.3
+  version: 1.1.4
   condition: infrastructure.activiti-cloud-gateway.enabled,activiti-cloud-gateway.enabled
 - name: common
   repository: https://activiti.github.io/activiti-cloud-charts/
-  version: 1.1.1
+  version: 1.1.2
