@@ -130,3 +130,19 @@ Create a default keycloak client
 		{{- tpl (printf "%s" $value) . -}}
 	{{- end -}}
 {{- end -}}
+
+{{/*
+Create a default extra env templated values 
+*/}}
+{{- define "common.extra-env" -}}
+{{- $common := dict "Values" .Values.common -}} 
+{{- $noCommon := omit .Values "common" -}} 
+{{- $overrides := dict "Values" $noCommon -}} 
+{{- $noValues := omit . "Values" -}} 
+{{- with merge $noValues $overrides $common -}}
+{{- tpl .Values.global.keycloak.extraEnv . -}}
+{{- tpl .Values.global.extraEnv . -}}
+{{- tpl .Values.extraEnv . -}}
+{{- end -}}
+{{- end -}}
+

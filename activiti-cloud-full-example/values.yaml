@@ -12,6 +12,15 @@ global:
   ## Configure pull secrets for all deployments
   registryPullSecrets: []
 
+  # Use Yaml formatted string to add extra environment properties to all deployments, i.e.
+  extraEnv: |
+    # - name: SERVER_USEFORWARDHEADERS
+    #   value: "true"
+    # - name: SERVER_TOMCAT_INTERNALPROXIES
+    #   value: ".*"
+    # - name: MANAGEMENT_ENDPOINTS_WEB_EXPOSURE_INCLUDE
+    #   value: "*"
+
   keycloak:
     ## Configure Activiti Keycloak host template, i.e. "activiti-keycloak.{{ .Release.Namespace }}.{{ .Values.global.gateway.domain }}"
     host: ""
@@ -24,6 +33,11 @@ global:
     realm: "activiti"
     resource: "activiti"
     client: "activiti"
+
+    ## Use Yaml formatted string to add keycloak properties to deployments
+    extraEnv: |
+      # - name: KEYCLOAK_USERESOURCEROLEMAPPINGS
+      #   value: "false" 
 
   gateway:
     ## Set to configure single domain name for all services, i.e. "activiti-cloud-gateway.{{ .Release.Namespace }}.{{ .Values.global.gateway.domain }}"
@@ -49,19 +63,22 @@ global:
     # http: *http ## Sync with Jx expose controller http conig
     # tlsacme: *tlsacme ## Sync with Jx expose controller tlsacme conig
 
+
 activiti-cloud-modeling:
   enabled: true
   service:
     name: activiti-cloud-modeling
   ingress:
-    enabled: true
+    enabled: false
+    annotations:
+      kubernetes.io/ingress.class: nginx
+      nginx.ingress.kubernetes.io/enable-cors: "true"
+      nginx.ingress.kubernetes.io/cors-allow-headers: "*"
+      nginx.ingress.kubernetes.io/x-forwarded-prefix: "true"
     frontend:
-      annotations:
-        nginx.ingress.kubernetes.io/rewrite-target: "/"
+      annotations: {}
     backend:
-      annotations:
-        nginx.ingress.kubernetes.io/rewrite-target: "/"
-      
+      annotations: {}
 
 application:
   runtime-bundle:
@@ -184,3 +201,4 @@ infrastructure:
         nginx.ingress.kubernetes.io/enable-cors: "true"
         nginx.ingress.kubernetes.io/cors-allow-headers: "*"
         nginx.ingress.kubernetes.io/x-forwarded-prefix: "true"
+

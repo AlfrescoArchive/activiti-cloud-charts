@@ -26,8 +26,17 @@ global:
     resource: "activiti"
     client: "activiti"
 
+    ## Adds Keycloak extraEnv to deployments
+    extraEnv: ""
+
   ## Configure pull secrets for all deployments
   registryPullSecrets: []
+
+  ## Adds global extraEnv to deployments
+  extraEnv: ""
+
+## Adds extraEnv to deployments
+extraEnv: ""
 
 ## Configures additional pull secrets for this deployment
 registryPullSecrets: []
