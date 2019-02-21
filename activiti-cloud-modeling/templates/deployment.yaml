@@ -43,6 +43,10 @@ spec:
           value: "{{ .Values.service.backend.internalPort }}"
         - name: ACT_KEYCLOAK_URL
           value: {{ include "common.keycloak-url" . | quote }}
+        - name: ACT_KEYCLOAK_REALM
+          value: {{ include "common.keycloak-realm" . | quote }}
+        - name: ACT_KEYCLOAK_RESOURCE
+          value: {{ include "common.keycloak-resource" . | quote }}
         - name: ACTIVITI_CLOUD_MODELING_URL
           value: "localhost:{{ .Values.service.backend.internalPort }}"
 {{- with .Values.backend.extraEnv }}
