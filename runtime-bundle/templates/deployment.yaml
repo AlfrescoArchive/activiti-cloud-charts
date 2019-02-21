@@ -151,7 +151,7 @@ spec:
         - containerPort: {{ .Values.service.internalPort }}
         livenessProbe:
           httpGet:
-            path: {{ .Values.probePath }}
+            path: {{ tpl .Values.probePath . }}
             port: {{ .Values.service.internalPort }}
           initialDelaySeconds: {{ .Values.livenessProbe.initialDelaySeconds }}
           periodSeconds: {{ .Values.livenessProbe.periodSeconds }}
@@ -160,7 +160,7 @@ spec:
           failureThreshold: {{ .Values.livenessProbe.failureThreshold }}
         readinessProbe:
           httpGet:
-            path: {{ .Values.probePath }}
+            path: {{ tpl .Values.probePath . }}
             port: {{ .Values.service.internalPort }}
           initialDelaySeconds: {{ .Values.readinessProbe.initialDelaySeconds }}
           periodSeconds: {{ .Values.readinessProbe.periodSeconds }}

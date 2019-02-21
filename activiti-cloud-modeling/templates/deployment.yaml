@@ -53,7 +53,7 @@ spec:
         - containerPort: {{ .Values.service.backend.internalPort }}
         livenessProbe:
           httpGet:
-            path: {{ .Values.backend.probePath }}
+            path: {{ tpl .Values.backend.probePath . }}
             port: {{ .Values.service.backend.internalPort }}
           initialDelaySeconds: {{ .Values.backend.livenessProbe.initialDelaySeconds }}
           periodSeconds: {{ .Values.backend.livenessProbe.periodSeconds }}
@@ -62,7 +62,7 @@ spec:
           failureThreshold: {{ .Values.backend.livenessProbe.failureThreshold }}
         readinessProbe:
           httpGet:
-            path: {{ .Values.backend.probePath }}
+            path: {{ tpl .Values.backend.probePath . }}
             port: {{ .Values.service.backend.internalPort }}
           initialDelaySeconds: {{ .Values.backend.readinessProbe.initialDelaySeconds }}
           periodSeconds: {{ .Values.backend.readinessProbe.periodSeconds }}
@@ -108,7 +108,7 @@ spec:
         - containerPort: {{ .Values.service.frontend.internalPort }}
         livenessProbe:
           httpGet:
-            path: {{ .Values.frontend.probePath }}
+            path: {{ tpl .Values.frontend.probePath . }}
             port: {{ .Values.service.frontend.internalPort }}
           initialDelaySeconds: {{ .Values.frontend.livenessProbe.initialDelaySeconds }}
           periodSeconds: {{ .Values.frontend.livenessProbe.periodSeconds }}
@@ -117,7 +117,7 @@ spec:
           failureThreshold: {{ .Values.frontend.livenessProbe.failureThreshold }}
         readinessProbe:
           httpGet:
-            path: {{ .Values.frontend.probePath }}
+            path: {{ tpl .Values.frontend.probePath . }}
             port: {{ .Values.service.frontend.internalPort }}
           initialDelaySeconds: {{ .Values.frontend.readinessProbe.initialDelaySeconds }}
           periodSeconds: {{ .Values.frontend.readinessProbe.periodSeconds }}
