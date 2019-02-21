@@ -44,3 +44,32 @@ Create a ws-graphql ingress path.
 		{{- tpl (printf "%s%s" $basePath $value) . -}}
 	{{- end -}}
 {{- end -}}
+
+{{/*
+Create a default extra env templated values for backend
+*/}}
+{{- define "activiti-cloud-modeling.extra-env-backend" -}}
+{{- $common := dict "Values" .Values.common -}} 
+{{- $noCommon := omit .Values "common" -}} 
+{{- $overrides := dict "Values" $noCommon -}} 
+{{- $noValues := omit . "Values" -}} 
+{{- with merge $noValues $overrides $common -}}
+{{- include "common.extra-env" . -}}
+{{- tpl .Values.backend.extraEnv . -}}
+{{- end -}}
+{{- end -}}
+
+{{/*
+Create a default extra env templated values for frontend
+*/}}
+{{- define "activiti-cloud-modeling.extra-env-frontend" -}}
+{{- $common := dict "Values" .Values.common -}} 
+{{- $noCommon := omit .Values "common" -}} 
+{{- $overrides := dict "Values" $noCommon -}} 
+{{- $noValues := omit . "Values" -}} 
+{{- with merge $noValues $overrides $common -}}
+{{- include "common.extra-env" . -}}
+{{- tpl .Values.frontend.extraEnv . -}}
+{{- end -}}
+{{- end -}}
+

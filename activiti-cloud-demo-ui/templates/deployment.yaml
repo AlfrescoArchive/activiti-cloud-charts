@@ -38,9 +38,7 @@ spec:
         {{- end }}
         - name: ACT_IDM_CLIENT_ID
           value: "{{ include "common.keycloak-client" . | quote }}"
-{{- with .Values.extraEnv }}
-{{ tpl . $ | indent 8 }}
-{{- end }}
+{{ include "common.extra-env" . | indent 8 }}
         ports:
         - containerPort: {{ .Values.service.internalPort }}
         livenessProbe:
