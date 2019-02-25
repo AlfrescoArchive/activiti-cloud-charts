@@ -94,7 +94,7 @@ spec:
         - name: BASE_PATH
           value: "/{{ .Values.frontend.basepath }}/"
         - name: APP_CONFIG_OAUTH2_REDIRECT_SILENT_IFRAME_URI
-          value: "/{{ .Values.frontend.basepath }}/assets/silent-refresh.html"
+          value: "{{ include "common.gateway-url" . }}/{{ .Values.frontend.basepath }}/assets/silent-refresh.html"
         - name: APP_CONFIG_OAUTH2_REDIRECT_LOGIN
           value: "/{{ .Values.frontend.basepath }}"
         - name: APP_CONFIG_OAUTH2_REDIRECT_LOGOUT
