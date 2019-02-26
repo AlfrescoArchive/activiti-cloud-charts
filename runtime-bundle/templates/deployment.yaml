@@ -145,6 +145,7 @@ spec:
         - name: ACT_CLOUD_CONFIG_SERVER_ENABLED
           value: "false"
 {{ include "common.extra-env" . | indent 8 }}
+{{ include "common.keycloak-extra-env" . | indent 8 }}
         ports:
         - containerPort: {{ .Values.service.internalPort }}
         livenessProbe:

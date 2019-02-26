@@ -42,7 +42,9 @@ extraEnv: ""
 registryPullSecrets: []
 
 ingress:
-  ## Set this to true in order to enable TLS on the ingress record
+  enabled: 
+
+    ## Set this to true in order to enable TLS on the ingress record
   tls: 
 
   ## Empty default. Each ingress should provide its own value or template
@@ -56,3 +58,14 @@ ingress:
  
   ## Configure default ingress annotations 
   annotations: {} 
+
+replicaCount: 
+image:
+  repository: 
+  tag: 
+  pullPolicy: IfNotPresent
+service:
+  name: 
+  type: 
+  externalPort: 
+  internalPort: 

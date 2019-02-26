@@ -140,9 +140,21 @@ Create a default extra env templated values
 {{- $overrides := dict "Values" $noCommon -}} 
 {{- $noValues := omit . "Values" -}} 
 {{- with merge $noValues $overrides $common -}}
-{{- tpl .Values.global.keycloak.extraEnv . -}}
 {{- tpl .Values.global.extraEnv . -}}
 {{- tpl .Values.extraEnv . -}}
+{{- end -}}
+{{- end -}}
+
+{{/*
+Create a keycloak extra env templated values 
+*/}}
+{{- define "common.keycloak-extra-env" -}}
+{{- $common := dict "Values" .Values.common -}} 
+{{- $noCommon := omit .Values "common" -}} 
+{{- $overrides := dict "Values" $noCommon -}} 
+{{- $noValues := omit . "Values" -}} 
+{{- with merge $noValues $overrides $common -}}
+{{- tpl .Values.global.keycloak.extraEnv . -}}
 {{- end -}}
 {{- end -}}
 
