@@ -57,7 +57,7 @@ extraEnv: |
 #registryPullSecrets: private-registry-secret
 image:
   repository: activiti/activiti-cloud-notifications-graphql
-  tag: 7.0.0.GA
+  tag: 7.0.0.SR1
   pullPolicy: IfNotPresent
   
 service:

@@ -64,7 +64,7 @@ javaOpts:
 #registryPullSecrets: private-registry-secret
 image:
   repository: activiti/example-runtime-bundle
-  tag: 7.0.0.GA
+  tag: 7.0.0.SR1
   pullPolicy: IfNotPresent
 service:
   type: ClusterIP
