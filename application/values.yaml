@@ -39,6 +39,8 @@ rabbitmq:
   enabled: true
   service:
     clusterIP: None
+  persistentVolume:
+    enabled: true    
   rabbitmqUsername: "guest"
   rabbitmqPassword: "guest"
   rabbitmqErlangCookie: 124567890abcdefghijklmnopqrstuv
