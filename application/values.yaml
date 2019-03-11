@@ -4,12 +4,12 @@ activiti-cloud-events-adapter:
 activiti-cloud-query:
   enabled: true
   postgres:
-    enable: true
+    enabled: true
 
 activiti-cloud-audit:
   enabled: true
   postgres:
-    enable: true
+    enabled: true
 
 activiti-cloud-demo-ui:
   enabled: false
@@ -17,7 +17,7 @@ activiti-cloud-demo-ui:
 runtime-bundle:
   enabled: true
   postgres:
-    enable: true
+    enabled: true
 
 activiti-cloud-connector:
   enabled: false
@@ -25,7 +25,7 @@ activiti-cloud-connector:
 activiti-cloud-notifications-graphql:
   enabled: true
   postgres:
-    enable: true
+    enabled: true
 
 postgres:
   enabled: true
