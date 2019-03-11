@@ -9,7 +9,7 @@
 
 #common 1.1.2
 
-#application 1.1.5
+#application 1.1.6
 #infrastructure 1.1.5
 
 
@@ -27,5 +27,8 @@ helm dep build $chartname
 helm lint $chartname
 helm package $chartname
 mv $chartname*.tgz docs
+git pull
 git add $chartname/Chart.yaml
 git add docs/$chartname-$newversion.tgz
+git commit -m "$chartname updated from $version to $newversion"
+git push
