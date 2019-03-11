@@ -25,9 +25,9 @@ spec:
       imagePullSecrets:
       {{- include "common.registry-pull-secrets" . | indent 6 }}
 {{- end }}
-    {{- if or .Values.postgres.enable .Values.extraInitContainers }}
+    {{- if or .Values.postgres.enabled .Values.extraInitContainers }}
       initContainers:
-      {{- if .Values.postgres.enable }}
+      {{- if .Values.postgres.enabled }}
         - name: wait-for-postgresql
           image: "{{ .Values.init.image.repository }}:{{ .Values.init.image.tag }}"
           imagePullPolicy: {{ .Values.init.image.pullPolicy }}
@@ -80,7 +80,7 @@ spec:
         - name: ACT_KEYCLOAK_RESOURCE
           value: {{ include "common.keycloak-resource" . | quote }}
         {{- end }}
-{{- if .Values.postgres.enable }}
+{{- if .Values.postgres.enabled }}
         - name: SPRING_DATASOURCE_URL
           {{- if .Values.postgres.uri }}
           value: {{ .Values.postgres.uri | quote }}

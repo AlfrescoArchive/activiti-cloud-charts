@@ -33,7 +33,7 @@ db:
   ddlAuto:
 
 postgres:
-  enable: false
+  enabled: false
   name: postgres
   port: 5432
   username: postgres

@@ -32,7 +32,7 @@ db:
   ddlAuto: "none"
 
 postgres:
-  enable: true # should be enabled by default for application chart
+  enabled: true # should be enabled by default for application chart
   name: postgres
   port: 5432
   username: postgres

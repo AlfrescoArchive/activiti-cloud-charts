@@ -60,7 +60,7 @@ spec:
         - name: ACT_KEYCLOAK_RESOURCE
           value: {{ include "common.keycloak-resource" . | quote }}
         {{- end }}
-{{- if .Values.postgres.enable }}
+{{- if .Values.postgres.enabled }}
         - name: SPRING_DATASOURCE_URL
           {{- if .Values.postgres.uri }}
           value: {{ .Values.postgres.uri | quote }}
