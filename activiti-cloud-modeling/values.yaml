@@ -14,7 +14,7 @@ global:
     url: ""
     name: keycloak
     realm: alfresco
-    client: alfresco
+    client: activiti
     service:
       type: http
       port: 80
@@ -48,7 +48,7 @@ frontend:
   #       key: expose-keycloak-service-key
   image:
     repository: activiti/activiti-modeling-app
-    tag: 7.0.0.GA
+    tag: 7.0.0.SR1
     pullPolicy: Always
   resources:
     limits:
@@ -92,7 +92,7 @@ backend:
   #       key: expose-keycloak-service-key
   image:
     repository: activiti/activiti-cloud-modeling
-    tag: 7.0.0.GA
+    tag: 7.0.0.SR1
     pullPolicy: Always
   resources:
     limits:

@@ -31,8 +31,8 @@ global:
 
     ## Configure Keycloak realm
     realm: "alfresco"
-    resource: "alfresco"
-    client: "alfresco"
+    resource: "activiti"
+    client: "activiti"
 
     ## Use Yaml formatted string to add keycloak properties to deployments
     extraEnv: |

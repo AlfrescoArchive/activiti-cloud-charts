@@ -32,7 +32,7 @@ db:
   ddlAuto: "none"
 
 postgres:
-  enable: true # should be enabled by default for application chart
+  enabled: true # should be enabled by default for application chart
   name: postgres
   port: 5432
   username: postgres
@@ -57,7 +57,7 @@ extraEnv: |
 #registryPullSecrets: private-registry-secret
 image:
   repository: activiti/activiti-cloud-notifications-graphql
-  tag: 7.0.0.GA
+  tag: 7.0.0.SR1
   pullPolicy: IfNotPresent
   
 service:
