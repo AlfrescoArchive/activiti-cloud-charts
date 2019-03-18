@@ -133,22 +133,22 @@ keycloak:
               - "view-profile"
           groups:
             - "testgroup"
-  extraClients:
-    activiti:
-      clientId: activiti
-      enabled: true
-      publicClient: true
-      redirectUris:
-        - "*"
-      webOrigins:
-        - "*"
-      directAccessGrantsEnabled: true
-      implicitFlowEnabled: true
-      clientRoles:
-        - name: ACTIVITI_USER
-          scopeParamRequired: false
-          composite: false
-          clientRole: true
+      extraClients:
+        activiti:
+          clientId: activiti
+          enabled: true
+          publicClient: true
+          redirectUris:
+            - "*"
+          webOrigins:
+            - "*"
+          directAccessGrantsEnabled: true
+          implicitFlowEnabled: true
+          clientRoles:
+            - name: ACTIVITI_USER
+              scopeParamRequired: false
+              composite: false
+              clientRole: true
   keycloak:
     enabled: true
     ingress:
