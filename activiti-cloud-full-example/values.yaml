@@ -30,14 +30,14 @@ global:
     url: ""
 
     ## Configure Keycloak realm
-    realm: "activiti"
+    realm: "alfresco"
     resource: "activiti"
     client: "activiti"
 
     ## Use Yaml formatted string to add keycloak properties to deployments
     extraEnv: |
       # - name: KEYCLOAK_USERESOURCEROLEMAPPINGS
-      #   value: "false" 
+      #   value: "false"
 
   gateway:
     ## Set to configure single domain name for all services, i.e. "activiti-cloud-gateway.{{ .Release.Namespace }}.{{ .Values.global.gateway.domain }}"
@@ -180,17 +180,7 @@ application:
 infrastructure:
   activiti-keycloak:
     enabled: true
-    ingress:
-      enabled: true
-    keycloak:
-      enabled: true
-      keycloak:
-        preStartScript: |
-          /opt/jboss/keycloak/bin/add-user.sh -u admin -p admin
-          /opt/jboss/keycloak/bin/add-user-keycloak.sh -r master -u admin -p admin
-          cp /realm/activiti-realm.json .
-          sed -i 's/placeholder.com/*/g' activiti-realm.json
-  
+
   activiti-cloud-gateway:
     service:
       name: activiti-cloud-gateway
