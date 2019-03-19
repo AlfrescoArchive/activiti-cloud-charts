@@ -4,8 +4,8 @@ keycloak:
     enabled: false
   persistence:
     #to enable postgres set true and set dbVendor to postgres here and also below (not sure why twice)
-    deployPostgres: true
-    dbVendor: postgres
+    deployPostgres: false
+    dbVendor: H2
   realm:
     alfresco:
       extraRealmRoles:
@@ -173,8 +173,8 @@ keycloak:
       password: admin
       #to enable postgres set true and set dbVendor to postgres
       persistence:
-        deployPostgres: true
-        dbVendor: postgres
+        deployPostgres: false
+        dbVendor: H2
       livenessProbe:
         initialDelaySeconds: 100
       extraEnv: |
