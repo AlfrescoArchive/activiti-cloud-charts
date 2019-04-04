@@ -96,8 +96,8 @@ Create default ingress annotations
 Default tlsacme-enabled template
 */}}
 {{- define "common.tlsacme-enabled" -}}
-	{{- $http := toString .Values.global.gateway.http -}}
-	{{- $tlsacme := toString .Values.global.gateway.tlsacme -}}
+	{{- $http := tpl (toString .Values.global.gateway.http) . -}}
+	{{- $tlsacme := tpl (toString .Values.global.gateway.tlsacme) . -}}
 	{{- default "" (and (eq $tlsacme "true") (eq $http "false")) -}}
 {{- end -}}
 
