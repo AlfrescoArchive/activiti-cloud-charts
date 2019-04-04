@@ -39,3 +39,36 @@ $(foreach chart,$(CHARTS),$(chart)/build):
 $(foreach chart,$(CHARTS),$(chart)/lint):
 	$(eval CHART := $(subst /lint,,$@))
 	helm lint ./$(CHART)
+
+$(foreach chart,$(CHARTS),$(chart)/release):
+	$(eval CHART := $(subst /release,,$@))
+	$(eval VERSION := $(shell sed -n 's/^version: //p' $(CHART)/Chart.yaml))
+	rm $(CHART)/requirements.lock || true
+	helm dep build $(CHART) 
+	helm lint $(CHART)
+	helm template $(CHART)
+	helm package $(CHART)
+	mv $(CHART)-$(VERSION).tgz docs	
+	git pull
+	helm repo index docs --url https://activiti.github.io/activiti-cloud-charts/
+	git add $(CHART)/* || true
+	git add docs/$(CHART)-$(VERSION).tgz
+	git add docs/index.yaml
+	git commit -m "release $(CHART)-$(VERSION)"
+	git push
+
+release: 
+	make common/release
+	make activiti-cloud-audit/release
+	make activiti-cloud-events-adapter/release
+	make activiti-cloud-modeling/release
+	make activiti-cloud-demo-ui/release
+	make activiti-cloud-gateway/release
+	make activiti-cloud-query/release
+	make activiti-keycloak/release
+	make runtime-bundle/release
+	make activiti-cloud-connector/release
+	make activiti-cloud-notifications-graphql/release
+	make infrastructure/release
+	make application/release
+	make activiti-cloud-full-example/release
