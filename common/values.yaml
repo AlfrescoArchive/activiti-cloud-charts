@@ -47,11 +47,14 @@ registryPullSecrets: []
 #     domain: 1.2.3.4.nip.io
 #     http: "true"
 #     tlsacme: "false"
+#
 # global:
+#   keycloak:
+#     host: "activiti-keycloak.{{ tpl .Values.global.gateway.domain . }}"
 #   gateway:
 #     domain: "{{ .Values.expose.config.domain }}"
-#       http: "{{ .Values.expose.config.http }}"
-#       tlsacme: "{{ .Values.expose.config.tlsacme }}"
+#     http: "{{ .Values.expose.config.http }}"
+#     tlsacme: "{{ .Values.expose.config.tlsacme }}"
 expose:
   config:
     domain: ""
