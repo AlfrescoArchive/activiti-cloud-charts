@@ -2,4 +2,4 @@ apiVersion: v1
 description: A Helm chart for Activiti Cloud Notifications GraphQL Application
 icon: "https://salaboy.files.wordpress.com/2018/01/acitiviti_icon_fullcolor_github_400x400.png"
 name: activiti-cloud-notifications-graphql
-version: 1.1.6
+version: 1.1.7
