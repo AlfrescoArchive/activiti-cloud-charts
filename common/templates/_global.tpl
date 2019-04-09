@@ -3,10 +3,10 @@
 Create a keycloak url template
 */}}
 {{- define "common.keycloak-url" -}}
-	{{- $common := dict "Values" .Values.common -}} 
-	{{- $noCommon := omit .Values "common" -}} 
-	{{- $overrides := dict "Values" $noCommon -}} 
-	{{- $noValues := omit . "Values" -}} 
+	{{- $common := dict "Values" .Values.common -}}
+	{{- $noCommon := omit .Values "common" -}}
+	{{- $overrides := dict "Values" $noCommon -}}
+	{{- $noValues := omit . "Values" -}}
 	{{- with merge $noValues $overrides $common -}}
 		{{- $proto := include "common.gateway-proto" . -}}
 		{{- $gatewayHost := include "common.gateway-host" . -}}
@@ -23,10 +23,10 @@ Create a keycloak url template
 Create a gateway url template
 */}}
 {{- define "common.gateway-url" -}}
-	{{- $common := dict "Values" .Values.common -}} 
-	{{- $noCommon := omit .Values "common" -}} 
-	{{- $overrides := dict "Values" $noCommon -}} 
-	{{- $noValues := omit . "Values" -}} 
+	{{- $common := dict "Values" .Values.common -}}
+	{{- $noCommon := omit .Values "common" -}}
+	{{- $overrides := dict "Values" $noCommon -}}
+	{{- $noValues := omit . "Values" -}}
 	{{- with merge $noValues $overrides $common -}}
 		{{- $proto := include "common.gateway-proto" . -}}
 		{{- $host := include "common.gateway-host"  . -}}
@@ -68,16 +68,16 @@ Create a gateway url template
 {{- define "common.keycloak-enabled" -}}
 {{- default "" .Values.global.keycloak.enabled -}}
 {{- end -}}
- 
+
 {{/*
 Create default pull secrets
 */}}
 {{- define "common.registry-pull-secrets" -}}
-{{- $common := dict "Values" .Values.common -}} 
-{{- $noCommon := omit .Values "common" -}} 
-{{- $overrides := dict "Values" $noCommon -}} 
-{{- $noValues := omit . "Values" -}} 
-{{- $values := merge $noValues $overrides $common -}} 
+{{- $common := dict "Values" .Values.common -}}
+{{- $noCommon := omit .Values "common" -}}
+{{- $overrides := dict "Values" $noCommon -}}
+{{- $noValues := omit . "Values" -}}
+{{- $values := merge $noValues $overrides $common -}}
 {{- with $values -}}
 {{- range $value := .Values.global.registryPullSecrets }}
 - name: {{ tpl (printf "%s" $value) $values | quote }}
@@ -93,10 +93,10 @@ Create default pull secrets
 Create a default keycloak realm
 */}}
 {{- define "common.keycloak-realm" -}}
-	{{- $common := dict "Values" .Values.common -}} 
-	{{- $noCommon := omit .Values "common" -}} 
-	{{- $overrides := dict "Values" $noCommon -}} 
-	{{- $noValues := omit . "Values" -}} 
+	{{- $common := dict "Values" .Values.common -}}
+	{{- $noCommon := omit .Values "common" -}}
+	{{- $overrides := dict "Values" $noCommon -}}
+	{{- $noValues := omit . "Values" -}}
 	{{- with merge $noValues $overrides $common -}}
 		{{- $value := .Values.global.keycloak.realm -}}
 		{{- tpl (printf "%s" $value) . -}}
@@ -107,10 +107,10 @@ Create a default keycloak realm
 Create a default keycloak resource
 */}}
 {{- define "common.keycloak-resource" -}}
-	{{- $common := dict "Values" .Values.common -}} 
-	{{- $noCommon := omit .Values "common" -}} 
-	{{- $overrides := dict "Values" $noCommon -}} 
-	{{- $noValues := omit . "Values" -}} 
+	{{- $common := dict "Values" .Values.common -}}
+	{{- $noCommon := omit .Values "common" -}}
+	{{- $overrides := dict "Values" $noCommon -}}
+	{{- $noValues := omit . "Values" -}}
 	{{- with merge $noValues $overrides $common -}}
 		{{- $value := .Values.global.keycloak.resource -}}
 		{{- tpl (printf "%s" $value) . -}}
@@ -121,10 +121,10 @@ Create a default keycloak resource
 Create a default keycloak client
 */}}
 {{- define "common.keycloak-client" -}}
-	{{- $common := dict "Values" .Values.common -}} 
-	{{- $noCommon := omit .Values "common" -}} 
-	{{- $overrides := dict "Values" $noCommon -}} 
-	{{- $noValues := omit . "Values" -}} 
+	{{- $common := dict "Values" .Values.common -}}
+	{{- $noCommon := omit .Values "common" -}}
+	{{- $overrides := dict "Values" $noCommon -}}
+	{{- $noValues := omit . "Values" -}}
 	{{- with merge $noValues $overrides $common -}}
 		{{- $value := .Values.global.keycloak.client -}}
 		{{- tpl (printf "%s" $value) . -}}
@@ -132,17 +132,16 @@ Create a default keycloak client
 {{- end -}}
 
 {{/*
-Create a default extra env templated values 
+Create a default extra env templated values
 */}}
 {{- define "common.extra-env" -}}
-{{- $common := dict "Values" .Values.common -}} 
-{{- $noCommon := omit .Values "common" -}} 
-{{- $overrides := dict "Values" $noCommon -}} 
-{{- $noValues := omit . "Values" -}} 
+{{- $common := dict "Values" .Values.common -}}
+{{- $noCommon := omit .Values "common" -}}
+{{- $overrides := dict "Values" $noCommon -}}
+{{- $noValues := omit . "Values" -}}
 {{- with merge $noValues $overrides $common -}}
 {{- tpl .Values.global.keycloak.extraEnv . -}}
 {{- tpl .Values.global.extraEnv . -}}
 {{- tpl .Values.extraEnv . -}}
 {{- end -}}
 {{- end -}}
-
