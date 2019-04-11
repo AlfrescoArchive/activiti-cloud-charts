@@ -108,6 +108,10 @@ spec:
           value: {{ default "update"  .Values.db.ddlAuto | quote }} 
           {{- end }}
 {{- end }}
+        {{- if include "common.ingress-path" . }}
+        - name: SERVER_SERVLET_CONTEXTPATH
+          value: {{ include "common.ingress-path" . | quote }}
+        {{- end }}  
         - name: EUREKA_CLIENT_ENABLED
           value: "false"
         - name: ACTIVITI_CLOUD_SERVICES_METADATA_EUREKA_STATIC_ENABLED

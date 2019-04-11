@@ -73,7 +73,7 @@ resources:
   requests:
     cpu: 500m # more cpu is better for notifications
     memory: 768Mi
-probePath: /actuator/health
+probePath: '{{ include "activiti-cloud-notifications-graphql.ingress-path-actuator" . }}/health'
 livenessProbe:
   initialDelaySeconds: 60
   periodSeconds: 15
@@ -91,7 +91,7 @@ terminationGracePeriodSeconds: 20
 ingress:
   ## Set to true to enable ingress record generation
   enabled: true
-  path: # configure base path for ingresses, i.e. /{{ .Release.Name }}
+  path: # configure base path template for ingress, i.e. /{{ .Release.Name }}
   tls: # true | false 
   tlsSecret: # secret name of the gateway host, tls-activiti-cloud-gateway
   hostName: # override .Values.global.gateway.host
@@ -118,5 +118,5 @@ ingress:
     nginx.ingress.kubernetes.io/affinity: cookie
     nginx.ingress.kubernetes.io/session-cookie-name: "activiti-cloud-notifications-graphql-route"
     nginx.ingress.kubernetes.io/session-cookie-hash: "md5"
-    nginx.ingress.kubernetes.io/session-cookie-path: "/"
+    nginx.ingress.kubernetes.io/session-cookie-path: '{{ include "common.ingress-path" . }}/'
     
