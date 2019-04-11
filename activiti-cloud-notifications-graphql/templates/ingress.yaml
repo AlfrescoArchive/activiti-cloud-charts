@@ -19,6 +19,12 @@ spec:
     - http:
     {{- end }}
         paths:
+        {{- if .Values.ingress.actuator.enabled }}
+        - path: {{ template "activiti-cloud-notifications-graphql.ingress-path-actuator" . }}
+          backend:
+            serviceName: {{ template "servicename" . }}
+            servicePort: {{ .Values.service.externalPort }}
+        {{- end }}
         {{- if .Values.ingress.web.enabled }}
         - path: {{ template "activiti-cloud-notifications-graphql.ingress-path-web" . }}
           backend:

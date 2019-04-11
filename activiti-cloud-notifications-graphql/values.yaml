@@ -91,10 +91,13 @@ terminationGracePeriodSeconds: 20
 ingress:
   ## Set to true to enable ingress record generation
   enabled: true
-  path: # configure base path for ingresses, i.e. {{ .Release.Name }}
+  path: # configure base path for ingresses, i.e. /{{ .Release.Name }}
   tls: # true | false 
   tlsSecret: # secret name of the gateway host, tls-activiti-cloud-gateway
   hostName: # override .Values.global.gateway.host
+  actuator: 
+    enabled: true
+    path: /actuator
   graphiql: 
     enabled: true
     path: /graphiql

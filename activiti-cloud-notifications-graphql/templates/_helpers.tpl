@@ -28,6 +28,21 @@ Create a default service name.
 {{- end -}}
 
 {{/*
+Create a actuator ingress path.
+*/}}
+{{- define "activiti-cloud-notifications-graphql.ingress-path-actuator" -}}
+	{{- $common := dict "Values" .Values.common -}} 
+	{{- $noCommon := omit .Values "common" -}} 
+	{{- $overrides := dict "Values" $noCommon -}} 
+	{{- $noValues := omit . "Values" -}} 
+	{{- with merge $noValues $overrides $common -}}
+		{{- $basePath := include "common.ingress-path" . -}}
+		{{- $value := tpl .Values.ingress.actuator.path  . -}}
+		{{- tpl (printf "%s%s" $basePath $value) . -}}
+	{{- end -}}
+{{- end -}}
+
+{{/*
 Create a graphiql ingress path.
 */}}
 {{- define "activiti-cloud-notifications-graphql.ingress-path-graphiql" -}}
