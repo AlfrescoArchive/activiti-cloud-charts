@@ -73,7 +73,7 @@ resources:
   requests:
     cpu: 500m # more cpu is better for notifications
     memory: 768Mi
-probePath: /actuator/health
+probePath: '{{ include "common.ingress-path" . }}/actuator/health'
 livenessProbe:
   initialDelaySeconds: 60
   periodSeconds: 15
@@ -91,10 +91,13 @@ terminationGracePeriodSeconds: 20
 ingress:
   ## Set to true to enable ingress record generation
   enabled: true
-  path: # configure base path for ingresses, i.e. {{ .Release.Name }}
+  path: /notifications # configure base path template for ingress, i.e. /{{ .Release.Name }}/notifications
   tls: # true | false 
   tlsSecret: # secret name of the gateway host, tls-activiti-cloud-gateway
   hostName: # override .Values.global.gateway.host
+  actuator: 
+    enabled: true
+    path: /actuator
   graphiql: 
     enabled: true
     path: /graphiql
@@ -108,12 +111,13 @@ ingress:
     kubernetes.io/ingress.class: "nginx"
     nginx.ingress.kubernetes.io/enable-cors: "true"
     nginx.ingress.kubernetes.io/cors-allow-headers: "*"
-    nginx.ingress.kubernetes.io/cors-allow-origin: "*" 
     nginx.ingress.kubernetes.io/cors-allow-methods: "GET,PUT,POST,DELETE,PATCH,OPTIONS"
     nginx.ingress.kubernetes.io/cors-allow-credentials: "true"   
+    nginx.ingress.kubernetes.io/configuration-snippet: |
+      more_set_headers 'Access-Control-Allow-Origin: $http_origin';
     nginx.ingress.kubernetes.io/x-forwarded-prefix: "true"
     nginx.ingress.kubernetes.io/affinity: cookie
     nginx.ingress.kubernetes.io/session-cookie-name: "activiti-cloud-notifications-graphql-route"
     nginx.ingress.kubernetes.io/session-cookie-hash: "md5"
-    nginx.ingress.kubernetes.io/session-cookie-path: "/"
+    nginx.ingress.kubernetes.io/session-cookie-path: '{{ include "common.ingress-path" . }}'
     
