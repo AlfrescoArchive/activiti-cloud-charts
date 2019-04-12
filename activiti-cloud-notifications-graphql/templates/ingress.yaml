@@ -20,25 +20,25 @@ spec:
     {{- end }}
         paths:
         {{- if .Values.ingress.actuator.enabled }}
-        - path: {{ template "activiti-cloud-notifications-graphql.ingress-path-actuator" . }}
+        - path: {{ template "common.ingress-path" . }}{{ tpl .Values.ingress.actuator.path . }}
           backend:
             serviceName: {{ template "servicename" . }}
             servicePort: {{ .Values.service.externalPort }}
         {{- end }}
         {{- if .Values.ingress.web.enabled }}
-        - path: {{ template "activiti-cloud-notifications-graphql.ingress-path-web" . }}
+        - path: {{ template "common.ingress-path" . }}{{ tpl .Values.ingress.web.path . }}
           backend:
             serviceName: {{ template "servicename" . }}
             servicePort: {{ .Values.service.externalPort }}
         {{- end }}
         {{- if .Values.ingress.ws.enabled }}
-        - path: {{ template "activiti-cloud-notifications-graphql.ingress-path-ws-graphql" . }}
+        - path: {{ template "common.ingress-path" . }}{{ tpl .Values.ingress.ws.path . }}
           backend:
             serviceName: {{ template "servicename" . }}
             servicePort: {{ .Values.service.externalPort }}
         {{- end }}
         {{- if .Values.ingress.graphiql.enabled }}
-        - path: {{ template "activiti-cloud-notifications-graphql.ingress-path-graphiql" . }}
+        - path: {{ template "common.ingress-path" . }}{{ tpl .Values.ingress.graphiql.path . }}
           backend:
             serviceName: {{ template "servicename" . }}
             servicePort: {{ .Values.service.externalPort }}
