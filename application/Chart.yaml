@@ -3,4 +3,4 @@ appVersion: "1.0"
 description: A Helm chart for Activiti Cloud Application Services
 icon: "https://salaboy.files.wordpress.com/2018/01/acitiviti_icon_fullcolor_github_400x400.png"
 name: application
-version: 1.1.8
+version: 1.1.9
