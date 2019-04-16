@@ -3,7 +3,7 @@
 # Declare variables to be passed into your templates.
 
 ## i.e Jx environment
-# expose: 
+# expose:
 #   config:
 #     domain: &domain "1.2.3.4.nip.io"
 #     http: &http true
@@ -37,13 +37,13 @@ global:
     ## Use Yaml formatted string to add keycloak properties to deployments
     extraEnv: |
       # - name: KEYCLOAK_USERESOURCEROLEMAPPINGS
-      #   value: "false" 
+      #   value: "false"
 
   gateway:
     ## Set to configure single domain name for all services, i.e. "activiti-cloud-gateway.{{ .Release.Namespace }}.{{ .Values.global.gateway.domain }}"
     host: "activiti-cloud-gateway.{{ .Release.Namespace }}.{{ template \"common.gateway-domain\" . }}"
 
-    ## Set to false enables HTTPS configuration on all urls 
+    ## Set to false enables HTTPS configuration on all urls
     http: "true"
 
     ## Set to enable automatic TLS for ingress if https is enabled
@@ -53,13 +53,13 @@ global:
     #  helm upgrade activiti . --install --set global.gateway.domain=1.2.3.4.nip.io
     domain: "REPLACEME"
 
-    ## Configure global annotations for all service ingresses, i.e. 
-    annotations: 
+    ## Configure global annotations for all service ingresses, i.e.
+    annotations:
       certmanager.k8s.io/issuer: letsencrypt-prod
 
     ## Or simply enable templated domain host coniguration in Jx environment
     # host: "activiti-cloud-gateway.{{ .Release.Namespace }}.{{ .Values.global.gateway.domain }}"
-    # domain: *domain ## Sync with Jx expose controller domain conig 
+    # domain: *domain ## Sync with Jx expose controller domain conig
     # http: *http ## Sync with Jx expose controller http conig
     # tlsacme: *tlsacme ## Sync with Jx expose controller tlsacme conig
 
@@ -83,8 +83,8 @@ activiti-cloud-modeling:
 application:
   runtime-bundle:
     enabled: true
-    service: 
-      name: rb-my-app
+    service:
+      name: rb
     image:
       pullPolicy: Always
     # extraEnv: |
@@ -110,7 +110,7 @@ application:
     #     value: "*"
 
   activiti-cloud-query:
-    service: 
+    service:
       name: query
     image:
       pullPolicy: Always
@@ -138,20 +138,20 @@ application:
 
   activiti-cloud-connector:
     enabled: true
-    service: 
+    service:
       name: example-cloud-connector
     image:
       pullPolicy: Always
 
   activiti-cloud-notifications-graphql:
     enabled: true
-    service: 
+    service:
       name: activiti-cloud-notifications
     image:
       pullPolicy: Always
 
   activiti-cloud-audit:
-    service: 
+    service:
       name: audit
     image:
       pullPolicy: Always
@@ -190,7 +190,7 @@ infrastructure:
           /opt/jboss/keycloak/bin/add-user-keycloak.sh -r master -u admin -p admin
           cp /realm/activiti-realm.json .
           sed -i 's/placeholder.com/*/g' activiti-realm.json
-  
+
   activiti-cloud-gateway:
     service:
       name: activiti-cloud-gateway
