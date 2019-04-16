@@ -93,7 +93,7 @@ spec:
           value: {{ default "postgres" .Values.postgres.username | quote }}
         - name: SPRING_DATASOURCE_PASSWORD
           {{- if .Values.postgres.password }}
-          value: {{ .Values.db.password | quote }}
+          value: {{ .Values.postgres.password | quote }}
           {{- else }}
           valueFrom:
             secretKeyRef:
