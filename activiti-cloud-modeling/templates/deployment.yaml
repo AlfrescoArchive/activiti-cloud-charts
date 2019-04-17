@@ -84,11 +84,11 @@ spec:
           value: {{ include "common.keycloak-url" . }}/realms/{{ include "common.keycloak-realm" . }}
         - name: APP_CONFIG_OAUTH2_CLIENTID
           value: {{ include "common.keycloak-client" . | quote }}
-        - name: API_URL
+        - name: APP_CONFIG_BPM_HOST
 {{- if .Values.backend.url }}
           value: {{ .Values.backend.url }}
 {{- else }}
-          value: {{ include "common.gateway-url" $ | quote }}
+          value: {{ include "common.gateway-url" . }}/activiti-cloud-modeling-backend
 {{- end }}
 {{- if .Values.frontend.basepath }}
         - name: BASE_PATH
@@ -100,8 +100,6 @@ spec:
         - name: APP_CONFIG_OAUTH2_REDIRECT_LOGOUT
           value: "/{{ .Values.frontend.basepath }}"
 {{- end }}
-        - name: API_PATH_PREFIX
-          value: "{{ .Values.backend.prefix }}"
 {{ include "activiti-cloud-modeling.extra-env-frontend" . | indent 8 }}
         imagePullPolicy: {{ .Values.frontend.image.pullPolicy }}
         ports:
