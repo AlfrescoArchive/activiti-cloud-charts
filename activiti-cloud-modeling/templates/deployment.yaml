@@ -88,7 +88,7 @@ spec:
 {{- if .Values.backend.url }}
           value: {{ .Values.backend.url }}
 {{- else }}
-          value: {{ include "common.gateway-url" . }}/activiti-cloud-modeling-backend
+          value: {{- tpl (printf "%s/%s"  (include "common.gateway-url" .) .Values.backend.prefix) .|quote -}} 
 {{- end }}
 {{- if .Values.frontend.basepath }}
         - name: BASE_PATH
