@@ -15,8 +15,8 @@ global:
   keycloak:
     enabled: true
     ## Overrides gateway host configuration
-    url: "" 
-    ## Configure default keycloak path 
+    url: ""
+    ## Configure default keycloak path
     path: "/auth"
     ## Configure default keycloak host template, i.e "activiti-keycloak.{{ .Values.global.gateway.domain }}"
     host: ""
@@ -63,16 +63,19 @@ expose:
 
 ingress:
   ## Set this to true in order to enable TLS on the ingress record
-  tls: 
+  tls:
 
   ## Empty default. Each ingress should provide its own value or template
-  path: 
+  path:
 
   ## If TLS is set to true, you must declare what secret will store the key/certificate for TLS
-  tlsSecret: 
+  tlsSecret:
 
-  ## If set, overrides .Values.global.gateway.host configuration 
-  hostName: 
- 
-  ## Configure default ingress annotations 
-  annotations: {} 
+  ## If set, overrides .Values.global.gateway.host configuration
+  hostName:
+
+  ## Configure default ingress annotations
+  annotations: {}
+
+  ## If set to true, disable default hostname to .Values.global.gateway.host
+  skipDefaultHostName:
