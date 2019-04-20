@@ -21,8 +21,9 @@ Create a default name for the keycloak requirement.
 	{{- $overrides := dict "Values" $noCommon -}} 
 	{{- $noValues := omit . "Values" -}} 
 	{{- with merge $noValues $overrides $common -}}
-		{{- $keycloakHost := include "common.keycloak-host" . -}}
-		{{- $ingressHost := default $keycloakHost .Values.ingress.hostName -}}
+		{{- $gatewayHost := include "common.gateway-host" . -}}  
+		{{- $keycloakHost := include "common.keycloak-host" . -}}  
+		{{- $ingressHost := default $gatewayHost $keycloakHost -}}  
 		{{- tpl ( printf "%s" $ingressHost ) . -}}
 	{{- end -}} 
 {{- end -}} 
