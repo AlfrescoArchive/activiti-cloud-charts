@@ -2,4 +2,4 @@ apiVersion: v1
 description: A Helm chart for Activiti Cloud Demo UI
 icon: "https://salaboy.files.wordpress.com/2018/01/acitiviti_icon_fullcolor_github_400x400.png"
 name: activiti-cloud-demo-ui
-version: 0.1.8
+version: 0.1.9
