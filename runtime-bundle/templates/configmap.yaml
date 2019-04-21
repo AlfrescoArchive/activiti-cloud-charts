@@ -1,4 +1,3 @@
-#configmap if using sck8s as not mounted (see also extraEnv)
 {{- if .Values.configMap }}
 apiVersion: v1
 kind: ConfigMap
