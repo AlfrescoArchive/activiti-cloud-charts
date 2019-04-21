@@ -23,7 +23,7 @@ global:
 
   keycloak:
     ## Configure Activiti Keycloak host template, i.e. "activiti-keycloak.{{ .Release.Namespace }}.{{ .Values.global.gateway.domain }}"
-    host: ""
+    host: '{{ template "common.gateway-host" . }}'
 
     ## Set full url to configure external Keycloak, https://my.keycloak.com/auth
     # if not set, keycloak deployment is automatically exposed on gaetway host, i.e. http://activiti-cloud-gateway.REPLACEME/auth
@@ -41,7 +41,7 @@ global:
 
   gateway:
     ## Set to configure single domain name for all services, i.e. "activiti-cloud-gateway.{{ .Release.Namespace }}.{{ .Values.global.gateway.domain }}"
-    host: "activiti-cloud-gateway.{{ .Release.Namespace }}.{{ template \"common.gateway-domain\" . }}"
+    host: 'activiti-cloud-gateway.{{ .Release.Namespace }}.{{ template "common.gateway-domain" . }}'
 
     ## Set to false enables HTTPS configuration on all urls 
     http: "true"

@@ -19,8 +19,8 @@ Get the application URLs:
 
 Activiti Keycloak : {{ template "common.keycloak-url" . }}
 Activiti Gateway  : {{ template "common.gateway-url" . }}/
-Activiti Modeler  : {{ template "common.gateway-url" . }}/activiti-cloud-modeling
-Activiti GraphiQL : {{ template "common.gateway-url" . }}/graphiql
+Activiti Modeler  : {{ template "common.gateway-url" . }}/{{ index .Values "activiti-cloud-modeling" "service" "name" }}
+Activiti GraphiQL : {{ template "common.gateway-url" . }}{{ index .Values "application" "activiti-cloud-notifications-graphql" "ingress" "path" }}/graphiql
 
 To see deployment status, try:
 
