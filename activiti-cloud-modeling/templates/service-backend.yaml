@@ -1,5 +1,6 @@
-apiVersion: v1
-kind: Service
+{{- template "common.service" (list . "activiti.backend.service") -}}
+{{- define "activiti.backend.service" -}}
+
 metadata:
 {{- if .Values.service.name }}
   name: {{ .Values.service.name }}-backend
@@ -27,3 +28,4 @@ spec:
     name: http-backend
   selector:
     app: {{ template "fullname" . }}
+{{- end -}}
