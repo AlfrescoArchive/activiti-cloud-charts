@@ -85,12 +85,6 @@ ingress:
   ## Ingress annotations done as key:value pairs
   annotations: {}
 
-#only needed when using sck8s
-rbac:
-  create: true
-serviceAccount:
-  create: true
-
 #config for configmap if using sck8s
 #configMap:
 #  feed.rate: 1000
