@@ -17,7 +17,7 @@ requirements.lock
 **.idea/**
 .idea/
 *.iml
-
+*/charts/*
 # Repository wide ignore mac DS_Store files
 .DS_Store
 
