@@ -180,6 +180,3 @@ spec:
 {{- end }}
 {{- end }}
       terminationGracePeriodSeconds: {{ .Values.terminationGracePeriodSeconds }}
-{{- if .Values.serviceAccount.create }}
-      serviceAccountName: {{ .Values.service.name }}
-{{- end }}
