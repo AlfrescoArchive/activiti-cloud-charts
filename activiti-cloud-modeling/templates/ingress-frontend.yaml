@@ -1,15 +1,8 @@
-{{- if .Values.ingress.enabled }}
-apiVersion: extensions/v1beta1
-kind: Ingress
+{{- template "common.ingress" (list . "activiti.frontend.ingress") -}}
+{{- define "activiti.frontend.ingress" -}}
 metadata:
-  name: {{ template "fullname" . }}
-  labels:
-    app: {{ template "fullname" . }}
-    chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
-    release: {{ .Release.Name }}
-    heritage: {{ .Release.Service }}
   annotations:
-    {{- include "common.ingress-annotations" . | indent 4 }} 
+    {{- include "common.ingress-annotations" . | indent 4 }}
     {{- range $key, $value := .Values.ingress.frontend.annotations }}
     {{ $key }}: {{ $value | quote }}
     {{- end }}
@@ -30,12 +23,5 @@ spec:
               serviceName: {{ template "fullname" . }}
             {{- end }}
               servicePort: {{ .Values.service.frontend.externalPort }}
-  {{- if include "common.ingress-tls" . }}
-  tls:
-    - secretName: {{ template "common.ingress-tlssecretname" . }}
-    {{- if include "common.ingress-host" . }}
-      hosts:
-        - {{ template "common.ingress-host" . }}
-      {{- end }}
-  {{- end }}
-{{- end }}
+
+{{- end -}}

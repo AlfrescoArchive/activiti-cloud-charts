@@ -9,8 +9,10 @@ metadata:
     chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
     release: {{ .Release.Name }}
     heritage: {{ .Release.Service }}
+  {{- if (include "common.ingress-annotations" .) }}
   annotations:
-    {{- include "common.ingress-annotations" . | indent 4 }} 
+    {{- include "common.ingress-annotations" . | indent 4 }}
+   {{- end }}
 spec:
   rules:
     {{- if (include "common.ingress-host" .) }}

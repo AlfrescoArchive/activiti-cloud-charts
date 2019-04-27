@@ -1,18 +1,7 @@
-{{- if .Values.ingress.enabled }}
-apiVersion: extensions/v1beta1
-kind: Ingress
+{{- template "common.ingress" (list . "activiti.backend.ingress") -}}
+{{- define "activiti.backend.ingress" -}}
 metadata:
-  name: {{ template "fullname" . }}-backend
-  labels:
-    app: {{ template "fullname" . }}
-    chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
-    release: {{ .Release.Name }}
-    heritage: {{ .Release.Service }}
-  annotations:
-    {{- include "common.ingress-annotations" . | indent 4 }} 
-    {{- range $key, $value := .Values.ingress.backend.annotations }}
-    {{ $key }}: {{ $value | quote }}
-    {{- end }}
+  name: {{ template "fullname" . }}-backend #almer
 spec:
   rules:
     {{- if include "common.ingress-host" . }}
