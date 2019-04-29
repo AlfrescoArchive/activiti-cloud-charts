@@ -100,7 +100,7 @@ backend:
     requests:
       cpu: 400m
       memory: 512Mi
-  probePath: /actuator/health
+  probePath: '{{ include "activiti-cloud-modeling.ingress-path-backend" . }}/actuator/health'
   livenessProbe:
     initialDelaySeconds: 60
     periodSeconds: 15
@@ -137,8 +137,8 @@ ingress:
 
   frontend:
     path: "/activiti-cloud-modeling"
-    annotations: {}
-    # nginx.ingress.kubernetes.io/rewrite-target: /
+    annotations:
+      nginx.ingress.kubernetes.io/rewrite-target: "/$1"
 
   ## Set this to true in order to enable TLS on the ingress record, i.e. true | false
   tls: 

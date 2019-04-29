@@ -15,7 +15,7 @@ spec:
     - http:
     {{- end }}
         paths:
-          - path: {{ template "activiti-cloud-modeling.ingress-path-frontend" . }}
+          - path: {{ template "activiti-cloud-modeling.ingress-path-frontend" . }}/?(.*)
             backend:
             {{- if .Values.service.name }}
               serviceName: {{ .Values.service.name }}

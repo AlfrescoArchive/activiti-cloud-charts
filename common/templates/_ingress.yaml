@@ -1,5 +1,4 @@
 {{- define "common.ingress.tpl" -}}
-
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:

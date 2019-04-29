@@ -39,6 +39,8 @@ spec:
 {{- else }}
           value: {{ template "fullname" . }}-backend
 {{- end }}
+        - name: SERVER_SERVLET_CONTEXT_PATH
+          value: {{ include "activiti-cloud-modeling.ingress-path-backend" .|quote }}
         - name: SERVER_PORT
           value: "{{ .Values.service.backend.internalPort }}"
         - name: ACT_KEYCLOAK_URL
