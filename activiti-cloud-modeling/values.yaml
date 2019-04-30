@@ -137,8 +137,11 @@ ingress:
 
   frontend:
     path: "/activiti-cloud-modeling"
+    suffix: ""
+    #suffix: "/?(.*)" new versions nginx
     annotations:
-      nginx.ingress.kubernetes.io/rewrite-target: "/$1"
+#      nginx.ingress.kubernetes.io/rewrite-target: "/$1" new version of nginx
+      nginx.ingress.kubernetes.io/rewrite-target: "/"
 
   ## Set this to true in order to enable TLS on the ingress record, i.e. true | false
   tls: 

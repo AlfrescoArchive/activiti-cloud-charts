@@ -1,7 +1,7 @@
 {{- template "common.ingress" (list . "activiti.backend.ingress") -}}
 {{- define "activiti.backend.ingress" -}}
 metadata:
-  name: {{ template "fullname" . }}-backend #almer
+  name: {{ template "fullname" . }}-backend
 spec:
   rules:
     {{- if include "common.ingress-host" . }}
@@ -27,4 +27,4 @@ spec:
         - {{ template "common.ingress-host" . }}
       {{- end }}
   {{- end }}
-{{- end }}
+{{- end -}}

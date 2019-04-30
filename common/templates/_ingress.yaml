@@ -1,4 +1,5 @@
 {{- define "common.ingress.tpl" -}}
+
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
@@ -40,5 +41,8 @@ spec:
 
 {{- end }}
 {{- define "common.ingress" -}}
-{{- template "common.util.merge" (append . "common.ingress.tpl") -}}
+  {{- if index (first .) "Values" "ingress" "enabled" -}}
+  {{- template "common.util.merge" (append . "common.ingress.tpl") -}}
+  {{- end -}}
+
 {{- end -}}
