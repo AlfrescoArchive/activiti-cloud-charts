@@ -1,5 +1,4 @@
 {{- define "common.ingress.tpl" -}}
-
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
@@ -38,7 +37,6 @@ spec:
     - {{ template "common.ingress-host" . }}
     {{- end }}
   {{- end }}
-
 {{- end }}
 {{- define "common.ingress" -}}
   {{- if index (first .) "Values" "ingress" "enabled" -}}

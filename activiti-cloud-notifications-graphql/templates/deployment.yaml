@@ -1,21 +1,8 @@
-apiVersion: extensions/v1beta1
-kind: Deployment
-metadata:
-  name: {{ template "fullname" . }}
-  labels:
-    draft: {{ default "draft-app" .Values.draft }}
-    chart: "{{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}"
+{{- template "common.deployment" (list . "activiti.connector.deployment") -}}
+{{- define "activiti.connector.deployment" -}}
 spec:
   replicas: {{ .Values.replicaCount }}
   template:
-    metadata:
-      labels:
-        draft: {{ default "draft-app" .Values.draft }}
-        app: {{ template "fullname" . }}
-{{- if .Values.podAnnotations }}
-      annotations:
-{{ toYaml .Values.podAnnotations | indent 8 }}
-{{- end }}
     spec:
 {{- if include "common.registry-pull-secrets" . }}
       imagePullSecrets:
@@ -144,3 +131,4 @@ spec:
         resources:
 {{ toYaml .Values.resources | indent 12 }}
       terminationGracePeriodSeconds: {{ .Values.terminationGracePeriodSeconds }}
+{{- end -}}
