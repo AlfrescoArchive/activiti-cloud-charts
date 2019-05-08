@@ -1,8 +1,17 @@
-{{- template "common.deployment" (list . "activiti.connector.deployment") -}}
-{{- define "activiti.connector.deployment" -}}
+{{- define "common.deployment.tpl" -}}
+{{ include "common.deployment.head" . }}
 spec:
   replicas: {{ .Values.replicaCount }}
   template:
+    metadata:
+      labels:
+        draft: {{ default "draft-app" .Values.draft }}
+        app: {{ template "fullname" . }}
+        release: {{ .Release.Name }}
+{{- if .Values.podAnnotations }}
+      annotations:
+{{ toYaml .Values.podAnnotations | indent 8 }}
+{{- end }}
     spec:
 {{- if include "common.registry-pull-secrets" . }}
       imagePullSecrets:
@@ -16,7 +25,11 @@ spec:
         - name: JAVA_OPTS
           value: "-Xmx{{ .Values.javaOpts.xmx }} -Xms{{ .Values.javaOpts.xms }} {{ .Values.javaOpts.other}}"
         - name: SPRING_APPLICATION_NAME
-          value: {{ template "servicename" . }}
+{{- if .Values.service.name }}
+          value: "{{ .Values.service.name }}"
+{{- else }}
+          value: {{ template "fullname" . }}
+{{- end }}
         - name: SPRING_RABBITMQ_HOST
         {{- if .Values.global.rabbitmq.host.value }}
           value: {{ .Values.global.rabbitmq.host.value | quote }}
@@ -26,7 +39,7 @@ spec:
         - name: SPRING_RABBITMQ_USERNAME
           value: {{ .Values.global.rabbitmq.username.value }}
         - name: SPRING_RABBITMQ_PASSWORD
-          value: {{ .Values.global.rabbitmq.password.value }}
+          value: {{ .Values.global.rabbitmq.password.value | quote }}
         {{- if include "common.keycloak-enabled" $ }}
         - name: ACT_KEYCLOAK_URL
           value: {{ include "common.keycloak-url" $ | quote }}
@@ -52,7 +65,7 @@ spec:
           value: {{ default "postgres" .Values.postgres.username | quote }}
         - name: SPRING_DATASOURCE_PASSWORD
           {{- if .Values.postgres.password }}
-          value: {{ .Values.db.password | quote}}
+          value: {{ .Values.postgres.password | quote }}
           {{- else }}
           valueFrom:
             secretKeyRef:
@@ -68,37 +81,33 @@ spec:
 {{- else }}
           {{- if .Values.db.uri }}
         - name: SPRING_DATASOURCE_URL
-          value: {{ .Values.db.uri | quote }} 
+          value: {{ .Values.db.uri | quote }}
           {{- end }}
           {{- if .Values.db.driver }}
         - name: SPRING_DATASOURCE_DRIVER_CLASS_NAME
-          value: {{ .Values.db.driver | quote }} 
+          value: {{ .Values.db.driver | quote }}
           {{- end }}
           {{- if .Values.db.username }}
         - name: SPRING_DATASOURCE_USERNAME
-          value: {{ .Values.db.username | quote }} 
+          value: {{ .Values.db.username | quote }}
           {{- end }}
-          {{- if .Values.db.password }}
+          {{- if .Values.db.password}}
         - name: SPRING_DATASOURCE_PASSWORD
-          value: {{ .Values.db.password | quote}} 
+          value: {{ .Values.db.password | quote }}
           {{- end }}
           {{- if .Values.db.platform }}
         - name: SPRING_JPA_DATABASE_PLATFORM
-          value: {{ .Values.db.platform | quote}} 
+          value: {{ .Values.db.platform | quote }}
           {{- end }}
-          {{- if .Values.db.generateDdl }}
+          {{- if .Values.db.generateDdl}}
         - name: SPRING_JPA_GENERATE_DDL
-          value: {{ .Values.db.generateDdl | quote }} 
+          value: {{ .Values.db.generateDdl | quote }}
           {{- end }}
-          {{- if .Values.db.ddlAuto }}
+          {{- if .Values.db.ddlAuto}}
         - name: SPRING_JPA_HIBERNATE_DDL_AUTO
-          value: {{ default "update"  .Values.db.ddlAuto | quote }} 
+          value: {{ default "update"  .Values.db.ddlAuto | quote }}
           {{- end }}
 {{- end }}
-        {{- if include "common.ingress-path" . }}
-        - name: SERVER_SERVLET_CONTEXTPATH
-          value: {{ include "common.ingress-path" . | quote }}
-        {{- end }}  
         - name: EUREKA_CLIENT_ENABLED
           value: "false"
         - name: ACTIVITI_CLOUD_SERVICES_METADATA_EUREKA_STATIC_ENABLED
@@ -110,25 +119,23 @@ spec:
 {{ include "common.extra-env" . | indent 8 }}
         ports:
         - containerPort: {{ .Values.service.internalPort }}
-        livenessProbe:
-          httpGet:
-            path: {{ tpl .Values.probePath . }}
-            port: {{ .Values.service.internalPort }}
-          initialDelaySeconds: {{ .Values.livenessProbe.initialDelaySeconds }}
-          periodSeconds: {{ .Values.livenessProbe.periodSeconds }}
-          successThreshold: {{ .Values.livenessProbe.successThreshold }}
-          timeoutSeconds: {{ .Values.livenessProbe.timeoutSeconds }}
-          failureThreshold: {{ .Values.livenessProbe.failureThreshold }}
-        readinessProbe:
-          httpGet:
-            path: {{ tpl .Values.probePath . }}
-            port: {{ .Values.service.internalPort }}
-          initialDelaySeconds: {{ .Values.readinessProbe.initialDelaySeconds }}
-          periodSeconds: {{ .Values.readinessProbe.periodSeconds }}
-          successThreshold: {{ .Values.readinessProbe.successThreshold }}
-          timeoutSeconds: {{ .Values.readinessProbe.timeoutSeconds }}
-          failureThreshold: {{ .Values.readinessProbe.failureThreshold }}
+{{ include "common.probes.tpl" . | indent 8}}
         resources:
 {{ toYaml .Values.resources | indent 12 }}
+{{- if .Values.extraVolumeMounts }}
+        volumeMounts:
+{{- with .Values.extraVolumeMounts }}
+{{ tpl . $ | indent 10 }}
+{{- end }}
+{{- end }}
+{{- if .Values.extraVolumes }}
+      volumes:
+{{- with .Values.extraVolumes }}
+{{ tpl . $ | indent 8 }}
+{{- end }}
+{{- end }}
       terminationGracePeriodSeconds: {{ .Values.terminationGracePeriodSeconds }}
+{{- end -}}      
+{{- define "common.deployment" -}}
+{{- template "common.util.merge" (append . "common.deployment.tpl") -}}
 {{- end -}}

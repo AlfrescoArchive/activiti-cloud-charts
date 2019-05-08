@@ -1,4 +1,4 @@
-{{- if .Values.ingress.enabled }}
+{{- define "common.ingress.tpl" -}}
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
@@ -8,8 +8,10 @@ metadata:
     chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
     release: {{ .Release.Name }}
     heritage: {{ .Release.Service }}
+  {{- if (include "common.ingress-annotations" .) }}
   annotations:
-    {{- include "common.ingress-annotations" . | indent 4 }} 
+    {{- include "common.ingress-annotations" . | indent 4 }}
+   {{- end }}
 spec:
   rules:
     {{- if (include "common.ingress-host" .) }}
@@ -36,4 +38,9 @@ spec:
     {{- end }}
   {{- end }}
 {{- end }}
+{{- define "common.ingress" -}}
+  {{- if index (first .) "Values" "ingress" "enabled" -}}
+  {{- template "common.util.merge" (append . "common.ingress.tpl") -}}
+  {{- end -}}
 
+{{- end -}}

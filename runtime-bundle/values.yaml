@@ -33,7 +33,7 @@ db:
   ddlAuto:
 
 postgres:
-  enabled: false
+  enabled: true
   name: postgres
   port: 5432
   username: postgres
@@ -112,12 +112,6 @@ ingress:
 
   ## Ingress annotations done as key:value pairs
   annotations: {}
-
-#only needed when using sck8s
-rbac:
-  create: true
-serviceAccount:
-  create: true
 
 ## Add additional volumes and mounts
 extraVolumes: |

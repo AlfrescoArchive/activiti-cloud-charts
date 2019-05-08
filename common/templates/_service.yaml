@@ -1,3 +1,4 @@
+{{- define "common.service.tpl" -}}
 apiVersion: v1
 kind: Service
 metadata:
@@ -7,7 +8,6 @@ metadata:
   name: {{ template "fullname" . }}
 {{- end }}
   labels:
-    draft: {{ default "draft-app" .Values.draft }}
     app: {{ template "fullname" . }}
     chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
     release: {{ .Release.Name }}
@@ -28,3 +28,7 @@ spec:
     name: http
   selector:
     app: {{ template "fullname" . }}
+{{- end -}}
+{{- define "common.service" -}}
+{{- template "common.util.merge" (append . "common.service.tpl") -}}
+{{- end -}}

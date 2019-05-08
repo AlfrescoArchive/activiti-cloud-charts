@@ -100,7 +100,7 @@ backend:
     requests:
       cpu: 400m
       memory: 512Mi
-  probePath: /actuator/health
+  probePath: '{{ include "activiti-cloud-modeling.ingress-path-backend" . }}/actuator/health'
   livenessProbe:
     initialDelaySeconds: 60
     periodSeconds: 15
@@ -117,7 +117,7 @@ backend:
 terminationGracePeriodSeconds: 20
 
 ingress:
-  enabled: false
+  enabled: true
   
   path: # configure base path for frontend and backend ingresses "/{{ .Release.Namespace }}"
   
@@ -137,8 +137,11 @@ ingress:
 
   frontend:
     path: "/activiti-cloud-modeling"
-    annotations: {}
-    # nginx.ingress.kubernetes.io/rewrite-target: /
+    suffix: ""
+    #suffix: "/?(.*)" new versions nginx
+    annotations:
+#      nginx.ingress.kubernetes.io/rewrite-target: "/$1" new version of nginx
+      nginx.ingress.kubernetes.io/rewrite-target: "/"
 
   ## Set this to true in order to enable TLS on the ingress record, i.e. true | false
   tls: 
