@@ -81,6 +81,9 @@ activiti-cloud-modeling:
       annotations: {}
 
 application:
+  postgres:
+    image:
+      tag: 10.7.0-r68
   runtime-bundle:
     enabled: true
     service: 
