@@ -26,7 +26,8 @@ Create a frontend ingress path.
 	{{- with merge $noValues $overrides $common -}}
 		{{- $basePath := include "common.ingress-path" . -}}
 		{{- $value := tpl .Values.ingress.frontend.path . -}}
-		{{- tpl (printf "%s%s" $basePath $value) . -}}
+		{{- $suffix := tpl .Values.ingress.frontend.pathSuffix . -}}
+		{{- tpl (printf "%s%s%s" $basePath $value $suffix) . -}}
 	{{- end -}}
 {{- end -}}
 
