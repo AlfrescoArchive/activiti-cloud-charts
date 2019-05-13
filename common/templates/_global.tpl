@@ -88,6 +88,35 @@ Create default pull secrets
 {{- end -}}
 
 {{/*
+Create container image 
+*/}}
+{{- define "common.container-image" -}}
+{{- $common := dict "Values" .Values.common -}} 
+{{- $noCommon := omit .Values "common" -}} 
+{{- $overrides := dict "Values" $noCommon -}} 
+{{- $noValues := omit . "Values" -}} 
+{{- with  merge $noValues $overrides $common -}} 
+{{- $registry := tpl .Values.image.registry . -}}
+{{- $repository := tpl .Values.image.repository . -}}
+{{- $tag := tpl .Values.image.tag . -}}
+{{- if $registry -}} {{ printf "%s/" $registry }} {{- end -}} {{ print $repository }} {{- if $tag -}} {{ printf ":%s" $tag }} {{- end -}}	
+{{- end }}
+{{- end -}}
+
+{{/*
+Create container image pullPolicy
+*/}}
+{{- define "common.container-image-pull-policy" -}}
+{{- $common := dict "Values" .Values.common -}} 
+{{- $noCommon := omit .Values "common" -}} 
+{{- $overrides := dict "Values" $noCommon -}} 
+{{- $noValues := omit . "Values" -}} 
+{{- with  merge $noValues $overrides $common -}} 
+{{  tpl .Values.image.pullPolicy . }}
+{{- end }}
+{{- end -}}
+
+{{/*
 Create a default keycloak realm
 */}}
 {{- define "common.keycloak-realm" -}}
