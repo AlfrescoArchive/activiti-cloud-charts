@@ -35,6 +35,7 @@ global:
   image:
     ## Configure global image values for templates
     registry: "" # i.e. docker.io | gcr.io/project | quay.io/alfresco
+    organization: "" # i.e. alfresco | activiti
     tag: "" # i.e. 7.1.0.M1 | {{ .Chart.AppVersion }}
     pullPolicy: "" # Always | IfNotPresent
 
@@ -47,12 +48,19 @@ extraEnv: ""
 ## Configures additional pull secrets for this deployment
 registryPullSecrets: []
 
+init:
+  image:
+    registry: '{{ tpl .Values.global.image.registry . }}'
+    repository: ""
+    tag: ""
+    pullPolicy: '{{ .Values.global.image.pullPolicy }}'
+
 image:
   ## Configure image  values for templates
-  registry: '{{ tpl .Values.global.image.registry . | default "" }}'
+  registry: '{{ tpl .Values.global.image.registry . }}'
   repository: "{{ .Chart.Name }}"
-  tag: '{{ tpl .Values.global.image.tag . | default .Chart.AppVersion | default "latest" }}'
-  pullPolicy: '{{ tpl .Values.global.image.pullPolicy . | default "IfNotPresent" }}'
+  tag: '{{ .Chart.AppVersion }}'
+  pullPolicy: '{{ .Values.global.image.pullPolicy }}'
 
 ## Allows to template gateway values from Jx Expose controller configuration in GitOps environment, i.e.
 # expose:

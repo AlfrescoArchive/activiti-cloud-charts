@@ -112,7 +112,7 @@ Create container image pullPolicy
 {{- $overrides := dict "Values" $noCommon -}} 
 {{- $noValues := omit . "Values" -}} 
 {{- with  merge $noValues $overrides $common -}} 
-{{  tpl .Values.image.pullPolicy . }}
+{{  tpl .Values.image.pullPolicy . | default "IfNotPresent"}}
 {{- end }}
 {{- end -}}
 
@@ -125,7 +125,7 @@ Create container image registry
 {{- $overrides := dict "Values" $noCommon -}} 
 {{- $noValues := omit . "Values" -}} 
 {{- with  merge $noValues $overrides $common -}} 
-{{  tpl .Values.image.registry . }}
+{{  tpl .Values.image.registry . | default "" }}
 {{- end }}
 {{- end -}}
 
@@ -138,7 +138,7 @@ Create container image tag
 {{- $overrides := dict "Values" $noCommon -}} 
 {{- $noValues := omit . "Values" -}} 
 {{- with  merge $noValues $overrides $common -}} 
-{{  tpl (toString .Values.image.tag) . }}
+{{  tpl (toString .Values.image.tag) . | default "" }}
 {{- end }}
 {{- end -}}
 
@@ -154,6 +154,74 @@ Create container image repository
 {{  tpl .Values.image.repository . }}
 {{- end }}
 {{- end -}}
+
+{{/* 
+Create init container image  
+*/}} 
+{{- define "common.init-container-image" -}} 
+{{- $common := dict "Values" .Values.common -}}  
+{{- $noCommon := omit .Values "common" -}}  
+{{- $overrides := dict "Values" $noCommon -}}  
+{{- $noValues := omit . "Values" -}}  
+{{- with  merge $noValues $overrides $common -}}  
+{{- $registry := include "common.init-container-registry" . -}} 
+{{- $repository := include "common.init-container-repository" . -}} 
+{{- $tag := include "common.init-container-tag" . -}} 
+{{- if $registry -}} {{ printf "%s/" $registry }} {{- end -}} {{ print $repository }} {{- if $tag -}} {{ printf ":%s" $tag }} {{- end -}}	 
+{{- end }} 
+{{- end -}} 
+
+{{/* 
+Create init container image pull policy
+*/}} 
+{{- define "common.init-container-image-pull-policy" -}} 
+{{- $common := dict "Values" .Values.common -}}  
+{{- $noCommon := omit .Values "common" -}}  
+{{- $overrides := dict "Values" $noCommon -}}  
+{{- $noValues := omit . "Values" -}}  
+{{- with  merge $noValues $overrides $common -}}  
+{{- tpl .Values.init.image.pullPolicy . | default "IfNotPresent" -}} 
+{{- end }} 
+{{- end -}} 
+
+{{/* 
+Create init container registry  
+*/}} 
+{{- define "common.init-container-registry" -}} 
+{{- $common := dict "Values" .Values.common -}}  
+{{- $noCommon := omit .Values "common" -}}  
+{{- $overrides := dict "Values" $noCommon -}}  
+{{- $noValues := omit . "Values" -}}  
+{{- with  merge $noValues $overrides $common -}}  
+{{- tpl .Values.init.image.registry . | default "" -}} 
+{{- end }} 
+{{- end -}}  
+
+{{/* 
+Create init container repository  
+*/}} 
+{{- define "common.init-container-repository" -}} 
+{{- $common := dict "Values" .Values.common -}}  
+{{- $noCommon := omit .Values "common" -}}  
+{{- $overrides := dict "Values" $noCommon -}}  
+{{- $noValues := omit . "Values" -}}  
+{{- with  merge $noValues $overrides $common -}}  
+{{- tpl .Values.init.image.repository . | default "" -}} 
+{{- end }} 
+{{- end -}}  
+
+{{/* 
+Create init container tag  
+*/}} 
+{{- define "common.init-container-tag" -}} 
+{{- $common := dict "Values" .Values.common -}}  
+{{- $noCommon := omit .Values "common" -}}  
+{{- $overrides := dict "Values" $noCommon -}}  
+{{- $noValues := omit . "Values" -}}  
+{{- with  merge $noValues $overrides $common -}}  
+{{- tpl (toString .Values.init.image.tag) . | default "" -}} 
+{{- end }} 
+{{- end -}}  
 
 {{/*
 Create a default keycloak realm
