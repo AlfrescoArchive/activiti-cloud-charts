@@ -73,3 +73,35 @@ Create a default extra env templated values for frontend
 {{- end -}}
 {{- end -}}
 
+{{/* 
+Create container frontend image  
+*/}} 
+{{- define "activiti-cloud-modeling.container-frontend-image" -}} 
+{{- $common := dict "Values" .Values.common -}}  
+{{- $noCommon := omit .Values "common" -}}  
+{{- $overrides := dict "Values" $noCommon -}}  
+{{- $noValues := omit . "Values" -}}  
+{{- with  merge $noValues $overrides $common -}}  
+{{- $registry := tpl .Values.frontend.image.registry . -}} 
+{{- $repository := tpl .Values.frontend.image.repository . -}} 
+{{- $tag := tpl .Values.frontend.image.tag . -}} 
+{{- if $registry -}} {{ printf "%s/" $registry }} {{- end -}} {{ print $repository }} {{- if $tag -}} {{ printf ":%s" $tag }} {{- end -}}	 
+{{- end }} 
+{{- end -}} 
+ 
+{{/* 
+Create container frontend image  
+*/}} 
+{{- define "activiti-cloud-modeling.container-backend-image" -}} 
+{{- $common := dict "Values" .Values.common -}}  
+{{- $noCommon := omit .Values "common" -}}  
+{{- $overrides := dict "Values" $noCommon -}}  
+{{- $noValues := omit . "Values" -}}  
+{{- with  merge $noValues $overrides $common -}}  
+{{- $registry := tpl .Values.backend.image.registry . -}} 
+{{- $repository := tpl .Values.backend.image.repository . -}} 
+{{- $tag := tpl .Values.backend.image.tag . -}} 
+{{- if $registry -}} {{ printf "%s/" $registry }} {{- end -}} {{ print $repository }} {{- if $tag -}} {{ printf ":%s" $tag }} {{- end -}}	 
+{{- end }} 
+{{- end -}} 
+  
