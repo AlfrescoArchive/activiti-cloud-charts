@@ -27,7 +27,8 @@ spec:
 {{- end }}
       containers:
       - name: {{ .Chart.Name }}-backend
-        image: "{{ .Values.backend.image.repository }}:{{ .Values.backend.image.tag }}"
+        image: {{ include "activiti-cloud-modeling.container-backend-image" . | quote }}
+        imagePullPolicy: {{ tpl .Values.backend.image.pullPolicy . }}
         resources:
 {{ toYaml .Values.backend.resources | indent 10 }}
         env:
@@ -50,7 +51,6 @@ spec:
         - name: ACTIVITI_CLOUD_MODELING_URL
           value: "localhost:{{ .Values.service.backend.internalPort }}"
 {{ include "activiti-cloud-modeling.extra-env-backend" . | indent 8 }}
-        imagePullPolicy: {{ .Values.backend.image.pullPolicy }}
         ports:
         - containerPort: {{ .Values.service.backend.internalPort }}
         livenessProbe:
@@ -78,7 +78,8 @@ spec:
 {{- end }}
 {{- end }}
       - name: {{ .Chart.Name }}
-        image: "{{ .Values.frontend.image.repository }}:{{ .Values.frontend.image.tag }}"
+        image: {{ include "activiti-cloud-modeling.container-frontend-image" . | quote }}
+        imagePullPolicy: {{ tpl .Values.frontend.image.pullPolicy . }}
         env:
         - name: APP_CONFIG_OAUTH2_HOST
           value: {{ include "common.keycloak-url" . }}/realms/{{ include "common.keycloak-realm" . }}
@@ -103,7 +104,6 @@ spec:
         - name: API_PATH_PREFIX
           value: "{{ .Values.backend.prefix }}"
 {{ include "activiti-cloud-modeling.extra-env-frontend" . | indent 8 }}
-        imagePullPolicy: {{ .Values.frontend.image.pullPolicy }}
         ports:
         - containerPort: {{ .Values.service.frontend.internalPort }}
         livenessProbe:

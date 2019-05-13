@@ -27,8 +27,8 @@ spec:
 {{- end }}
       containers:
       - name: {{ .Chart.Name }}
-        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
-        imagePullPolicy: {{ .Values.image.pullPolicy }}
+        image: {{ include "common.container-image" . | quote }}
+        imagePullPolicy: {{ include "common.container-image-pull-policy" . }}
         env:
         - name: JAVA_OPTS
           value: "-Xmx{{ .Values.javaOpts.xmx }} -Xms{{ .Values.javaOpts.xms }} {{ .Values.javaOpts.other}}"
