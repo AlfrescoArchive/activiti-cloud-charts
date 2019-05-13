@@ -96,9 +96,9 @@ Create container image
 {{- $overrides := dict "Values" $noCommon -}} 
 {{- $noValues := omit . "Values" -}} 
 {{- with  merge $noValues $overrides $common -}} 
-{{- $registry := tpl .Values.image.registry . -}}
-{{- $repository := tpl .Values.image.repository . -}}
-{{- $tag := tpl .Values.image.tag . -}}
+{{- $registry := include "common.container-image-registry" . -}}
+{{- $repository := include "common.container-image-repository" . -}}
+{{- $tag := include "common.container-image-tag" . -}}
 {{- if $registry -}} {{ printf "%s/" $registry }} {{- end -}} {{ print $repository }} {{- if $tag -}} {{ printf ":%s" $tag }} {{- end -}}	
 {{- end }}
 {{- end -}}
@@ -113,6 +113,45 @@ Create container image pullPolicy
 {{- $noValues := omit . "Values" -}} 
 {{- with  merge $noValues $overrides $common -}} 
 {{  tpl .Values.image.pullPolicy . }}
+{{- end }}
+{{- end -}}
+
+{{/*
+Create container image registry
+*/}}
+{{- define "common.container-image-registry" -}}
+{{- $common := dict "Values" .Values.common -}} 
+{{- $noCommon := omit .Values "common" -}} 
+{{- $overrides := dict "Values" $noCommon -}} 
+{{- $noValues := omit . "Values" -}} 
+{{- with  merge $noValues $overrides $common -}} 
+{{  tpl .Values.image.registry . }}
+{{- end }}
+{{- end -}}
+
+{{/*
+Create container image tag
+*/}}
+{{- define "common.container-image-tag" -}}
+{{- $common := dict "Values" .Values.common -}} 
+{{- $noCommon := omit .Values "common" -}} 
+{{- $overrides := dict "Values" $noCommon -}} 
+{{- $noValues := omit . "Values" -}} 
+{{- with  merge $noValues $overrides $common -}} 
+{{  tpl (toString .Values.image.tag) . }}
+{{- end }}
+{{- end -}}
+
+{{/*
+Create container image repository
+*/}}
+{{- define "common.container-image-repository" -}}
+{{- $common := dict "Values" .Values.common -}} 
+{{- $noCommon := omit .Values "common" -}} 
+{{- $overrides := dict "Values" $noCommon -}} 
+{{- $noValues := omit . "Values" -}} 
+{{- with  merge $noValues $overrides $common -}} 
+{{  tpl .Values.image.repository . }}
 {{- end }}
 {{- end -}}
 
