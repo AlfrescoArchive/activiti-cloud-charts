@@ -47,9 +47,10 @@ frontend:
   #       name: {{ .Release.Name }}-keycloak-http
   #       key: expose-keycloak-service-key
   image:
+    registry: '{{ include "common.container-image-registry" . }}'
     repository: activiti/activiti-modeling-app
     tag: 7.1.0.M1
-    pullPolicy: Always
+    pullPolicy: '{{ include "common.container-image-pull-policy" . }}'
   resources:
     limits:
       cpu: 500m
@@ -91,9 +92,10 @@ backend:
   #       name: {{ .Release.Name }}-keycloak-http
   #       key: expose-keycloak-service-key
   image:
+    registry: '{{ include "common.container-image-registry" . }}'
     repository: activiti/activiti-cloud-modeling
     tag: 7.1.0.M1
-    pullPolicy: Always
+    pullPolicy: '{{ include "common.container-image-pull-policy" . }}'
   resources:
     limits:
       memory: 1024Mi
