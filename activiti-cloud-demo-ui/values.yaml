@@ -17,7 +17,6 @@ global:
 image:
   repository: activiti/activiti-cloud-demo-ui
   tag: latest
-  pullPolicy: IfNotPresent
 service:
   type: ClusterIP
   externalPort: 80
