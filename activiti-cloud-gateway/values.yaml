@@ -11,7 +11,6 @@ javaOpts:
 image:
   repository: activiti/activiti-cloud-gateway
   tag: 7.1.0.M1
-  pullPolicy: IfNotPresent
 service:
   type: ClusterIP
   externalPort: 80
