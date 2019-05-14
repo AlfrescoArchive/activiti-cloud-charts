@@ -2,3 +2,6 @@ dependencies:
 - name: activemq
   version: ^1.0.0
   repository: https://kubernetes-charts.alfresco.com/stable
+- name: common
+  repository: https://activiti.github.io/activiti-cloud-charts/
+  version: 1.1.5

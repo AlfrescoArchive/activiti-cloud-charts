@@ -25,9 +25,8 @@ javaOpts:
 # only set this variable if a private registry secret is needed to pull the image
 #registryPullSecrets: private-registry-secret
 image:
-  repository: activiti-cloud-events-adapter
+  repository: activiti/activiti-cloud-events-adapter
   tag: latest
-  pullPolicy: IfNotPresent
 service:
   type: ClusterIP
   externalPort: 8080
