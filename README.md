@@ -1,4 +1,4 @@
-# THIS REPO IS DEPRICATED 
+# THIS REPO IS DEPRECATED 
 
 All chart archives are stored in https://github.com/Activiti/activiti-cloud-helm-charts
 <br>Full chart located at https://github.com/Activiti/activiti-cloud-full-chart
