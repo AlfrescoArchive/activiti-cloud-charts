@@ -1,5 +1,6 @@
 # THIS REPO IS DEPRECATED 
 
+## Getting started is here: https://activiti.gitbook.io/activiti-7-developers-guide/getting-started/getting-started-activiti-cloud
 All chart archives are stored in https://github.com/Activiti/activiti-cloud-helm-charts
 <br>Full chart located at https://github.com/Activiti/activiti-cloud-full-chart
 <br>Common chart is a base chart for all charts now located at https://github.com/Activiti/activiti-cloud-common-chart
