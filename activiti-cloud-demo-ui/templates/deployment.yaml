@@ -37,7 +37,7 @@ spec:
           value: {{ include "common.keycloak-url" $ | quote }}
         {{- end }}
         - name: ACT_IDM_CLIENT_ID
-          value: "{{ include "common.keycloak-client" . | quote }}"
+          value: {{ include "common.keycloak-client" . | quote }}
 {{ include "common.extra-env" . | indent 8 }}
         ports:
         - containerPort: {{ .Values.service.internalPort }}
