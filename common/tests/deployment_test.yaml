@@ -1,0 +1,61 @@
+suite: test deployment
+templates:
+  - deployment.yaml
+tests:
+  - it: should pass all kinds of assertion
+    values:
+      - ./values/global.yaml
+      - ./values/values.yaml
+      - ./values/image.yaml
+    set:
+      global.extraEnv: |
+        - name: SERVER_USEFORWARDHEADERS
+          value: "true"
+      global.keycloak.extraEnv: |
+        - name: KEYCLOAK_USERESOURCEROLEMAPPINGS
+          value: "false" 
+
+    asserts:
+      - contains:
+          path: spec.template.spec.containers[0].env
+          content: 
+            name: "SERVER_USEFORWARDHEADERS"
+            value: "true"
+            name: "KEYCLOAK_USERESOURCEROLEMAPPINGS"
+            value: "false"
+      - equal:
+          path: spec.template.spec.containers[0].image
+          value: apache:latest
+      - notEqual:
+          path: spec.template.spec.containers[0].image
+          value: nginx:stable
+      - matchRegex:
+          path: metadata.name
+          pattern: ^.*-common$
+      - notMatchRegex:
+          path: metadata.name
+          pattern: ^.*-foobar$
+      - contains:
+          path: spec.template.spec.containers[0].ports
+          content:
+            containerPort: 80
+      - notContains:
+          path: spec.template.spec.containers[0].ports
+          content:
+            containerPort: 8080
+      - isNull:
+          path: spec.template.nodeSelector
+      - isNotNull:
+          path: spec.template
+      - isEmpty:
+          path: spec.template.spec.containers[0].resources
+      - isNotEmpty:
+          path: spec.template.spec.containers[0]
+      - isKind:
+          of: Deployment
+      - isAPIVersion:
+          of: extensions/v1beta1
+      - hasDocuments:
+          count: 1
+      # - matchSnapshot:
+      #     path: spec
